@@ -1,18 +1,20 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { PageLayout } from '../../common/components/web';
+import React from 'react'
+import Helmet from 'react-helmet'
+import { PageLayout } from '../../common/components/web'
 
-const renderMetaData = () => (
-  <Helmet
-    title="$Module$"
-    meta={[
-      {
-        name: 'description',
-        content: '$Module$ page'
-      }
-    ]}
-  />
-);
+const renderMetaData = () => {
+  return (
+    <Helmet
+      title="$Module$"
+      meta={[
+        {
+          name: 'description',
+          content: '$Module$ page'
+        }
+      ]}
+    />
+  )
+}
 
 const $Module$View = () => {
   return (
@@ -22,7 +24,7 @@ const $Module$View = () => {
         <p>Hello $Module$!</p>
       </div>
     </PageLayout>
-  );
-};
+  )
+}
 
-export default $Module$View;
+export default $Module$View

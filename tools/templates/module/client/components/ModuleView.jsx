@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 
 const $Module$View = () => {
   return (
@@ -8,8 +8,8 @@ const $Module$View = () => {
         <Text style={styles.box}>Hello $Module$!</Text>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15
   }
-});
+})
 
-export default $Module$View;
+export default $Module$View
