@@ -70,6 +70,7 @@ const RegisterFormWithFormik = withFormik({
     }
   ) {
     onSubmit(values).catch(e => {
+      console.log('Caught errors at onSubmit', e);
       setErrors(e);
     });
   },

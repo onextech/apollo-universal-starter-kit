@@ -52,15 +52,13 @@ export default () => ({
         return { errors: e };
       }
     },
-    async register(
-      obj,
-      { input },
-      {
-        User,
-        req: { t }
-      }
-    ) {
+    async register(obj, { input }, context) {
       try {
+        const {
+          User,
+          req,
+          req: { t }
+        } = context;
         const e = new FieldError();
         const userExists = await User.getUserByUsername(input.username);
         if (userExists) {
@@ -110,7 +108,9 @@ export default () => ({
           });
         }
 
-        return { user };
+        const tokens = await access.grantAccess(user, req);
+
+        return { user, tokens };
       } catch (e) {
         return { errors: e };
       }
