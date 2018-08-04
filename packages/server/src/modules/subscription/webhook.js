@@ -37,8 +37,8 @@ export default async (req, res) => {
             expiryMonth: null,
             expiryYear: null,
             last4: null,
-            brand: null
-          }
+            brand: null,
+          },
         })
 
         const url = `${req.protocol}://${req.get('host')}/subscription`
@@ -47,7 +47,7 @@ export default async (req, res) => {
           from: `${settings.app.name} <${process.env.EMAIL_USER}>`,
           to: user.email,
           subject: 'Subscription Canceled',
-          html: `Your subscription has been canceled. To resubscribe click here: <a href="${url}">${url}</a>`
+          html: `Your subscription has been canceled. To resubscribe click here: <a href="${url}">${url}</a>`,
         })
       }
     }
@@ -65,7 +65,7 @@ export default async (req, res) => {
           from: `${settings.app.name} <${process.env.EMAIL_USER}>`,
           to: user.email,
           subject: 'Charge Failed',
-          html: `We are having trouble charging your card. Please update your card details here: <a href="${url}">${url}</a>`
+          html: `We are having trouble charging your card. Please update your card details here: <a href="${url}">${url}</a>`,
         })
       }
     }

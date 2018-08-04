@@ -9,7 +9,7 @@ import { required, minLength, validateForm, match } from '../../../../../common/
 
 const resetPasswordFormSchema = {
   password: [required, minLength(8)],
-  passwordConfirmation: [match('password'), required, minLength(8)]
+  passwordConfirmation: [match('password'), required, minLength(8)],
 }
 
 const validate = (values) => validateForm(values, resetPasswordFormSchema)
@@ -45,7 +45,7 @@ ResetPasswordForm.propTypes = {
   onSubmit: PropTypes.func,
   submitting: PropTypes.bool,
   error: PropTypes.string,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const ResetPasswordFormWithFormik = withFormik({
@@ -56,7 +56,7 @@ const ResetPasswordFormWithFormik = withFormik({
     {
       setErrors,
       resetForm,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     await onSubmit(values)
@@ -64,7 +64,7 @@ const ResetPasswordFormWithFormik = withFormik({
       .catch((e) => setErrors(e))
   },
   validate: (values) => validate(values),
-  displayName: 'LoginForm' // helps with React DevTools
+  displayName: 'LoginForm', // helps with React DevTools
 })
 
 export default translate('user')(ResetPasswordFormWithFormik(ResetPasswordForm))

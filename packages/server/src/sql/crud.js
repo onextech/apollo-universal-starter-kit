@@ -119,7 +119,7 @@ export function getByIdAdapter(options) {
   options.filters.push({
     field: options.idField,
     compare: '=',
-    valueExtractor: (args) => args.id
+    valueExtractor: (args) => args.id,
   })
 
   const selector = selectAdapter(options)
@@ -146,7 +146,7 @@ export function listAdapter(options) {
     applyWhen: (args) => args.ids && args.ids.length > 0,
     field: options.idField,
     compare: 'in',
-    valueExtractor: (args) => args.ids
+    valueExtractor: (args) => args.ids,
   })
 
   const selector = selectAdapter(options)
@@ -174,7 +174,7 @@ export function pagingAdapter(options) {
     applyWhen: (args) => args.ids && args.ids.length > 0,
     field: options.idField,
     compare: 'in',
-    valueExtractor: (args) => args.ids
+    valueExtractor: (args) => args.ids,
   })
 
   options.count = options.idField
@@ -190,7 +190,7 @@ export function pagingAdapter(options) {
       return {
         results: ret.rows,
         count: ret.count,
-        pages: Math.trunc(ret.count / args.limit) + (ret.count % args.limit === 0 ? 0 : 1)
+        pages: Math.trunc(ret.count / args.limit) + (ret.count % args.limit === 0 ? 0 : 1),
       }
     } catch (e) {
       log.error(`Error in ${options.name}`, e)
@@ -312,7 +312,7 @@ export function getManyRelationAdapter(options) {
       applyWhen: (args) => args.ids,
       field: options.collectionField,
       compare: 'in',
-      valueExtractor: (args) => args.ids
+      valueExtractor: (args) => args.ids,
     })
   }
 

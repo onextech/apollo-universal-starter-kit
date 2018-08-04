@@ -7,7 +7,7 @@ stripe.plans.create(
     interval: 'month',
     name: 'Basic Plan',
     currency: 'usd',
-    id: 'basic'
+    id: 'basic',
   },
   function(err) {
     if (err) {

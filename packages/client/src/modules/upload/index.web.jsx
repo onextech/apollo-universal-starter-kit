@@ -26,5 +26,5 @@ export default new Feature({
   ),
   reducer: { upload: reducers },
   localization: { ns: 'upload', resources },
-  createNetLink
+  createNetLink,
 })

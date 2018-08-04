@@ -14,7 +14,7 @@ class PostEdit extends React.Component {
     post: PropTypes.object,
     subscribeToMore: PropTypes.func.isRequired,
     history: PropTypes.object,
-    navigation: PropTypes.object
+    navigation: PropTypes.object,
   };
 
   constructor(props) {
@@ -65,9 +65,9 @@ class PostEdit extends React.Component {
         {
           subscriptionData: {
             data: {
-              postUpdated: { mutation }
-            }
-          }
+              postUpdated: { mutation },
+            },
+          },
         }
       ) => {
         if (mutation === 'DELETED') {
@@ -78,7 +78,7 @@ class PostEdit extends React.Component {
           }
         }
         return prev
-      }
+      },
     })
   };
 
@@ -98,19 +98,19 @@ export default compose(
       }
 
       return {
-        variables: { id }
+        variables: { id },
       }
     },
     props({ data: { loading, error, post, subscribeToMore } }) {
       if (error) throw new Error(error)
       return { loading, post, subscribeToMore }
-    }
+    },
   }),
   graphql(EDIT_POST, {
     props: ({ ownProps: { history, navigation }, mutate }) => ({
       editPost: async (id, title, content) => {
         await mutate({
-          variables: { input: { id, title: title.trim(), content: content.trim() } }
+          variables: { input: { id, title: title.trim(), content: content.trim() } },
         })
         if (history) {
           return history.push('/posts')
@@ -118,7 +118,7 @@ export default compose(
         if (navigation) {
           return navigation.navigate('PostList')
         }
-      }
-    })
+      },
+    }),
   })
 )(PostEdit)

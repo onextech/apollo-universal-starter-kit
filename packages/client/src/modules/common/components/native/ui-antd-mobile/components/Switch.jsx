@@ -10,7 +10,7 @@ Switch.propTypes = {
   checked: PropTypes.bool,
   value: PropTypes.bool,
   onValueChange: PropTypes.func,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 }
 
 export default Switch

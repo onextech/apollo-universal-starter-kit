@@ -14,15 +14,15 @@ class ResetPasswordView extends React.Component {
     t: PropTypes.func,
     match: PropTypes.shape({
       params: PropTypes.shape({
-        token: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired
+        token: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
   };
 
   onSubmit = (resetPassword) => async (values) => {
     const { errors } = await resetPassword({
       ...values,
-      token: this.props.match.params.token
+      token: this.props.match.params.token,
     })
     const { t } = this.props
 
@@ -46,8 +46,8 @@ class ResetPasswordView extends React.Component {
         meta={[
           {
             name: 'description',
-            content: `${settings.app.name} - ${t('resetPass.meta')}`
-          }
+            content: `${settings.app.name} - ${t('resetPass.meta')}`,
+          },
         ]}
       />
     )

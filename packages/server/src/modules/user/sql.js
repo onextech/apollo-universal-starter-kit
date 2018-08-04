@@ -177,7 +177,7 @@ class User {
         username,
         role,
         is_active: isActive,
-        ...localAuthInput
+        ...localAuthInput,
       })
       .where({ id })
   }
@@ -201,8 +201,8 @@ class User {
   async editAuthCertificate({
     id,
     auth: {
-      certificate: { serial }
-    }
+      certificate: { serial },
+    },
   }) {
     const userProfile = await knex
       .select('id')

@@ -49,7 +49,7 @@ export default class Post {
       .where('id', '=', id)
       .update({
         title: title,
-        content: content
+        content: content,
       })
   }
 
@@ -75,7 +75,7 @@ export default class Post {
     return knex('comment')
       .where('id', '=', id)
       .update({
-        content: content
+        content: content,
       })
   }
 }

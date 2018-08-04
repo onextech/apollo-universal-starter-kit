@@ -5,14 +5,14 @@ const RenderSelectStyles = {
     paddingLeft: 15,
     height: 40,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   itemTitle,
   itemAction: {
     ...itemAction,
     flex: 2,
-    alignItems: 'flex-end'
-  }
+    alignItems: 'flex-end',
+  },
 }
 
 export default RenderSelectStyles

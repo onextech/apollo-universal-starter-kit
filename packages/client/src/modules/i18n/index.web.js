@@ -24,7 +24,7 @@ const I18nProvider = ({ i18n, children }) => {
 
 I18nProvider.propTypes = {
   i18n: PropTypes.object,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 const I18N_CONFIG = {
@@ -34,14 +34,14 @@ const I18N_CONFIG = {
   whitelist: settings.i18n.langList,
   detection: {
     lookupCookie: settings.i18n.cookie,
-    caches: __SSR__ ? ['cookie'] : ['localStorage']
+    caches: __SSR__ ? ['cookie'] : ['localStorage'],
   },
   interpolation: {
-    escapeValue: false // not needed for react!!
+    escapeValue: false, // not needed for react!!
   },
   react: {
-    wait: false
-  }
+    wait: false,
+  },
 }
 
 if (__CLIENT__) {
@@ -77,7 +77,7 @@ class RootComponent extends React.Component {
 
 RootComponent.propTypes = {
   req: PropTypes.object,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export default new Feature(
@@ -86,7 +86,7 @@ export default new Feature(
         data: { i18n: true },
         // eslint-disable-next-line react/display-name
         rootComponentFactory: (req) => <RootComponent req={req} />,
-        ...langPicker
+        ...langPicker,
       }
     : {}
 )

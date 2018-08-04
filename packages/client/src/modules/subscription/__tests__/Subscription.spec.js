@@ -21,10 +21,10 @@ if (enabled && stripePublishableKey !== '') {
           email: 'user@example.com',
           profile: null,
           auth: null,
-          __typename: 'User'
+          __typename: 'User',
         }
-      }
-    })
+      },
+    }),
   }
 
   describe('Subscription UI works', () => {

@@ -18,7 +18,7 @@ const SubscribersOnlyView = ({ loading, number, t }) => {
 SubscribersOnlyView.propTypes = {
   loading: PropTypes.bool.isRequired,
   number: PropTypes.number,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 export default translate('subscription')(SubscribersOnlyView)

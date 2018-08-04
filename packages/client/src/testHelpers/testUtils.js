@@ -56,5 +56,5 @@ export {
   updateContent,
   click,
   change,
-  submit
+  submit,
 }

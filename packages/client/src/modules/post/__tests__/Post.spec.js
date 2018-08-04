@@ -16,16 +16,16 @@ const createNode = (id) => ({
   content: `Post content ${id}`,
   comments: [
     { id: id * 1000 + 1, content: 'Post comment 1', __typename: 'Comment' },
-    { id: id * 1000 + 2, content: 'Post comment 2', __typename: 'Comment' }
+    { id: id * 1000 + 2, content: 'Post comment 2', __typename: 'Comment' },
   ],
-  __typename: 'Post'
+  __typename: 'Post',
 })
 
 const mutations = {
   editPost: true,
   addComment: true,
   editComment: true,
-  onCommentSelect: true
+  onCommentSelect: true,
 }
 
 const mocks = {
@@ -38,7 +38,7 @@ const mocks = {
         edges.push({
           cursor: i,
           node: createNode(i),
-          __typename: 'PostEdges'
+          __typename: 'PostEdges',
         })
       }
       return {
@@ -47,20 +47,20 @@ const mocks = {
         pageInfo: {
           endCursor: edges[edges.length - 1].cursor,
           hasNextPage: true,
-          __typename: 'PostPageInfo'
+          __typename: 'PostPageInfo',
         },
-        __typename: 'Posts'
+        __typename: 'Posts',
       }
     },
     post(obj, { id }) {
       return createNode(id)
-    }
+    },
   }),
   Mutation: () => ({
     deletePost: (obj, { id }) => createNode(id),
     deleteComment: (obj, { input }) => input,
-    ...mutations
-  })
+    ...mutations,
+  }),
 }
 
 describe('Posts and comments example UI works', () => {
@@ -114,9 +114,9 @@ describe('Posts and comments example UI works', () => {
         postsUpdated: {
           mutation: 'DELETED',
           node: createNode(2),
-          __typename: 'UpdatePostPayload'
-        }
-      }
+          __typename: 'UpdatePostPayload',
+        },
+      },
     })
 
     expect(content.textContent).to.not.include('Post title 2')
@@ -131,9 +131,9 @@ describe('Posts and comments example UI works', () => {
           postsUpdated: {
             mutation: 'CREATED',
             node: createNode(2),
-            __typename: 'UpdatePostPayload'
-          }
-        }
+            __typename: 'UpdatePostPayload',
+          },
+        },
       })
     )
 
@@ -186,11 +186,11 @@ describe('Posts and comments example UI works', () => {
             id: '3',
             title: 'Post title 203',
             content: 'Post content 204',
-            __typename: 'Post'
+            __typename: 'Post',
           },
-          __typename: 'UpdatePostPayload'
-        }
-      }
+          __typename: 'UpdatePostPayload',
+        },
+      },
     })
     const postForm = find(container, 'form[name="post"]')
     expect(find(postForm, '[name="title"]').value).to.equal('Post title 203')
@@ -251,11 +251,11 @@ describe('Posts and comments example UI works', () => {
           node: {
             id: 3003,
             content: 'Post comment 3',
-            __typename: 'Comment'
+            __typename: 'Comment',
           },
-          __typename: 'UpdateCommentPayload'
-        }
-      }
+          __typename: 'UpdateCommentPayload',
+        },
+      },
     })
 
     expect(content.textContent).to.include('Post comment 3')
@@ -272,11 +272,11 @@ describe('Posts and comments example UI works', () => {
           node: {
             id: 3003,
             content: 'Post comment 3',
-            __typename: 'Comment'
+            __typename: 'Comment',
           },
-          __typename: 'UpdateCommentPayload'
-        }
-      }
+          __typename: 'UpdateCommentPayload',
+        },
+      },
     })
     expect(content.textContent).to.not.include('Post comment 3')
   })

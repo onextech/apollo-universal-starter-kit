@@ -11,7 +11,7 @@ import {
   withUsers,
   withUsersDeleting,
   withOrderByUpdating,
-  subscribeToUsersList
+  subscribeToUsersList,
 } from './UserOperations'
 
 class UsersList extends React.Component {
@@ -49,7 +49,7 @@ UsersList.propTypes = {
   filter: PropTypes.object,
   users: PropTypes.array,
   subscribeToMore: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 }
 
 export default compose(

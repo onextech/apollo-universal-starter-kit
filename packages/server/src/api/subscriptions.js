@@ -17,11 +17,11 @@ const addSubscriptions = (httpServer) => {
       onOperation: async (message, params, webSocket) => {
         params.context = await modules.createContext(null, message.payload, webSocket)
         return params
-      }
+      },
     },
     {
       server: httpServer,
-      path: '/graphql'
+      path: '/graphql',
     }
   )
 }

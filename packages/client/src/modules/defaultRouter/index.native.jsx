@@ -7,13 +7,13 @@ import Feature from '../connector'
 const routerFactory = () =>
   createDrawerNavigator(
     {
-      ...modules.drawerItems
+      ...modules.drawerItems,
     },
     {
-      contentComponent: DrawerComponent
+      contentComponent: DrawerComponent,
     }
   )
 
 export default new Feature({
-  routerFactory
+  routerFactory,
 })

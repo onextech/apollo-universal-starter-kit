@@ -17,9 +17,9 @@ const ForgotPasswordWithApollo = compose(
       forgotPassword: async ({ email }) => {
         try {
           const {
-            data: { forgotPassword }
+            data: { forgotPassword },
           } = await mutate({
-            variables: { input: { email } }
+            variables: { input: { email } },
           })
 
           if (forgotPassword.errors) {
@@ -29,8 +29,8 @@ const ForgotPasswordWithApollo = compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(ForgotPassword)
 

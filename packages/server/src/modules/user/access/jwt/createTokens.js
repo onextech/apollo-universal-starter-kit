@@ -9,21 +9,21 @@ const createTokens = async (user, secret, refreshSecret) => {
 
   const createToken = jwt.sign(
     {
-      user: tokenUser
+      user: tokenUser,
     },
     secret,
     {
-      expiresIn: settings.user.auth.access.jwt.tokenExpiresIn
+      expiresIn: settings.user.auth.access.jwt.tokenExpiresIn,
     }
   )
 
   const createRefreshToken = jwt.sign(
     {
-      user: user.id
+      user: user.id,
     },
     refreshSecret,
     {
-      expiresIn: settings.user.auth.access.jwt.refreshTokenExpiresIn
+      expiresIn: settings.user.auth.access.jwt.refreshTokenExpiresIn,
     }
   )
 

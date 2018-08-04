@@ -6,7 +6,7 @@ import modules from '../client/src/modules'
 
 export const storeReducer = combineReducers({
   router: routerReducer,
-  ...modules.reducers
+  ...modules.reducers,
 })
 
 const createReduxStore = (initialState, client, routerMiddleware) => {

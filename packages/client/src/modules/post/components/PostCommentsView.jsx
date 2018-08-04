@@ -8,7 +8,7 @@ import {
   Keyboard,
   TouchableOpacity,
   Platform,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 
@@ -27,7 +27,7 @@ class PostCommentsView extends React.PureComponent {
     deleteComment: PropTypes.func.isRequired,
     subscribeToMore: PropTypes.func.isRequired,
     onCommentSelect: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   keyExtractor = (item) => `${item.id}`;
@@ -39,7 +39,7 @@ class PostCommentsView extends React.PureComponent {
         onPress={() => onCommentSelect({ id: id, content: content })}
         right={{
           text: t('comment.btn.del'),
-          onPress: () => this.onCommentDelete(comment, deleteComment, onCommentSelect, id)
+          onPress: () => this.onCommentDelete(comment, deleteComment, onCommentSelect, id),
         }}
       >
         {content}
@@ -111,19 +111,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
     fontSize: 20,
     fontWeight: '600',
     textAlign: 'center',
-    margin: 10
+    margin: 10,
   },
   list: {
-    paddingTop: 10
+    paddingTop: 10,
   },
   text: {
-    fontSize: 18
+    fontSize: 18,
   },
   iconWrapper: {
     backgroundColor: 'transparent',
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   postWrapper: {
     flex: 1,
@@ -141,6 +141,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#000',
     borderBottomWidth: 0.3,
     height: 50,
-    paddingLeft: 7
-  }
+    paddingLeft: 7,
+  },
 })

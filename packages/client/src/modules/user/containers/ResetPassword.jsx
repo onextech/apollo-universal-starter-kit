@@ -17,9 +17,9 @@ const ResetPasswordWithApollo = compose(
       resetPassword: async ({ password, passwordConfirmation, token }) => {
         try {
           const {
-            data: { resetPassword }
+            data: { resetPassword },
           } = await mutate({
-            variables: { input: { password, passwordConfirmation, token } }
+            variables: { input: { password, passwordConfirmation, token } },
           })
 
           if (resetPassword.errors) {
@@ -30,8 +30,8 @@ const ResetPasswordWithApollo = compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(ResetPassword)
 

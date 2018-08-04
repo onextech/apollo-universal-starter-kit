@@ -17,7 +17,7 @@ CardInfo.propTypes = {
   expiryMonth: PropTypes.number,
   expiryYear: PropTypes.number,
   last4: PropTypes.string,
-  brand: PropTypes.string
+  brand: PropTypes.string,
 }
 
 const CardInfoWithApollo = compose(
@@ -29,9 +29,9 @@ const CardInfoWithApollo = compose(
         expiryMonth: subscriptionCardInfo && subscriptionCardInfo.expiryMonth,
         expiryYear: subscriptionCardInfo && subscriptionCardInfo.expiryYear,
         last4: subscriptionCardInfo && subscriptionCardInfo.last4,
-        brand: subscriptionCardInfo && subscriptionCardInfo.brand
+        brand: subscriptionCardInfo && subscriptionCardInfo.brand,
       }
-    }
+    },
   })
 )(CardInfo)
 

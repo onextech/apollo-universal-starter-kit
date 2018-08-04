@@ -9,7 +9,7 @@ import { required, validateForm } from '../../../../../common/validation'
 
 const postFormSchema = {
   title: [required],
-  content: [required]
+  content: [required],
 }
 
 const validate = (values) => validateForm(values, postFormSchema)
@@ -38,25 +38,25 @@ PostForm.propTypes = {
   submitting: PropTypes.bool,
   values: PropTypes.object,
   post: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const PostFormWithFormik = withFormik({
   mapPropsToValues: (props) => ({
     title: props.post && props.post.title,
-    content: props.post && props.post.content
+    content: props.post && props.post.content,
   }),
   validate: (values) => validate(values),
   handleSubmit(
     values,
     {
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     onSubmit(values)
   },
   enableReinitialize: true,
-  displayName: 'PostForm' // helps with React DevTools
+  displayName: 'PostForm', // helps with React DevTools
 })
 
 export default translate('post')(PostFormWithFormik(PostForm))

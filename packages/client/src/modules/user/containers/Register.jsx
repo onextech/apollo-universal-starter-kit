@@ -20,9 +20,9 @@ const RegisterWithApollo = compose(
       register: async ({ username, email, password }) => {
         try {
           const {
-            data: { register }
+            data: { register },
           } = await mutate({
-            variables: { input: { username, email, password } }
+            variables: { input: { username, email, password } },
           })
 
           if (register.errors) {
@@ -39,8 +39,8 @@ const RegisterWithApollo = compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(Register)
 

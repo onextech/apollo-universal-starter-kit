@@ -29,18 +29,18 @@ describe('Counter example API works', () => {
     let result = await apollo.query({ query: COUNTER_QUERY })
 
     result.data.should.deep.equal({
-      serverCounter: { amount: 5, __typename: 'Counter' }
+      serverCounter: { amount: 5, __typename: 'Counter' },
     })
   })
 
   step('Increments counter on GraphQL mutation', async () => {
     let result = await apollo.mutate({
       mutation: ADD_COUNTER,
-      variables: { amount: 2 }
+      variables: { amount: 2 },
     })
 
     result.should.deep.equal({
-      data: { addServerCounter: { amount: 7, __typename: 'Counter' } }
+      data: { addServerCounter: { amount: 7, __typename: 'Counter' } },
     })
   })
 
@@ -50,15 +50,15 @@ describe('Counter example API works', () => {
     apollo
       .subscribe({
         query: COUNTER_SUBSCRIPTION,
-        variables: {}
+        variables: {},
       })
       .subscribe({
         next(data) {
           data.should.deep.equal({
-            data: { counterUpdated: { amount: 8, __typename: 'Counter' } }
+            data: { counterUpdated: { amount: 8, __typename: 'Counter' } },
           })
           done()
-        }
+        },
       })
   })
 })

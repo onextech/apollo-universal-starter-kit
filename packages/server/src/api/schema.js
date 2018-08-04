@@ -6,7 +6,7 @@ import pubsub from './pubsub'
 
 const executableSchema = makeExecutableSchema({
   typeDefs: [rootSchemaDef].concat(modules.schemas),
-  resolvers: modules.createResolvers(pubsub)
+  resolvers: modules.createResolvers(pubsub),
 })
 
 export default executableSchema

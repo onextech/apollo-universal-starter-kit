@@ -43,7 +43,7 @@ export default (pubsub) => ({
   Query: {
     files(obj, args, { Upload }) {
       return Upload.files()
-    }
+    },
   },
   Mutation: {
     uploadFiles: async (obj, { files }, { Upload }) => {
@@ -65,8 +65,8 @@ export default (pubsub) => ({
         }
       }
       return ok
-    }
+    },
   },
   Subscription: {},
-  Upload: GraphQLUpload
+  Upload: GraphQLUpload,
 })

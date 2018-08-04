@@ -15,7 +15,7 @@ class PostCommentsView extends React.PureComponent {
     deleteComment: PropTypes.func.isRequired,
     subscribeToMore: PropTypes.func.isRequired,
     onCommentSelect: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   handleEditComment = (id, content) => {
@@ -51,7 +51,7 @@ class PostCommentsView extends React.PureComponent {
       {
         title: t('comment.column.content'),
         dataIndex: 'content',
-        key: 'content'
+        key: 'content',
       },
       {
         title: t('comment.column.actions'),
@@ -76,8 +76,8 @@ class PostCommentsView extends React.PureComponent {
               {t('comment.btn.del')}
             </Button>
           </div>
-        )
-      }
+        ),
+      },
     ]
 
     return (

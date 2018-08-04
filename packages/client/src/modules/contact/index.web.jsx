@@ -19,5 +19,5 @@ export default new Feature({
       <NavLinkWithI18n />
     </MenuItem>
   ),
-  localization: { ns: 'contact', resources }
+  localization: { ns: 'contact', resources },
 })

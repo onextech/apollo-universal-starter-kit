@@ -12,11 +12,11 @@ import settings from '../../../../../../settings'
 class ForgotPasswordView extends React.Component {
   static propTypes = {
     forgotPassword: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   state = {
-    sent: false
+    sent: false,
   };
 
   onSubmit = ({ forgotPassword, t }) => async (values) => {
@@ -43,8 +43,8 @@ class ForgotPasswordView extends React.Component {
         meta={[
           {
             name: 'description',
-            content: `${settings.app.name} - ${t('forgotPass.meta')}`
-          }
+            content: `${settings.app.name} - ${t('forgotPass.meta')}`,
+          },
         ]}
       />
     )

@@ -7,17 +7,17 @@ import App from './App'
 // we don't want this to require transformation
 class AwakeInDevApp extends React.Component {
   static propTypes = {
-    exp: PropTypes.object
+    exp: PropTypes.object,
   };
   state = {
-    isReady: false
+    isReady: false,
   };
 
   async UNSAFE_componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')
+      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
     })
 
     this.setState({ isReady: true })
@@ -33,8 +33,8 @@ class AwakeInDevApp extends React.Component {
       {
         style: {
           flex: 1,
-          marginTop: Constants.statusBarHeight
-        }
+          marginTop: Constants.statusBarHeight,
+        },
       },
       React.createElement(App, this.props),
       React.createElement(process.env.NODE_ENV === 'development' ? Expo.KeepAwake : View)

@@ -7,5 +7,5 @@ import Feature from '../connector'
 export default new Feature({
   schema,
   createResolversFunc: createResolvers,
-  createContextFunc: () => ({ Post: new Post() })
+  createContextFunc: () => ({ Post: new Post() }),
 })

@@ -12,7 +12,7 @@ import {
   List,
   ListItem,
   Loading,
-  primary
+  primary,
 } from '../../common/components/native'
 import translate from '../../../i18n'
 
@@ -77,14 +77,14 @@ const UsersListView = ({ users, loading, navigation, deleteUser, t }) => {
 }
 
 UsersListView.propTypes = {
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
   },
   iconWrapper: {
     backgroundColor: 'transparent',
@@ -92,41 +92,41 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   buttonWrapper: {
     paddingHorizontal: 15,
-    marginBottom: 15
+    marginBottom: 15,
   },
   buttonContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   itemsContainer: {
-    flex: 9
+    flex: 9,
   },
   cardItemWrapper: {
     paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'column',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   notificationContainer: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   notificationText: {
     fontSize: 24,
-    fontWeight: '600'
-  }
+    fontWeight: '600',
+  },
 })
 
 UsersListView.propTypes = {
   users: PropTypes.array,
   navigation: PropTypes.object,
   deleteUser: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 }
 
 export default translate('user')(UsersListView)

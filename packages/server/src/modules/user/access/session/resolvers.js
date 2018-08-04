@@ -8,6 +8,6 @@ export default () => ({
       delete session.userId
 
       req.session = writeSession(req, session)
-    }
-  }
+    },
+  },
 })

@@ -9,7 +9,7 @@ const format = (fmt, ...args) =>
 
 export default class RedBox extends React.Component {
   static propTypes = {
-    error: PropTypes.instanceOf(Error).isRequired
+    error: PropTypes.instanceOf(Error).isRequired,
   };
 
   constructor(props) {
@@ -17,7 +17,7 @@ export default class RedBox extends React.Component {
   }
 
   state = {
-    mapped: false
+    mapped: false,
   };
 
   componentDidMount() {
@@ -113,24 +113,24 @@ const styles = {
     textAlign: 'left',
     fontSize: '16px',
     lineHeight: 1.2,
-    overflow: 'auto'
+    overflow: 'auto',
   },
   message: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   stack: {
     fontFamily: 'monospace',
-    marginTop: '2em'
+    marginTop: '2em',
   },
   frame: {
-    marginTop: '1em'
+    marginTop: '1em',
   },
   file: {
     fontSize: '0.8em',
-    color: 'rgba(255, 255, 255, 0.7)'
+    color: 'rgba(255, 255, 255, 0.7)',
   },
   linkToFile: {
     textDecoration: 'none',
-    color: 'rgba(255, 255, 255, 0.7)'
-  }
+    color: 'rgba(255, 255, 255, 0.7)',
+  },
 }

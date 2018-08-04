@@ -13,7 +13,7 @@ class LoginView extends React.PureComponent {
   static propTypes = {
     error: PropTypes.string,
     login: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   onSubmit = (login) => async (values) => {
@@ -41,8 +41,8 @@ class LoginView extends React.PureComponent {
         meta={[
           {
             name: 'description',
-            content: `${settings.app.name} - ${t('login.meta')}`
-          }
+            content: `${settings.app.name} - ${t('login.meta')}`,
+          },
         ]}
       />
     )

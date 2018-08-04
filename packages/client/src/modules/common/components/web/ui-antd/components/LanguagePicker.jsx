@@ -23,5 +23,5 @@ export default class LanguagePicker extends React.Component {
 }
 
 LanguagePicker.propTypes = {
-  i18n: PropTypes.object.isRequired
+  i18n: PropTypes.object.isRequired,
 }

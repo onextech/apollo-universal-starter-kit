@@ -10,7 +10,7 @@ export default class LanguagePicker extends React.Component {
     super(props)
     this.changeLang = this.changeLang.bind(this)
     this.state = {
-      currentLang: this.props.i18n.language
+      currentLang: this.props.i18n.language,
     }
   }
 
@@ -42,7 +42,7 @@ export default class LanguagePicker extends React.Component {
               <HeaderTitle
                 style={{
                   paddingVertical: 10,
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
                 }}
               >
                 {i18n.t('i18n:pickerMenu')}
@@ -56,5 +56,5 @@ export default class LanguagePicker extends React.Component {
 }
 
 LanguagePicker.propTypes = {
-  i18n: PropTypes.object.isRequired
+  i18n: PropTypes.object.isRequired,
 }

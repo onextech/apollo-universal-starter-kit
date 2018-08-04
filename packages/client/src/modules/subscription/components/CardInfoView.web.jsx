@@ -37,7 +37,7 @@ CardInfoView.propTypes = {
   expiryYear: PropTypes.number,
   last4: PropTypes.string,
   brand: PropTypes.string,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 export default translate('subscription')(CardInfoView)

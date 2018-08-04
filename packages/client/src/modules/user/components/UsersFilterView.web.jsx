@@ -14,7 +14,7 @@ class UsersFilterView extends React.PureComponent {
     onSearchTextChange: PropTypes.func.isRequired,
     onRoleChange: PropTypes.func.isRequired,
     onIsActiveChange: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   handleSearch = (e) => {
@@ -30,7 +30,7 @@ class UsersFilterView extends React.PureComponent {
   handleIsActive = () => {
     const {
       onIsActiveChange,
-      filter: { isActive }
+      filter: { isActive },
     } = this.props
     onIsActiveChange(!isActive)
   };
@@ -38,7 +38,7 @@ class UsersFilterView extends React.PureComponent {
   render() {
     const {
       filter: { role, isActive },
-      t
+      t,
     } = this.props
     return (
       <Form layout='inline'>

@@ -16,7 +16,7 @@ import settings from '../../../../../../settings'
 
 const loginFormSchema = {
   usernameOrEmail: [required, minLength(3)],
-  password: [required, minLength(8)]
+  password: [required, minLength(8)],
 }
 
 const validate = (values) => validateForm(values, loginFormSchema)
@@ -120,7 +120,7 @@ LoginForm.propTypes = {
   submitting: PropTypes.bool,
   error: PropTypes.string,
   values: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const LoginFormWithFormik = withFormik({
@@ -131,7 +131,7 @@ const LoginFormWithFormik = withFormik({
     values,
     {
       setErrors,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     onSubmit(values).catch((e) => {
@@ -140,7 +140,7 @@ const LoginFormWithFormik = withFormik({
     })
   },
   validate: (values) => validate(values),
-  displayName: 'LoginForm' // helps with React DevTools
+  displayName: 'LoginForm', // helps with React DevTools
 })
 
 export default translate('user')(LoginFormWithFormik(LoginForm))

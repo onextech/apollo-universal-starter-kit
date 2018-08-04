@@ -21,19 +21,19 @@ const IncreaseButton = ({ counterAmount, t, counter }) => (
               return update(prev, {
                 serverCounter: {
                   amount: {
-                    $set: newAmount
-                  }
-                }
+                    $set: newAmount,
+                  },
+                },
               })
-            }
+            },
           },
           optimisticResponse: {
             __typename: 'Mutation',
             addServerCounter: {
               __typename: 'Counter',
-              amount: counter.amount + 1
-            }
-          }
+              amount: counter.amount + 1,
+            },
+          },
         })
 
       const onClickHandler = () => addServerCounter(counterAmount)
@@ -46,7 +46,7 @@ const IncreaseButton = ({ counterAmount, t, counter }) => (
 IncreaseButton.propTypes = {
   counterAmount: PropTypes.number,
   t: PropTypes.func,
-  counter: PropTypes.object
+  counter: PropTypes.object,
 }
 
 class ServerCounter extends React.Component {
@@ -54,7 +54,7 @@ class ServerCounter extends React.Component {
     t: PropTypes.func,
     subscribeToMore: PropTypes.func,
     loading: PropTypes.bool,
-    counter: PropTypes.object
+    counter: PropTypes.object,
   };
 
   constructor(props) {
@@ -96,19 +96,19 @@ class ServerCounter extends React.Component {
         {
           subscriptionData: {
             data: {
-              counterUpdated: { amount }
-            }
-          }
+              counterUpdated: { amount },
+            },
+          },
         }
       ) => {
         return update(prev, {
           serverCounter: {
             amount: {
-              $set: amount
-            }
-          }
+              $set: amount,
+            },
+          },
         })
-      }
+      },
     })
   }
 

@@ -18,7 +18,7 @@ export const ReduxCounterView = ({ text, children }) => (
 
 ReduxCounterView.propTypes = {
   text: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export const ReduxCounterButton = ({ onClick, text }) => (
@@ -29,5 +29,5 @@ export const ReduxCounterButton = ({ onClick, text }) => (
 
 ReduxCounterButton.propTypes = {
   onClick: PropTypes.func,
-  text: PropTypes.string
+  text: PropTypes.string,
 }

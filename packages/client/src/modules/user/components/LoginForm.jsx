@@ -17,7 +17,7 @@ import settings from '../../../../../../settings'
 
 const loginFormSchema = {
   usernameOrEmail: [required, minLength(3)],
-  password: [required, minLength(8)]
+  password: [required, minLength(8)],
 }
 
 const validate = (values) => validateForm(values, loginFormSchema)
@@ -104,36 +104,36 @@ LoginForm.propTypes = {
   valid: PropTypes.bool,
   values: PropTypes.object,
   navigation: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
   formContainer: {
-    flex: 1
+    flex: 1,
   },
   formView: {
     flex: 1,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
   form: {
     justifyContent: 'center',
     paddingHorizontal: 20,
-    flex: 9
+    flex: 9,
   },
   submit,
   buttonsGroup: {
     flex: 1,
-    paddingTop: 10
+    paddingTop: 10,
   },
   buttonWrapper: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   text: {
     fontSize: 14,
-    color: '#bcb8b8'
+    color: '#bcb8b8',
   },
   signUpText: {
     fontSize: 16,
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
     color: '#8e908c',
     fontWeight: '600',
     textDecorationLine: 'underline',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 })
 
 const LoginFormWithFormik = withFormik({
@@ -153,7 +153,7 @@ const LoginFormWithFormik = withFormik({
     values,
     {
       setErrors,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     onSubmit(values).catch((e) => {
@@ -161,7 +161,7 @@ const LoginFormWithFormik = withFormik({
     })
   },
   validate: (values) => validate(values),
-  displayName: 'LoginForm' // helps with React DevTools
+  displayName: 'LoginForm', // helps with React DevTools
 })
 
 export default translate('user')(LoginFormWithFormik(LoginForm))

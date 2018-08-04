@@ -1,9 +1,9 @@
 {
-  "extends": "../../.eslintrc.base.json",
+  "extends": "../../.eslintrc.base.js",
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack.config.lint.js"
+        "config": "webpack.config.eslint.js"
       }
     }
   }

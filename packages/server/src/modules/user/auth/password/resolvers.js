@@ -33,11 +33,11 @@ export default () => ({
     async login(
       obj,
       {
-        input: { usernameOrEmail, password }
+        input: { usernameOrEmail, password },
       },
       {
         req,
-        req: { t }
+        req: { t },
       }
     ) {
       try {
@@ -57,7 +57,7 @@ export default () => ({
         const {
           User,
           req,
-          req: { t }
+          req: { t },
         } = context
         const e = new FieldError()
         const userExists = await User.getUserByUsername(input.username)
@@ -103,7 +103,7 @@ export default () => ({
               <p><a href="${url}">${url}</a></p>
               <p>Below are your login information</p>
               <p>Your email is: ${user.email}</p>
-              <p>Your password is: ${input.password}</p>`
+              <p>Your password is: ${input.password}</p>`,
             })
           })
         }
@@ -134,7 +134,7 @@ export default () => ({
                 from: `${settings.app.name} <${process.env.EMAIL_USER}>`,
                 to: user.email,
                 subject: 'Reset Password',
-                html: `Please click this link to reset your password: <a href="${url}">${url}</a>`
+                html: `Please click this link to reset your password: <a href="${url}">${url}</a>`,
               })
             }
           )
@@ -147,7 +147,7 @@ export default () => ({
       obj,
       {
         input,
-        req: { t }
+        req: { t },
       }
     ) {
       try {
@@ -177,6 +177,6 @@ export default () => ({
       } catch (e) {
         return { errors: e }
       }
-    }
-  }
+    },
+  },
 })

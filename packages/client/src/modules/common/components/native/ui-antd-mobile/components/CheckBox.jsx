@@ -8,7 +8,7 @@ const CheckBox = (props) => {
 
 CheckBox.propTypes = {
   onChange: PropTypes.func,
-  onPress: PropTypes.func
+  onPress: PropTypes.func,
 }
 
 export default CheckBox

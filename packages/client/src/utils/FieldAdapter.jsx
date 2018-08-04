@@ -12,11 +12,11 @@ export default class FieldAdapter extends Component {
     defaultValue: PropTypes.string,
     checked: PropTypes.bool,
     defaultChecked: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
   };
 
   static contextTypes = {
-    formik: PropTypes.object
+    formik: PropTypes.object,
   };
 
   constructor(props, context) {
@@ -68,7 +68,7 @@ export default class FieldAdapter extends Component {
     checked = checked || false
     const meta = {
       touched: formik.touched[name],
-      error: formik.errors[name]
+      error: formik.errors[name],
     }
 
     const input = {
@@ -78,7 +78,7 @@ export default class FieldAdapter extends Component {
       checked,
       defaultValue,
       defaultChecked,
-      disabled
+      disabled,
     }
 
     const changeEventHandler = typeof document !== 'undefined' ? 'onChange' : 'onChangeText'
@@ -87,7 +87,7 @@ export default class FieldAdapter extends Component {
     return React.createElement(component, {
       ...this.props,
       input,
-      meta
+      meta,
     })
   }
 }

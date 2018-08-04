@@ -14,15 +14,15 @@ export default new Feature({
     Counter: {
       screen: createStackNavigator({
         Counter: {
-          screen: ServerCounter
-        }
+          screen: ServerCounter,
+        },
       }),
       navigationOptions: {
-        drawerLabel: <HeaderTitleWithI18n i18nKey='title' />
-      }
-    }
+        drawerLabel: <HeaderTitleWithI18n i18nKey='title' />,
+      },
+    },
   },
-  localization: { ns: 'serverCounter', resources }
+  localization: { ns: 'serverCounter', resources },
 })
 
 export { ServerCounter }

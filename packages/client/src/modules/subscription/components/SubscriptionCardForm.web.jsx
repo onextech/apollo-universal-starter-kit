@@ -9,7 +9,7 @@ import { Form, RenderField, Button, Alert, Label } from '../../common/components
 import { required, validateForm } from '../../../../../common/validation'
 
 const commentFormSchema = {
-  name: [required]
+  name: [required],
 }
 
 const validate = (values) => validateForm(values, commentFormSchema)
@@ -22,7 +22,7 @@ class SubscriptionCardForm extends React.Component {
     handleSubmit: PropTypes.func,
     onSubmit: PropTypes.func,
     values: PropTypes.object,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   render() {
@@ -59,7 +59,7 @@ const SubscriptionFormWithFormik = withFormik({
 
       const {
         id,
-        card: { exp_month, exp_year, last4, brand }
+        card: { exp_month, exp_year, last4, brand },
       } = token
 
       await onSubmit({
@@ -67,14 +67,14 @@ const SubscriptionFormWithFormik = withFormik({
         expiryMonth: exp_month,
         expiryYear: exp_year,
         last4,
-        brand
+        brand,
       })
     }
     await onSubmitForm(values)
   },
   validate: (values) => validate(values),
   displayName: 'SubscriptionForm', // helps with React DevTools,
-  enableReinitialize: true
+  enableReinitialize: true,
 })
 
 export default translate('subscription')(injectStripe(SubscriptionFormWithFormik(SubscriptionCardForm)))

@@ -15,7 +15,7 @@ import {
   separator,
   btnIconContainer,
   btnTextContainer,
-  btnText
+  btnText,
 } from '../../../../common/components/native/styles'
 
 const googleLogin = () => {
@@ -82,7 +82,7 @@ GoogleComponent.propTypes = {
   client: PropTypes.object,
   type: PropTypes.string,
   text: PropTypes.string.isRequired,
-  writeQuery: PropTypes.func
+  writeQuery: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
@@ -92,15 +92,15 @@ const styles = StyleSheet.create({
   buttonContainer: {
     ...buttonContainer,
     marginTop: 15,
-    backgroundColor: '#c43832'
+    backgroundColor: '#c43832',
   },
   separator: {
     ...separator,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   btnIconContainer,
   btnTextContainer,
-  btnText
+  btnText,
 })
 
 export default GoogleComponent

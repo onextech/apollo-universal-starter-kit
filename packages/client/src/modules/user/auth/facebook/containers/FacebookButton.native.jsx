@@ -15,7 +15,7 @@ import {
   separator,
   btnIconContainer,
   btnTextContainer,
-  btnText
+  btnText,
 } from '../../../../common/components/native/styles'
 
 const facebookLogin = () => {
@@ -81,7 +81,7 @@ class FacebookComponent extends React.Component {
 FacebookComponent.propTypes = {
   client: PropTypes.object,
   type: PropTypes.string,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 }
 
 const styles = StyleSheet.create({
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   separator,
   btnIconContainer,
   btnTextContainer,
-  btnText
+  btnText,
 })
 
 export default FacebookComponent

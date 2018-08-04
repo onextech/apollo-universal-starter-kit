@@ -12,7 +12,7 @@ import createApolloClient from '../../common/createApolloClient'
 
 const store = createStore(
   combineReducers({
-    ...modules.reducers
+    ...modules.reducers,
   }),
   {} // initial state
 )
@@ -21,7 +21,7 @@ const { protocol, pathname, port } = url.parse(__API_URL__)
 
 export default class Main extends React.Component {
   static propTypes = {
-    exp: PropTypes.object
+    exp: PropTypes.object,
   };
 
   render() {
@@ -37,7 +37,7 @@ export default class Main extends React.Component {
       createNetLink: modules.createNetLink,
       links: modules.link,
       connectionParams: modules.connectionParams,
-      clientResolvers: modules.resolvers
+      clientResolvers: modules.resolvers,
     })
 
     return modules.getWrappedRoot(

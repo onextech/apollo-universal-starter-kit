@@ -13,7 +13,7 @@ class PaginationDemo extends React.Component {
   static propTypes = {
     t: PropTypes.func,
     loadData: PropTypes.func,
-    items: PropTypes.object
+    items: PropTypes.object,
   };
 
   state = { pagination: 'standard' };
@@ -26,8 +26,8 @@ class PaginationDemo extends React.Component {
         meta={[
           {
             name: 'description',
-            content: `${settings.app.name} - ${t('meta')}`
-          }
+            content: `${settings.app.name} - ${t('meta')}`,
+          },
         ]}
       />
     )

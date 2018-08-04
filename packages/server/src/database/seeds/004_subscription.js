@@ -9,7 +9,7 @@ export async function seed(knex, Promise) {
     email: 'subscriber@example.com',
     password_hash: await bcrypt.hash('subscriber', 12),
     role: 'user',
-    is_active: true
+    is_active: true,
   })
   await returnId(knex('subscription')).insert({
     stripe_customer_id: 'test',
@@ -20,6 +20,6 @@ export async function seed(knex, Promise) {
     expiry_year: 2022,
     last4: '1111',
     brand: 'Visa',
-    user_id: subscriberId
+    user_id: subscriberId,
   })
 }

@@ -1,4 +1,4 @@
-{
+module.exports = {
   "extends": [
     "airbnb/base",
     "plugin:import/errors",
@@ -27,7 +27,9 @@
     "no-shadow": 0,
     "jsx-quotes": [1, "prefer-single"],
     "function-paren-newline": ["error", "consistent"],
-    "object-curly-newline": 0
+    "object-curly-newline": 0,
+    "object-curly-spacing": 1,
+    "comma-dangle": ["error", "always-multiline"],
   },
   "globals": {
     "fetch": true,

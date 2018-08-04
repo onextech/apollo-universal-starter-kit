@@ -19,9 +19,9 @@ const LoginWithApollo = compose(
     props: ({ ownProps: { client, onLogin }, mutate }) => ({
       login: async ({ usernameOrEmail, password }) => {
         const {
-          data: { login }
+          data: { login },
         } = await mutate({
-          variables: { input: { usernameOrEmail, password } }
+          variables: { input: { usernameOrEmail, password } },
         })
         if (!login.errors) {
           await access.doLogin(client)
@@ -31,8 +31,8 @@ const LoginWithApollo = compose(
           }
         }
         return login
-      }
-    })
+      },
+    }),
   })
 )(Login)
 

@@ -28,7 +28,7 @@ before(async () => {
   global.WebSocket = WebSocket
   apollo = createApolloClient({
     apiUrl: `http://localhost:${process.env['PORT']}/graphql`,
-    createNetLink: () => new SchemaLink({ schema, context })
+    createNetLink: () => new SchemaLink({ schema, context }),
   })
 })
 

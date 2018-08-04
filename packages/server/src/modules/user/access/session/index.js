@@ -10,7 +10,7 @@ import settings from '../../../../../../../settings'
 const grant = async (user, req) => {
   const session = {
     ...req.session,
-    userId: user.id
+    userId: user.id,
   }
 
   req.session = writeSession(req, session)
@@ -43,13 +43,13 @@ const createContextFunc = async ({ req, connectionParams, webSocket, context }) 
   const user = context.user || (await getCurrentUser({ req, connectionParams, webSocket }))
   const auth = {
     isAuthenticated: !!user,
-    scope: user ? scopes[user.role] : null
+    scope: user ? scopes[user.role] : null,
   }
 
   return {
     User,
     user,
-    auth
+    auth,
   }
 }
 
@@ -69,7 +69,7 @@ export default new Feature(
               next(e)
             }
           })
-        }
+        },
       }
     : {}
 )

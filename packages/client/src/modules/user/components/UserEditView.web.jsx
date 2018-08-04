@@ -17,7 +17,7 @@ class UserEditView extends React.PureComponent {
     history: PropTypes.object,
     t: PropTypes.func,
     editUser: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
   };
 
   state = {};
@@ -35,8 +35,8 @@ class UserEditView extends React.PureComponent {
       meta={[
         {
           name: 'description',
-          content: `${settings.app.name} - ${t('userEdit.meta')}`
-        }
+          content: `${settings.app.name} - ${t('userEdit.meta')}`,
+        },
       ]}
     />
   );

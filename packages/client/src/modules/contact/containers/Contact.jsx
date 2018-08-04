@@ -17,9 +17,9 @@ const ContactWithApollo = compose(
       contact: async ({ name, email, content }) => {
         try {
           const {
-            data: { contact }
+            data: { contact },
           } = await mutate({
-            variables: { input: { name, email, content } }
+            variables: { input: { name, email, content } },
           })
 
           if (contact.errors) {
@@ -30,8 +30,8 @@ const ContactWithApollo = compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(Contact)
 

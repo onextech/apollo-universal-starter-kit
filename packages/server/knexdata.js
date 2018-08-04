@@ -5,12 +5,12 @@ export const development = {
   connection: settings.db.connection.development,
   pool: settings.db.pool,
   seeds: {
-    directory: './src/database/seeds'
+    directory: './src/database/seeds',
   },
   migrations: {
-    directory: './src/database/migrations'
+    directory: './src/database/migrations',
   },
-  useNullAsDefault: true
+  useNullAsDefault: true,
 }
 
 export const production = {
@@ -18,24 +18,24 @@ export const production = {
   connection: settings.db.connection.production,
   pool: settings.db.pool,
   seeds: {
-    directory: './src/database/seeds'
+    directory: './src/database/seeds',
   },
   migrations: {
-    directory: './src/database/migrations'
+    directory: './src/database/migrations',
   },
-  useNullAsDefault: true
+  useNullAsDefault: true,
 }
 
 export const test = {
   client: 'sqlite3',
   connection: {
-    filename: ':memory:'
+    filename: ':memory:',
   },
   seeds: {
-    directory: './src/database/seeds'
+    directory: './src/database/seeds',
   },
   migrations: {
-    directory: './src/database/migrations'
+    directory: './src/database/migrations',
   },
-  useNullAsDefault: true
+  useNullAsDefault: true,
 }

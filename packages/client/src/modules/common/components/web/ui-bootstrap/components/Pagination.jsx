@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   Pagination as RSPagination,
   PaginationItem as RSPaginationItem,
-  PaginationLink as RSPaginationLink
+  PaginationLink as RSPaginationLink,
 } from 'reactstrap'
 import { Button } from '../components'
 
@@ -15,7 +15,7 @@ export default class Pagination extends React.Component {
     pagination: PropTypes.string,
     total: PropTypes.number,
     loadMoreText: PropTypes.string,
-    defaultPageSize: PropTypes.number
+    defaultPageSize: PropTypes.number,
   };
 
   state = { pageNumber: 1, pagination: this.props.pagination };
@@ -38,7 +38,7 @@ export default class Pagination extends React.Component {
         const newPageNumber = prevState.pageNumber - 1
         handlePageChange(pagination, newPageNumber)
         return {
-          pageNumber: newPageNumber
+          pageNumber: newPageNumber,
         }
       })
     }
@@ -53,7 +53,7 @@ export default class Pagination extends React.Component {
         const newPageNumber = prevState.pageNumber + 1
         handlePageChange(pagination, newPageNumber)
         return {
-          pageNumber: newPageNumber
+          pageNumber: newPageNumber,
         }
       })
     }
@@ -87,7 +87,7 @@ export default class Pagination extends React.Component {
       pagination,
       total,
       loadMoreText,
-      defaultPageSize
+      defaultPageSize,
     } = this.props
     if (pagination === 'relay') {
       return hasNextPage ? (

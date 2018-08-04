@@ -11,15 +11,15 @@ class ResetPasswordView extends React.Component {
     t: PropTypes.func,
     match: PropTypes.shape({
       params: PropTypes.shape({
-        token: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired
+        token: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
   };
 
   onSubmit = (resetPassword) => async (values) => {
     const { errors } = await resetPassword({
       ...values,
-      token: this.props.match.params.token
+      token: this.props.match.params.token,
     })
 
     if (errors && errors.length) {
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'stretch',
-    flex: 1
-  }
+    flex: 1,
+  },
 })
 
 export default translate('user')(ResetPasswordView)

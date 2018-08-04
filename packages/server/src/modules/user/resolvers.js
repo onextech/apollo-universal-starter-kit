@@ -15,9 +15,7 @@ export default (pubsub) => ({
       return User.getUsers(orderBy, filter)
     }),
     user: withAuth(
-      () => {
-        return ['user:view:self']
-      },
+      () => ['user:view:self'],
       (obj, { id }, { user, User, req: { t } }) => {
         if (user.id === id || user.role === 'admin') {
           try {
@@ -38,30 +36,21 @@ export default (pubsub) => ({
       } else {
         return null
       }
-    }
+    },
   },
   User: {
-    profile(obj) {
-      return obj
-    },
-    auth(obj) {
-      return obj
-    }
+    profile: (obj) => obj,
+    auth: (obj) => obj,
   },
   UserProfile: {
-    firstName(obj) {
-      return obj.firstName
-    },
-    lastName(obj) {
-      return obj.lastName
-    },
-    fullName(obj) {
-      if (obj.firstName && obj.lastName) {
-        return `${obj.firstName} ${obj.lastName}`
-      } else {
-        return null
+    firstName: ({ firstName }) => firstName,
+    lastName: ({ lastName }) => lastName,
+    fullName: ({ firstName, lastName }) => {
+      if (firstName && lastName) {
+        return `${firstName} ${lastName}`
       }
-    }
+      return null
+    },
   },
   Mutation: {
     addUser: withAuth(
@@ -111,7 +100,7 @@ export default (pubsub) => ({
                 <p><a href="${url}">${url}</a></p>
                 <p>Below are your login information</p>
                 <p>Your email is: ${user.email}</p>
-                <p>Your password is: ${input.password}</p>`
+                <p>Your password is: ${input.password}</p>`,
               })
             })
           }
@@ -119,8 +108,8 @@ export default (pubsub) => ({
           pubsub.publish(USERS_SUBSCRIPTION, {
             usersUpdated: {
               mutation: 'CREATED',
-              node: user
-            }
+              node: user,
+            },
           })
 
           return { user }
@@ -167,8 +156,8 @@ export default (pubsub) => ({
           pubsub.publish(USERS_SUBSCRIPTION, {
             usersUpdated: {
               mutation: 'UPDATED',
-              node: user
-            }
+              node: user,
+            },
           })
 
           return { user }
@@ -184,7 +173,7 @@ export default (pubsub) => ({
       async (obj, { id }, context) => {
         const {
           User,
-          req: { t }
+          req: { t },
         } = context
         const isAdmin = () => context.user.role === 'admin'
         const isSelf = () => context.user.id === id
@@ -209,8 +198,8 @@ export default (pubsub) => ({
             pubsub.publish(USERS_SUBSCRIPTION, {
               usersUpdated: {
                 mutation: 'DELETED',
-                node: user
-              }
+                node: user,
+              },
             })
             return { user }
           } else {
@@ -221,7 +210,7 @@ export default (pubsub) => ({
           return { errors: e }
         }
       }
-    )
+    ),
   },
   Subscription: {
     usersUpdated: {
@@ -230,7 +219,7 @@ export default (pubsub) => ({
         (payload, variables) => {
           const { mutation, node } = payload.usersUpdated
           const {
-            filter: { isActive, role, searchText }
+            filter: { isActive, role, searchText },
           } = variables
 
           const checkByFilter =
@@ -247,7 +236,7 @@ export default (pubsub) => ({
               return !checkByFilter
           }
         }
-      )
-    }
-  }
+      ),
+    },
+  },
 })

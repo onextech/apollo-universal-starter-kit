@@ -11,7 +11,7 @@ import translate from '../../../i18n'
 
 const resetPasswordFormSchema = {
   password: [required, minLength(8)],
-  passwordConfirmation: [match('password'), required, minLength(8)]
+  passwordConfirmation: [match('password'), required, minLength(8)],
 }
 
 const validate = (values) => validateForm(values, resetPasswordFormSchema)
@@ -52,7 +52,7 @@ ResetPasswordForm.propTypes = {
   t: PropTypes.func,
   values: PropTypes.object,
   onSubmit: PropTypes.func,
-  submitting: PropTypes.bool
+  submitting: PropTypes.bool,
 }
 
 const ResetPasswordFormWithFormik = withFormik({
@@ -63,7 +63,7 @@ const ResetPasswordFormWithFormik = withFormik({
     {
       setErrors,
       resetForm,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     await onSubmit(values)
@@ -71,15 +71,15 @@ const ResetPasswordFormWithFormik = withFormik({
       .catch((e) => setErrors(e))
   },
   validate: (values) => validate(values),
-  displayName: 'LoginForm' // helps with React DevTools
+  displayName: 'LoginForm', // helps with React DevTools
 })
 
 const styles = StyleSheet.create({
   submit,
   formContainer: {
     paddingHorizontal: 20,
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })
 
 export default translate('user')(ResetPasswordFormWithFormik(ResetPasswordForm))

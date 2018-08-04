@@ -13,5 +13,5 @@ export default new Feature({
   middleware: (app) => {
     app.use('/graphql', apolloUploadExpress({ uploadDir: './public' }))
     app.use('/public', express.static('public'))
-  }
+  },
 })

@@ -20,7 +20,7 @@ export default (pubsub) => ({
     async subscriptionCardInfo(obj, args, context) {
       const { user } = context
       return !user ? undefined : context.Subscription.getCardInfo(user.id)
-    }
+    },
   },
   Mutation: {
     async subscribe(obj, { input }, context) {
@@ -36,7 +36,7 @@ export default (pubsub) => ({
         if (subscription && subscription.stripeCustomerId) {
           customerId = subscription.stripeCustomerId
           const source = await stripe.customers.createSource(customerId, {
-            source: data.token
+            source: data.token,
           })
           stripeSourceId = source.id
         } else {
@@ -53,25 +53,25 @@ export default (pubsub) => ({
             expiryMonth: data.expiryMonth,
             expiryYear: data.expiryYear,
             last4: data.last4,
-            brand: data.brand
-          }
+            brand: data.brand,
+          },
         })
 
         const newSubscription = await stripe.subscriptions.create({
           customer: customerId,
           items: [
             {
-              plan: 'basic'
-            }
-          ]
+              plan: 'basic',
+            },
+          ],
         })
 
         await context.Subscription.editSubscription({
           userId: user.id,
           subscription: {
             active: true,
-            stripeSubscriptionId: newSubscription.id
-          }
+            stripeSubscriptionId: newSubscription.id,
+          },
         })
 
         return { active: true, errors: null }
@@ -84,12 +84,12 @@ export default (pubsub) => ({
         const data = pick(input, ['token', 'expiryMonth', 'expiryYear', 'last4', 'brand'])
         const user = await context.User.getUserByUsername(context.user.username)
         const {
-          subscription: { stripeCustomerId, stripeSourceId }
+          subscription: { stripeCustomerId, stripeSourceId },
         } = context
 
         await stripe.customers.deleteSource(stripeCustomerId, stripeSourceId)
         const source = await stripe.customers.createSource(stripeCustomerId, {
-          source: data.token
+          source: data.token,
         })
 
         await context.Subscription.editSubscription({
@@ -99,8 +99,8 @@ export default (pubsub) => ({
             expiryMonth: data.expiryMonth,
             expiryYear: data.expiryYear,
             last4: data.last4,
-            brand: data.brand
-          }
+            brand: data.brand,
+          },
         })
 
         return true
@@ -132,15 +132,15 @@ export default (pubsub) => ({
             expiryMonth: null,
             expiryYear: null,
             last4: null,
-            brand: null
-          }
+            brand: null,
+          },
         })
 
         return { active: false, errors: null }
       } catch (e) {
         return { active: true, errors: e }
       }
-    }
+    },
   },
-  Subscription: {}
+  Subscription: {},
 })

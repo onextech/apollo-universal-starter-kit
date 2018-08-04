@@ -10,5 +10,5 @@ import resources from './locales'
 
 export default new Feature(clientCounter, reduxCounter, serverCounter, {
   route: <Route exact path='/' component={Counter} />,
-  localization: { ns: 'counter', resources }
+  localization: { ns: 'counter', resources },
 })

@@ -11,7 +11,7 @@ export default class LanguagePicker extends React.Component {
     super(props)
     this.changeLang = this.changeLang.bind(this)
     this.state = {
-      currentLang: this.props.i18n.language
+      currentLang: this.props.i18n.language,
     }
   }
 
@@ -36,7 +36,7 @@ export default class LanguagePicker extends React.Component {
                 : ActionSheet.show(
                     {
                       options: langs.map((lang) => lang.slice(0, 2).toUpperCase()),
-                      title: i18n.t('i18n:pickerTitle')
+                      title: i18n.t('i18n:pickerTitle'),
                     },
                     (langIndex) => this.changeLang(langs[langIndex])
                   )
@@ -62,5 +62,5 @@ export default class LanguagePicker extends React.Component {
 }
 
 LanguagePicker.propTypes = {
-  i18n: PropTypes.object.isRequired
+  i18n: PropTypes.object.isRequired,
 }

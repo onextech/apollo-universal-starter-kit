@@ -30,7 +30,7 @@ const createApolloClient = ({ apiUrl, createNetLink, links, connectionParams, cl
       reset: () => {
         // On apolloClient.resetStore() reset only netCache and keep localCache intact
         return netCache.reset()
-      }
+      },
     }
   )
 
@@ -38,7 +38,7 @@ const createApolloClient = ({ apiUrl, createNetLink, links, connectionParams, cl
     ? createNetLink(apiUrl)
     : new BatchHttpLink({
         uri: apiUrl,
-        credentials: 'include'
+        credentials: 'include',
       })
 
   let apiLink = queryLink
@@ -59,7 +59,7 @@ const createApolloClient = ({ apiUrl, createNetLink, links, connectionParams, cl
       wsUri,
       {
         reconnect: true,
-        connectionParams: finalConnectionParams
+        connectionParams: finalConnectionParams,
       },
       webSocketImpl
     )
@@ -69,8 +69,8 @@ const createApolloClient = ({ apiUrl, createNetLink, links, connectionParams, cl
         applyMiddleware(operationOptions, next) {
           Object.assign(operationOptions, finalConnectionParams)
           next()
-        }
-      }
+        },
+      },
     ])
 
     wsClient.onDisconnected(() => {
@@ -101,7 +101,7 @@ const createApolloClient = ({ apiUrl, createNetLink, links, connectionParams, cl
 
   const clientParams = {
     link: ApolloLink.from(allLinks),
-    cache
+    cache,
   }
   if (__SSR__) {
     if (typeof window !== 'undefined' && window.__APOLLO_STATE__) {

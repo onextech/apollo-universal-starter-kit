@@ -8,11 +8,11 @@ import translate from '../../../i18n'
 class ForgotPasswordView extends React.Component {
   static propTypes = {
     forgotPassword: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   state = {
-    sent: false
+    sent: false,
   };
 
   onSubmit = ({ forgotPassword }) => async (values) => {
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
   forgotPassContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch'
-  }
+    alignItems: 'stretch',
+  },
 })
 
 export default translate('user')(ForgotPasswordView)

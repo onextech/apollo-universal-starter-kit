@@ -12,7 +12,7 @@ import settings from '../../../../../../settings'
 class RegisterView extends React.PureComponent {
   static propTypes = {
     register: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   onSubmit = async (values) => {
@@ -36,8 +36,8 @@ class RegisterView extends React.PureComponent {
       meta={[
         {
           name: 'description',
-          content: `${settings.app.name} - ${t('reg.meta')}`
-        }
+          content: `${settings.app.name} - ${t('reg.meta')}`,
+        },
       ]}
     />
   );

@@ -21,7 +21,7 @@ const client = createApolloClient({
   createNetLink: modules.createNetLink,
   links: modules.link,
   connectionParams: modules.connectionParams,
-  clientResolvers: modules.resolvers
+  clientResolvers: modules.resolvers,
 })
 
 const history = createHistory()

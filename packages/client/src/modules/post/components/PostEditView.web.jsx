@@ -26,8 +26,8 @@ const PostEditView = ({ loading, post, match, location, subscribeToMore, editPos
       meta={[
         {
           name: 'description',
-          content: t('post.meta')
-        }
+          content: t('post.meta'),
+        },
       ]}
     />
   )
@@ -70,7 +70,7 @@ PostEditView.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   subscribeToMore: PropTypes.func.isRequired,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 export default translate('post')(PostEditView)

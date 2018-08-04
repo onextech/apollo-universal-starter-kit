@@ -10,7 +10,7 @@ const onSubmit = (contact, t) => async (values) => {
 
   if (result.errors) {
     let submitError = {
-      _error: t('errorMsg')
+      _error: t('errorMsg'),
     }
     result.errors.map((error) => (submitError[error.field] = error.message))
     throw submitError
@@ -27,13 +27,13 @@ const ContactView = ({ contact, t }) => {
 
 ContactView.propTypes = {
   contact: PropTypes.func.isRequired,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 })
 
 export default translate('contact')(ContactView)

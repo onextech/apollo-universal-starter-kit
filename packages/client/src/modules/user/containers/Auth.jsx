@@ -26,7 +26,7 @@ const AuthRoute = withLoadedUser(
 AuthRoute.propTypes = {
   role: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
   redirect: PropTypes.string,
-  redirectOnLoggedIn: PropTypes.bool
+  redirectOnLoggedIn: PropTypes.bool,
 }
 
 const isRoleMatch = (role, currentUser) => {

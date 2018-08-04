@@ -3,14 +3,14 @@ const SelectStyles = {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   list: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   pickerWrapper: {
-    flex: 14
-  }
+    flex: 14,
+  },
 }
 
 export default SelectStyles

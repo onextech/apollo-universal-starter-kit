@@ -11,13 +11,13 @@ const withUser = (Component) => {
 
   WithUser.propTypes = {
     currentUser: PropTypes.object,
-    currentUserLoading: PropTypes.bool.isRequired
+    currentUserLoading: PropTypes.bool.isRequired,
   }
 
   return graphql(CURRENT_USER_QUERY, {
     props({ data: { loading, currentUser, refetch } }) {
       return { currentUserLoading: loading, currentUser, refetchCurrentUser: refetch }
-    }
+    },
   })(WithUser)
 }
 
@@ -30,7 +30,7 @@ const withLoadedUser = (Component) => {
 
   WithLoadedUser.propTypes = {
     currentUser: PropTypes.object,
-    currentUserLoading: PropTypes.bool.isRequired
+    currentUserLoading: PropTypes.bool.isRequired,
   }
 
   return withUser(WithLoadedUser)
@@ -39,14 +39,14 @@ const withLoadedUser = (Component) => {
 const IfLoggedInComponent = ({ currentUser, role, children, elseComponent, refetchCurrentUser, ...restProps }) =>
   hasRole(role, currentUser)
     ? React.cloneElement(children, {
-        ...restProps
+        ...restProps,
       })
     : elseComponent || null
 IfLoggedInComponent.propTypes = {
   currentUser: PropTypes.object,
   role: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
   elseComponent: PropTypes.node,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 const IfLoggedIn = withLoadedUser(IfLoggedInComponent)
@@ -54,12 +54,12 @@ const IfLoggedIn = withLoadedUser(IfLoggedInComponent)
 const IfNotLoggedInComponent = ({ currentUser, children, refetchCurrentUser, ...restProps }) =>
   !currentUser
     ? React.cloneElement(children, {
-        ...restProps
+        ...restProps,
       })
     : null
 IfNotLoggedInComponent.propTypes = {
   currentUser: PropTypes.object,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 const IfNotLoggedIn = withLoadedUser(IfNotLoggedInComponent)

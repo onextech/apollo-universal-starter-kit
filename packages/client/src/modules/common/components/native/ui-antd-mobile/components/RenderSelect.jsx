@@ -16,7 +16,7 @@ const RenderSelect = ({ label, ...props }) => {
 }
 
 RenderSelect.propTypes = {
-  label: PropTypes.string
+  label: PropTypes.string,
 }
 
 const styles = StyleSheet.create(RenderSelectStyles)

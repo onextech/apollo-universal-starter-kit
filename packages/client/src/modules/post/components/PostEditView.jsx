@@ -44,15 +44,15 @@ PostEditView.propTypes = {
   editPost: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
   subscribeToMore: PropTypes.func.isRequired,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 })
 
 export default translate('post')(PostEditView)

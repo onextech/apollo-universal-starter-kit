@@ -9,12 +9,12 @@ class CancelSubscriptionView extends React.Component {
     loading: PropTypes.bool,
     active: PropTypes.bool,
     cancel: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   state = {
     cancelling: false,
-    errors: null
+    errors: null,
   };
 
   onClick = async () => {
@@ -23,7 +23,7 @@ class CancelSubscriptionView extends React.Component {
     if (errors) {
       this.setState({
         cancelling: false,
-        errors
+        errors,
       })
     }
   };

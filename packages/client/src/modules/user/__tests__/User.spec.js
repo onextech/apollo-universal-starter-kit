@@ -17,10 +17,10 @@ const mocks = {
         email: 'user@example.com',
         profile: null,
         auth: null,
-        __typename: 'User'
+        __typename: 'User',
       }
-    }
-  })
+    },
+  }),
 }
 
 describe('User UI works', () => {

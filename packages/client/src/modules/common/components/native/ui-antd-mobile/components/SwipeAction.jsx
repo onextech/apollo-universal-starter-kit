@@ -13,8 +13,8 @@ const SwipeAction = ({ children, onPress, right, ...props }) => {
         {
           text: right.text,
           onPress: right.onPress,
-          style: { backgroundColor: '#F4333C', color: 'white' }
-        }
+          style: { backgroundColor: '#F4333C', color: 'white' },
+        },
       ]}
     >
       <List.Item arrow='horizontal' onClick={onPress}>
@@ -27,7 +27,7 @@ const SwipeAction = ({ children, onPress, right, ...props }) => {
 SwipeAction.propTypes = {
   children: PropTypes.node,
   right: PropTypes.object,
-  onPress: PropTypes.func
+  onPress: PropTypes.func,
 }
 
 export default SwipeAction

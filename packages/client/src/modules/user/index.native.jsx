@@ -23,7 +23,7 @@ import Feature from '../connector'
 class LoginScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: <HeaderTitleWithI18n i18nKey='navLink.sign' style='subTitle' />,
-    headerLeft: <IconButton iconName='menu' iconSize={32} iconColor='#0275d8' onPress={() => navigation.openDrawer()} />
+    headerLeft: <IconButton iconName='menu' iconSize={32} iconColor='#0275d8' onPress={() => navigation.openDrawer()} />,
   });
 
   render() {
@@ -32,12 +32,12 @@ class LoginScreen extends React.Component {
 }
 
 LoginScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 class ForgotPasswordScreen extends React.Component {
   static navigationOptions = () => ({
-    headerTitle: <HeaderTitleWithI18n i18nKey='navLink.forgotPassword' style='subTitle' />
+    headerTitle: <HeaderTitleWithI18n i18nKey='navLink.forgotPassword' style='subTitle' />,
   });
   render() {
     return <ForgotPassword navigation={this.props.navigation} />
@@ -45,12 +45,12 @@ class ForgotPasswordScreen extends React.Component {
 }
 
 ForgotPasswordScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 class RegisterScreen extends React.Component {
   static navigationOptions = () => ({
-    headerTitle: <HeaderTitleWithI18n i18nKey='navLink.register' style='subTitle' />
+    headerTitle: <HeaderTitleWithI18n i18nKey='navLink.register' style='subTitle' />,
   });
   render() {
     return <Register navigation={this.props.navigation} />
@@ -58,22 +58,22 @@ class RegisterScreen extends React.Component {
 }
 
 RegisterScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 const AuthScreen = createStackNavigator(
   {
     Login: { screen: LoginScreen },
     ForgotPassword: { screen: ForgotPasswordScreen },
-    Register: { screen: RegisterScreen }
+    Register: { screen: RegisterScreen },
   },
   {
     cardStyle: {
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
     },
     navigationOptions: {
-      headerStyle: { backgroundColor: '#fff' }
-    }
+      headerStyle: { backgroundColor: '#fff' },
+    },
   }
 )
 
@@ -84,36 +84,36 @@ class UsersListScreen extends React.Component {
 }
 
 UsersListScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 class UserEditScreen extends React.Component {
   static navigationOptions = () => ({
-    title: 'Edit user'
+    title: 'Edit user',
   });
   render() {
     return <UserEdit navigation={this.props.navigation} />
   }
 }
 UserEditScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 class UserAddScreen extends React.Component {
   static navigationOptions = () => ({
-    title: 'Create user'
+    title: 'Create user',
   });
   render() {
     return <UserAdd navigation={this.props.navigation} />
   }
 }
 UserAddScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 class ProfileScreen extends React.Component {
   static navigationOptions = () => ({
-    title: 'Profile'
+    title: 'Profile',
   });
   render() {
     return <Profile navigation={this.props.navigation} />
@@ -122,7 +122,7 @@ class ProfileScreen extends React.Component {
 
 class ProfilerEditScreen extends React.Component {
   static navigationOptions = () => ({
-    title: 'Edit profile'
+    title: 'Edit profile',
   });
   render() {
     return <UserEdit navigation={this.props.navigation} />
@@ -130,11 +130,11 @@ class ProfilerEditScreen extends React.Component {
 }
 
 ProfilerEditScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 ProfileScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 const HeaderTitleWithI18n = translate('user')(HeaderTitle)
@@ -151,32 +151,32 @@ export default new Feature(access, {
             headerTitle: <HeaderTitleWithI18n i18nKey='navLink.profile' style='subTitle' />,
             headerLeft: (
               <IconButton iconName='menu' iconSize={32} iconColor='#0275d8' onPress={() => navigation.openDrawer()} />
-            )
-          })
+            ),
+          }),
         },
         ProfileEdit: {
           screen: ProfilerEditScreen,
           navigationOptions: () => ({
-            headerTitle: <HeaderTitleWithI18n i18nKey='navLink.editProfile' style='subTitle' />
-          })
-        }
+            headerTitle: <HeaderTitleWithI18n i18nKey='navLink.editProfile' style='subTitle' />,
+          }),
+        },
       }),
       userInfo: {
         showOnLogin: true,
-        role: ['user', 'admin']
+        role: ['user', 'admin'],
       },
       navigationOptions: {
-        drawerLabel: <HeaderTitleWithI18n i18nKey='navLink.profile' />
-      }
+        drawerLabel: <HeaderTitleWithI18n i18nKey='navLink.profile' />,
+      },
     },
     Login: {
       screen: AuthScreen,
       userInfo: {
-        showOnLogin: false
+        showOnLogin: false,
       },
       navigationOptions: {
-        drawerLabel: <HeaderTitleWithI18n i18nKey='navLink.sign' />
-      }
+        drawerLabel: <HeaderTitleWithI18n i18nKey='navLink.sign' />,
+      },
     },
     Users: {
       screen: createStackNavigator({
@@ -197,45 +197,45 @@ export default new Feature(access, {
                   navigation.setParams({ isOpenFilter: !isOpenFilter })
                 }}
               />
-            )
-          })
+            ),
+          }),
         },
         UserEdit: {
           screen: UserEditScreen,
           navigationOptions: () => ({
-            headerTitle: <HeaderTitleWithI18n i18nKey='navLink.editUser' style='subTitle' />
-          })
+            headerTitle: <HeaderTitleWithI18n i18nKey='navLink.editUser' style='subTitle' />,
+          }),
         },
         UserAdd: {
           screen: UserAddScreen,
           navigationOptions: () => ({
-            headerTitle: <HeaderTitleWithI18n i18nKey='navLink.editUser' style='subTitle' />
-          })
-        }
+            headerTitle: <HeaderTitleWithI18n i18nKey='navLink.editUser' style='subTitle' />,
+          }),
+        },
       }),
       userInfo: {
         showOnLogin: true,
-        role: 'admin'
+        role: 'admin',
       },
       navigationOptions: {
-        drawerLabel: <HeaderTitleWithI18n i18nKey='navLink.users' />
-      }
+        drawerLabel: <HeaderTitleWithI18n i18nKey='navLink.users' />,
+      },
     },
     Logout: {
       screen: () => null,
       userInfo: {
-        showOnLogin: true
+        showOnLogin: true,
       },
       navigationOptions: ({ navigation }) => {
         return {
-          drawerLabel: <Logout navigation={navigation} />
+          drawerLabel: <Logout navigation={navigation} />,
         }
-      }
-    }
+      },
+    },
   },
   resolver: resolvers,
   localization: { ns: 'user', resources },
   routerFactory: () => {
     return UserScreenNavigator(modules.drawerItems)
-  }
+  },
 })

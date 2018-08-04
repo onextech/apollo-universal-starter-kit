@@ -27,7 +27,7 @@ export const traceMethodCalls = (obj) => {
         log.debug(property + JSON.stringify(args) + ' -> ' + JSON.stringify(result))
         return result
       }
-    }
+    },
   })
 }
 

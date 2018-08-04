@@ -47,13 +47,13 @@ class MockLink extends ApolloLink {
           const queryStr = print(request.query)
           const key = JSON.stringify({
             query: queryStr,
-            variables: request.variables
+            variables: request.variables,
           })
           self.handlers[subId] = {
             handler: observer,
             key: key,
             query: queryStr,
-            variables: request.variables
+            variables: request.variables,
           }
           self.subscriptions[key] = self.subscriptions[key] || []
           self.subscriptions[key].push(subId)
@@ -106,7 +106,7 @@ class MockLink extends ApolloLink {
     const queryStr = print(addTypenameToDocument(query))
     const key = JSON.stringify({
       query: queryStr,
-      variables: variables || {}
+      variables: variables || {},
     })
     const subscriptions = (!variables ? self.subscriptionQueries[queryStr] : self.subscriptions[key]) || []
 
@@ -117,7 +117,7 @@ class MockLink extends ApolloLink {
         },
         error(errorValue) {
           return self.handlers[subId].handler.error(errorValue)
-        }
+        },
       }
       res.variables = self.handlers[subId].variables
       return res
@@ -128,7 +128,7 @@ class MockLink extends ApolloLink {
 export default class Renderer {
   constructor(graphqlMocks, reduxState, resolvers) {
     const schema = makeExecutableSchema({
-      typeDefs: [rootSchema, ...serverModules.schemas]
+      typeDefs: [rootSchema, ...serverModules.schemas],
     })
     addMockFunctionsToSchema({ schema, mocks: graphqlMocks })
 
@@ -137,12 +137,12 @@ export default class Renderer {
     const client = createApolloClient({
       createNetLink: () => schemaLink,
       links: clientModules.link,
-      clientResolvers: resolvers || clientModules.resolvers
+      clientResolvers: resolvers || clientModules.resolvers,
     })
 
     const store = createStore(
       combineReducers({
-        ...clientModules.reducers
+        ...clientModules.reducers,
       }),
       reduxState
     )

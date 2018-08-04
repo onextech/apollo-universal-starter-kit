@@ -11,8 +11,8 @@ const PaginationDemoView = ({ items, handlePageChange, pagination, t }) => {
       dataIndex: 'title',
       key: 'title',
       displayName: 'MyComponent',
-      render: renderFunc
-    }
+      render: renderFunc,
+    },
   ]
 
   return (
@@ -35,7 +35,7 @@ PaginationDemoView.propTypes = {
   items: PropTypes.object,
   handlePageChange: PropTypes.func,
   t: PropTypes.func,
-  pagination: PropTypes.string
+  pagination: PropTypes.string,
 }
 
 export default translate('pagination')(PaginationDemoView)

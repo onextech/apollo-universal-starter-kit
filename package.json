@@ -9,25 +9,6 @@
   "cacheDirectories": [
     ".cache"
   ],
-  "scripts": {
-    "build": "lerna run build --stream",
-    "clean": "lerna run clean --stream",
-    "exp": "yarn --cwd packages/mobile exp",
-    "start": "lerna run --scope=server start --stream",
-    "tests": "lerna run tests --stream",
-    "tests:watch": "lerna run tests:watch --stream",
-    "test": "yarn tests && yarn lint",
-    "eslint": "eslint --fix --ext js --ext jsx --ext json .",
-    "tslint": "tslint --fix -p tsconfig.json -c tslint.json",
-    "lint": "yarn eslint && yarn tslint",
-    "seed": "lerna run --scope=server seed --stream",
-    "exp-publish": "lerna run --scope=mobile exp-publish --stream",
-    "watch": "spin watch",
-    "heroku-postbuild": "lerna run heroku-postbuild --stream",
-    "cli": "node tools/cli",
-    "precommit": "lint-staged",
-    "postinstall": "opencollective postinstall"
-  },
   "lint-staged": {
     "*.{js,jsx,json}": [
       "eslint --fix",
@@ -95,5 +76,24 @@
     "graphql": "0.13.0",
     "iterall": "^1.2.2",
     "upath": "^1.1.0"
+  },
+  "scripts": {
+    "build": "lerna run build --stream",
+    "clean": "lerna run clean --stream",
+    "exp": "yarn --cwd packages/mobile exp",
+    "start": "lerna run --scope=server start --stream",
+    "tests": "lerna run tests --stream",
+    "tests:watch": "lerna run tests:watch --stream",
+    "test": "yarn tests && yarn lint",
+    "eslint": "eslint --fix --ext js --ext jsx --ext json .",
+    "tslint": "tslint --fix -p tsconfig.json -c tslint.json",
+    "lint": "yarn eslint && yarn tslint",
+    "seed": "lerna run --scope=server seed --stream",
+    "exp-publish": "lerna run --scope=mobile exp-publish --stream",
+    "watch": "spin watch",
+    "heroku-postbuild": "lerna run heroku-postbuild --stream",
+    "cli": "node tools/cli",
+    "precommit": "lint-staged",
+    "postinstall": "opencollective postinstall"
   }
 }

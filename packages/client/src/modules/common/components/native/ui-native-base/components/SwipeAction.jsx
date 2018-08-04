@@ -25,7 +25,7 @@ const SwipeAction = ({ children, onPress, right, ...props }) => {
 SwipeAction.propTypes = {
   children: PropTypes.node,
   right: PropTypes.object,
-  onPress: PropTypes.func
+  onPress: PropTypes.func,
 }
 
 export default SwipeAction

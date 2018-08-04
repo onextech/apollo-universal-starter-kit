@@ -17,7 +17,7 @@ exports.up = function(knex, Promise) {
           .onDelete('CASCADE')
         table.string('content')
         table.timestamps(false, true)
-      })
+      }),
   ])
 }
 

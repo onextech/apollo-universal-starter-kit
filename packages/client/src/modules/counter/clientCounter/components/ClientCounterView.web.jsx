@@ -18,7 +18,7 @@ export const ClientCounterView = ({ text, children }) => (
 
 ClientCounterView.propTypes = {
   text: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export const ClientCounterButton = ({ onClick, text }) => (
@@ -29,5 +29,5 @@ export const ClientCounterButton = ({ onClick, text }) => (
 
 ClientCounterButton.propTypes = {
   onClick: PropTypes.func,
-  text: PropTypes.string
+  text: PropTypes.string,
 }

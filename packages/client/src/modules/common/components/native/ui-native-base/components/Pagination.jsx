@@ -9,7 +9,7 @@ export default class Pagination extends React.Component {
     handlePageChange: PropTypes.func,
     pagination: PropTypes.string,
     loadMoreText: PropTypes.string,
-    hasNextPage: PropTypes.bool
+    hasNextPage: PropTypes.bool,
   };
 
   state = { pageNumber: 1, pagination: this.props.pagination };
@@ -24,7 +24,7 @@ export default class Pagination extends React.Component {
         const newPageNumber = prevState.pageNumber - 1
         this.props.handlePageChange(this.props.pagination, newPageNumber)
         return {
-          pageNumber: newPageNumber
+          pageNumber: newPageNumber,
         }
       })
     }
@@ -36,7 +36,7 @@ export default class Pagination extends React.Component {
         const newPageNumber = prevState.pageNumber + 1
         this.props.handlePageChange(this.props.pagination, newPageNumber)
         return {
-          pageNumber: newPageNumber
+          pageNumber: newPageNumber,
         }
       })
     }
@@ -89,32 +89,32 @@ const styles = StyleSheet.create({
   paginationContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   text: {
     fontSize: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   button: {
     paddingLeft: 40,
-    paddingRight: 40
+    paddingRight: 40,
   },
   buttonText: {
     color: 'white',
-    fontSize: 20
+    fontSize: 20,
   },
   loadMoreView: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   loadMoreButton: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   loadMoreButtonText: {
-    color: 'white'
-  }
+    color: 'white',
+  },
 })

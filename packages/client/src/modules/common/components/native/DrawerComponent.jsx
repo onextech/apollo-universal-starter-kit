@@ -8,8 +8,8 @@ import modules from '../../../'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20
-  }
+    paddingTop: 20,
+  },
 })
 
 const DrawerComponent = (props) => {
@@ -31,7 +31,7 @@ const DrawerComponent = (props) => {
 }
 
 DrawerComponent.propTypes = {
-  onItemPress: PropTypes.func
+  onItemPress: PropTypes.func,
 }
 
 export default DrawerComponent

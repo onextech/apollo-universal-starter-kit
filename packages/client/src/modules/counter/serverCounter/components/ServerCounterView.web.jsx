@@ -19,7 +19,7 @@ export const ServerCounterView = ({ t, children, counter, loading }) => {
   } else {
     return (
       <Section>
-        <p>{t('text', { amount: counter.amount })}</p>
+        <p>{t('text', { amount: counter && counter.amount })}</p>
         {children}
       </Section>
     )
@@ -30,7 +30,7 @@ ServerCounterView.propTypes = {
   t: PropTypes.func,
   children: PropTypes.node,
   serverCounter: PropTypes.object,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 }
 
 export const ServerCounterButton = ({ onClick, text }) => (
@@ -41,5 +41,5 @@ export const ServerCounterButton = ({ onClick, text }) => (
 
 ServerCounterButton.propTypes = {
   onClick: PropTypes.func,
-  text: PropTypes.string
+  text: PropTypes.string,
 }

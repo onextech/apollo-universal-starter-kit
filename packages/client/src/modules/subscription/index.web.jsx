@@ -24,7 +24,7 @@ export default new Feature({
     ? [
         <AuthRoute exact role='user' path='/subscription' component={Subscription} />,
         <SubscriberRoute exact path='/subscribers-only' component={SubscribersOnly} />,
-        <SubscriberRoute exact path='/update-card' component={UpdateCard} />
+        <SubscriberRoute exact path='/update-card' component={UpdateCard} />,
       ]
     : [],
   navItem: settings.subscription.enabled ? (
@@ -39,5 +39,5 @@ export default new Feature({
   reducer: { subscription: reducers },
   scriptsInsert:
     settings.subscription.enabled && settings.subscription.stripeSecretKey ? 'https://js.stripe.com/v3/' : undefined,
-  localization: { ns: 'subscription', resources }
+  localization: { ns: 'subscription', resources },
 })

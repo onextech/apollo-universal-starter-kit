@@ -14,7 +14,7 @@ export default (pubsub) => ({
       posts.map((post, index) => {
         edgesArray.push({
           cursor: after + index,
-          node: post
+          node: post,
         })
       })
       const endCursor = edgesArray.length > 0 ? edgesArray[edgesArray.length - 1].cursor : 0
@@ -25,18 +25,18 @@ export default (pubsub) => ({
         edges: edgesArray,
         pageInfo: {
           endCursor: endCursor,
-          hasNextPage: hasNextPage
-        }
+          hasNextPage: hasNextPage,
+        },
       }
     },
     post(obj, { id }, context) {
       return context.Post.post(id)
-    }
+    },
   },
   Post: {
     comments: createBatchResolver((sources, args, context) => {
       return context.Post.getCommentsForPostIds(sources.map(({ id }) => id))
-    })
+    }),
   },
   Mutation: {
     async addPost(obj, { input }, context) {
@@ -47,8 +47,8 @@ export default (pubsub) => ({
         postsUpdated: {
           mutation: 'CREATED',
           id,
-          node: post
-        }
+          node: post,
+        },
       })
       return post
     },
@@ -61,16 +61,16 @@ export default (pubsub) => ({
           postsUpdated: {
             mutation: 'DELETED',
             id,
-            node: post
-          }
+            node: post,
+          },
         })
         // publish for edit post page
         pubsub.publish(POST_SUBSCRIPTION, {
           postUpdated: {
             mutation: 'DELETED',
             id,
-            node: post
-          }
+            node: post,
+          },
         })
         return { id: post.id }
       } else {
@@ -85,16 +85,16 @@ export default (pubsub) => ({
         postsUpdated: {
           mutation: 'UPDATED',
           id: post.id,
-          node: post
-        }
+          node: post,
+        },
       })
       // publish for edit post page
       pubsub.publish(POST_SUBSCRIPTION, {
         postUpdated: {
           mutation: 'UPDATED',
           id: post.id,
-          node: post
-        }
+          node: post,
+        },
       })
       return post
     },
@@ -107,15 +107,15 @@ export default (pubsub) => ({
           mutation: 'CREATED',
           id: comment.id,
           postId: input.postId,
-          node: comment
-        }
+          node: comment,
+        },
       })
       return comment
     },
     async deleteComment(
       obj,
       {
-        input: { id, postId }
+        input: { id, postId },
       },
       context
     ) {
@@ -126,8 +126,8 @@ export default (pubsub) => ({
           mutation: 'DELETED',
           id,
           postId,
-          node: null
-        }
+          node: null,
+        },
       })
       return { id }
     },
@@ -140,11 +140,11 @@ export default (pubsub) => ({
           mutation: 'UPDATED',
           id: input.id,
           postId: input.postId,
-          node: comment
-        }
+          node: comment,
+        },
       })
       return comment
-    }
+    },
   },
   Subscription: {
     postUpdated: {
@@ -153,7 +153,7 @@ export default (pubsub) => ({
         (payload, variables) => {
           return payload.postUpdated.id === variables.id
         }
-      )
+      ),
     },
     postsUpdated: {
       subscribe: withFilter(
@@ -161,7 +161,7 @@ export default (pubsub) => ({
         (payload, variables) => {
           return variables.endCursor <= payload.postsUpdated.id
         }
-      )
+      ),
     },
     commentUpdated: {
       subscribe: withFilter(
@@ -169,7 +169,7 @@ export default (pubsub) => ({
         (payload, variables) => {
           return payload.commentUpdated.postId === variables.postId
         }
-      )
-    }
-  }
+      ),
+    },
+  },
 })

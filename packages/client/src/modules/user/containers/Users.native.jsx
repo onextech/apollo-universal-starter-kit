@@ -10,7 +10,7 @@ import {
   withUsersDeleting,
   withOrderByUpdating,
   withFilterUpdating,
-  subscribeToUsersList
+  subscribeToUsersList,
 } from './UserOperations'
 
 class Users extends React.Component {
@@ -61,19 +61,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   filterContainer: {
     flex: 5,
     borderWidth: 1,
     borderColor: '#e3e3e3',
     marginBottom: 15,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   usersListContainer: {
     flex: 8,
-    marginTop: 15
-  }
+    marginTop: 15,
+  },
 })
 
 Users.propTypes = {
@@ -81,7 +81,7 @@ Users.propTypes = {
   navigation: PropTypes.object,
   users: PropTypes.array,
   subscribeToMore: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 }
 
 export default compose(

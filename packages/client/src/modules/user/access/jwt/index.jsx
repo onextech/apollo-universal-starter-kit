@@ -19,7 +19,7 @@ const setJWTContext = async (operation) => {
       : {}
   operation.setContext((context) => ({
     ...context,
-    headers
+    headers,
   }))
 }
 
@@ -61,9 +61,9 @@ const JWTLink = new ApolloLink((operation, forward) => {
                   const {
                     data: {
                       login: {
-                        tokens: { accessToken, refreshToken }
-                      }
-                    }
+                        tokens: { accessToken, refreshToken },
+                      },
+                    },
                   } = result
                   await saveTokens({ accessToken, refreshToken })
                 } else {
@@ -85,11 +85,11 @@ const JWTLink = new ApolloLink((operation, forward) => {
                 try {
                   const {
                     data: {
-                      refreshTokens: { accessToken, refreshToken }
-                    }
+                      refreshTokens: { accessToken, refreshToken },
+                    },
                   } = await apolloClient.mutate({
                     mutation: REFRESH_TOKENS_MUTATION,
-                    variables: { refreshToken: await getItem('refreshToken') }
+                    variables: { refreshToken: await getItem('refreshToken') },
                   })
                   await saveTokens({ accessToken, refreshToken })
                   // Retry current operation
@@ -110,7 +110,7 @@ const JWTLink = new ApolloLink((operation, forward) => {
               queue.length = 0
               observer.complete()
             })
-          }
+          },
         })
       } catch (e) {
         observer.error(e)
@@ -150,10 +150,10 @@ class DataRootComponent extends React.Component {
         // access token and refresh token. In this case we need to trigger our JWT link
         // by sending network request
         const {
-          data: { currentUser }
+          data: { currentUser },
         } = await client.query({
           query: CURRENT_USER_QUERY,
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         })
         if (currentUser) {
           // If we have received current user, then we had invalid Apollo Cache previously
@@ -179,7 +179,7 @@ class DataRootComponent extends React.Component {
 
 DataRootComponent.propTypes = {
   client: PropTypes.object,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export default new Feature(
@@ -187,7 +187,7 @@ export default new Feature(
     ? {
         dataRootComponent: withApollo(DataRootComponent),
         link: __CLIENT__ ? JWTLink : undefined,
-        logout: removeTokens
+        logout: removeTokens,
       }
     : {}
 )

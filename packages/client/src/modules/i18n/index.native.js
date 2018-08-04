@@ -23,7 +23,7 @@ const languageDetector = {
   init: () => {},
   cacheUserLanguage: async (lng) => {
     setItem('i18nextLng', lng)
-  }
+  },
 }
 
 const I18nProvider = ({ i18n, children }) => {
@@ -46,7 +46,7 @@ const I18nProvider = ({ i18n, children }) => {
 
 I18nProvider.propTypes = {
   i18n: PropTypes.object,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 i18n
@@ -58,11 +58,11 @@ i18n
     debug: false, // set true to show logs
     whitelist: settings.i18n.langList,
     interpolation: {
-      escapeValue: false // not needed for react!!
+      escapeValue: false, // not needed for react!!
     },
     react: {
-      wait: false
-    }
+      wait: false,
+    },
   })
 
 const langPicker = {}
@@ -71,10 +71,10 @@ if (settings.i18n.enabled && settings.i18n.langPickerRender) {
     LangPicker: {
       screen: () => null,
       navigationOptions: {
-        drawerLabel: <LanguagePicker key={'picker'} i18n={i18n} />
+        drawerLabel: <LanguagePicker key={'picker'} i18n={i18n} />,
       },
-      skip: true
-    }
+      skip: true,
+    },
   }
 }
 
@@ -84,7 +84,7 @@ export default new Feature(
         ...langPicker,
         localization: { ns: 'i18n', resources },
         // eslint-disable-next-line react/display-name
-        rootComponentFactory: () => <I18nProvider i18n={i18n} />
+        rootComponentFactory: () => <I18nProvider i18n={i18n} />,
       }
     : {}
 )

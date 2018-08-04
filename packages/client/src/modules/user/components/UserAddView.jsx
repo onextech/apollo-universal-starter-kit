@@ -10,7 +10,7 @@ class UserAddView extends React.PureComponent {
   static propTypes = {
     addUser: PropTypes.func.isRequired,
     t: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
   };
 
   render() {
@@ -30,8 +30,8 @@ class UserAddView extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })
 
 export default withLoadedUser(translate('user')(UserAddView))

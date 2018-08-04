@@ -10,7 +10,7 @@ const SubscribersOnly = ({ loading, number }) => <SubscribersOnlyView loading={l
 
 SubscribersOnly.propTypes = {
   loading: PropTypes.bool.isRequired,
-  number: PropTypes.number
+  number: PropTypes.number,
 }
 
 const SubscribersOnlyWithApollo = compose(
@@ -18,7 +18,7 @@ const SubscribersOnlyWithApollo = compose(
     options: { fetchPolicy: 'network-only' },
     props({ data: { loading, subscribersOnlyNumber } }) {
       return { loading, number: subscribersOnlyNumber && subscribersOnlyNumber.number }
-    }
+    },
   })
 )(SubscribersOnly)
 

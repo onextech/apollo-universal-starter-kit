@@ -21,7 +21,7 @@ app.enable('trust proxy')
 
 const corsOptions = {
   credentials: true,
-  origin: true
+  origin: true,
 }
 app.use(cors(corsOptions))
 
@@ -46,7 +46,7 @@ app.use((...args) => websiteMiddleware(...args))
 app.use(
   '/',
   express.static(__FRONTEND_BUILD_DIR__, {
-    maxAge: '180 days'
+    maxAge: '180 days',
   })
 )
 

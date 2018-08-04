@@ -9,12 +9,12 @@ import settings from '../../../../../../../../../settings'
 
 class NavBar extends React.Component {
   state = {
-    current: '/'
+    current: '/',
   };
 
   handleClick = (e) => {
     this.setState({
-      current: e.key
+      current: e.key,
     })
   };
 
@@ -59,7 +59,7 @@ class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
 }
 
 export default withRouter(NavBar)

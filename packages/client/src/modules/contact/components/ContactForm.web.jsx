@@ -10,7 +10,7 @@ import { email, minLength, required, validateForm } from '../../../../../common/
 const contactFormSchema = {
   name: [required, minLength(3)],
   email: [required, email],
-  content: [required, minLength(10)]
+  content: [required, minLength(10)],
 }
 
 const validate = (values) => validateForm(values, contactFormSchema)
@@ -45,7 +45,7 @@ ContactForm.propTypes = {
   error: PropTypes.string,
   sent: PropTypes.bool,
   values: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const ContactFormWithFormik = withFormik({
@@ -55,14 +55,14 @@ const ContactFormWithFormik = withFormik({
     values,
     {
       resetForm,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     await onSubmit(values)
     resetForm()
   },
   validate: (values) => validate(values),
-  displayName: 'ContactUsForm' // helps with React DevTools
+  displayName: 'ContactUsForm', // helps with React DevTools
 })
 
 export default translate('contact')(ContactFormWithFormik(ContactForm))

@@ -6,7 +6,7 @@ const Select = ({ children, ...props }) => {
 }
 
 Select.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export default Select

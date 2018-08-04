@@ -9,7 +9,7 @@ import { ServerCounter } from '../serverCounter'
 
 class Counter extends React.Component {
   static propTypes = {
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   constructor(props) {
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'center',
-    paddingHorizontal: 15
-  }
+    paddingHorizontal: 15,
+  },
 })
 
 export default translate('counter')(Counter)

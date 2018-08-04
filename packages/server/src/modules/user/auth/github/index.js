@@ -18,14 +18,14 @@ if (settings.user.auth.github.enabled && !__TEST__) {
         clientID: settings.user.auth.github.clientID,
         clientSecret: settings.user.auth.github.clientSecret,
         scope: settings.user.auth.github.scope,
-        callbackURL: '/auth/github/callback'
+        callbackURL: '/auth/github/callback',
       },
       async function(accessToken, refreshToken, profile, cb) {
         const {
           id,
           username,
           displayName,
-          emails: [{ value }]
+          emails: [{ value }],
         } = profile
         try {
           let user = await User.getUserByGHIdOrEmail(id, value)
@@ -36,13 +36,13 @@ if (settings.user.auth.github.enabled && !__TEST__) {
               username: username ? username : displayName,
               email: value,
               password: id,
-              isActive
+              isActive,
             })
 
             await User.createGithubAuth({
               id,
               displayName,
-              userId: createdUserId
+              userId: createdUserId,
             })
 
             user = await User.getUser(createdUserId)
@@ -50,7 +50,7 @@ if (settings.user.auth.github.enabled && !__TEST__) {
             await User.createGithubAuth({
               id,
               displayName,
-              userId: user.id
+              userId: user.id,
             })
           }
           return cb(null, pick(user, ['id', 'username', 'role', 'email']))
@@ -82,7 +82,7 @@ if (settings.user.auth.github.enabled && !__TEST__) {
                 ? '?data=' +
                   JSON.stringify({
                     tokens,
-                    user: currentUser.data
+                    user: currentUser.data,
                   })
                 : '')
           )

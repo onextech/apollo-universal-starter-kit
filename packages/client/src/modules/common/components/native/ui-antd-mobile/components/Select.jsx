@@ -38,7 +38,7 @@ Select.propTypes = {
   icon: PropTypes.bool,
   iconName: PropTypes.string,
   iconColor: PropTypes.string,
-  iconSize: PropTypes.number
+  iconSize: PropTypes.number,
 }
 
 const styles = StyleSheet.create(SelectStyles)

@@ -12,7 +12,7 @@ const grant = async (user) => {
 
   return {
     accessToken,
-    refreshToken
+    refreshToken,
   }
 }
 
@@ -41,7 +41,7 @@ export default new Feature(
         grant,
         schema,
         createResolversFunc: resolvers,
-        createContextFunc
+        createContextFunc,
       }
     : {}
 )

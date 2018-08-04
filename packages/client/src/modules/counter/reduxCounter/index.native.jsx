@@ -15,16 +15,16 @@ export default new Feature({
     Counter: {
       screen: createStackNavigator({
         Counter: {
-          screen: ReduxCounter
-        }
+          screen: ReduxCounter,
+        },
       }),
       navigationOptions: {
-        drawerLabel: <HeaderTitleWithI18n i18nKey='title' />
-      }
-    }
+        drawerLabel: <HeaderTitleWithI18n i18nKey='title' />,
+      },
+    },
   },
   reducer: { counter: reducers },
-  localization: { ns: 'reduxCounter', resources }
+  localization: { ns: 'reduxCounter', resources },
 })
 
 export { ReduxCounter }

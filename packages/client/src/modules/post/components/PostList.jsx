@@ -13,15 +13,15 @@ class PostList extends React.PureComponent {
     navigation: PropTypes.object,
     deletePost: PropTypes.func.isRequired,
     loadData: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   keyExtractor = (item) => `${item.node.id}`;
 
   renderItemIOS = ({
     item: {
-      node: { id, title }
-    }
+      node: { id, title },
+    },
   }) => {
     const { deletePost, navigation, t } = this.props
     return (
@@ -29,7 +29,7 @@ class PostList extends React.PureComponent {
         onPress={() => navigation.navigate('PostEdit', { id })}
         right={{
           text: t('list.btn.del'),
-          onPress: () => deletePost(id)
+          onPress: () => deletePost(id),
         }}
       >
         {title}
@@ -39,8 +39,8 @@ class PostList extends React.PureComponent {
 
   renderItemAndroid = ({
     item: {
-      node: { id, title }
-    }
+      node: { id, title },
+    },
   }) => {
     const { deletePost, navigation } = this.props
     return (
@@ -56,9 +56,9 @@ class PostList extends React.PureComponent {
   handleScrollEvent = () => {
     const {
       posts: {
-        pageInfo: { endCursor }
+        pageInfo: { endCursor },
       },
-      loadData
+      loadData,
     } = this.props
     if (this.allowDataLoad) {
       if (this.props.posts.pageInfo.hasNextPage) {
@@ -98,10 +98,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   text: {
-    fontSize: 18
+    fontSize: 18,
   },
   iconWrapper: {
     backgroundColor: 'transparent',
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   postWrapper: {
     flex: 1,
@@ -120,9 +120,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#000',
     borderBottomWidth: 0.3,
     height: 50,
-    paddingLeft: 7
+    paddingLeft: 7,
   },
   list: {
-    marginTop: 5
-  }
+    marginTop: 5,
+  },
 })

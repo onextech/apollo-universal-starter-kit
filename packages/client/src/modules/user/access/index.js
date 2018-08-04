@@ -13,5 +13,5 @@ const logout = (client) => {
 
 export default new Feature(jwt, session, {
   login,
-  logout
+  logout,
 })

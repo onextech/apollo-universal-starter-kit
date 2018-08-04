@@ -28,7 +28,7 @@ const renderServerSide = async (req, res) => {
     apiUrl,
     createNetLink: !isApiExternal ? () => schemaLink : undefined,
     links: clientModules.link,
-    clientResolvers: clientModules.resolvers
+    clientResolvers: clientModules.resolvers,
   })
 
   let initialState = {}

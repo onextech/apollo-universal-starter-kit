@@ -19,12 +19,12 @@ export default new Feature({
 
     return {
       Subscription,
-      subscription
+      subscription,
     }
   },
   middleware: (app) => {
     app.use(stripeLocalMiddleware())
     app.post('/stripe/webhook', webhookMiddleware)
   },
-  localization: { ns: 'subscription', resources }
+  localization: { ns: 'subscription', resources },
 })

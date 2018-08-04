@@ -20,6 +20,6 @@ export default compose(
     props({ data: { loading, error, currentUser } }) {
       if (error) throw new Error(error)
       return { loading, currentUser }
-    }
+    },
   })
 )(Profile)

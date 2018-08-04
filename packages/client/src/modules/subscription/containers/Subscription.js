@@ -33,7 +33,7 @@ const SubscriptionViewWithApollo = compose(
       subscribe: async ({ token, expiryMonth, expiryYear, last4, brand }) => {
         try {
           const {
-            data: { subscribe }
+            data: { subscribe },
           } = await mutate({
             variables: { input: { token, expiryMonth, expiryYear, last4, brand } },
             update: (store, { data: { subscribe } }) => {
@@ -41,7 +41,7 @@ const SubscriptionViewWithApollo = compose(
               data.subscription = subscribe
               store.writeQuery({ query: SUBSCRIPTION_QUERY, data })
             },
-            refetchQueries: [{ query: CARD_INFO }]
+            refetchQueries: [{ query: CARD_INFO }],
           })
 
           if (subscribe.errors) {
@@ -59,8 +59,8 @@ const SubscriptionViewWithApollo = compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(Subscription)
 

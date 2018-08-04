@@ -14,8 +14,8 @@ const createContextFunc = async ({ context: { user } }) => ({
   user,
   auth: {
     isAuthenticated: !!user,
-    scope: user ? scopes[user.role] : null
-  }
+    scope: user ? scopes[user.role] : null,
+  },
 })
 
 export default new Feature(access, auth, {
@@ -27,5 +27,5 @@ export default new Feature(access, auth, {
       app.get('/confirmation/:token', confirmMiddleware)
     }
   },
-  localization: { ns: 'user', resources }
+  localization: { ns: 'user', resources },
 })

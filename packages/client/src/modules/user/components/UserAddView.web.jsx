@@ -15,7 +15,7 @@ class UserAddView extends React.PureComponent {
     addUser: PropTypes.func.isRequired,
     history: PropTypes.object,
     t: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
   };
 
   constructor(props) {
@@ -37,8 +37,8 @@ class UserAddView extends React.PureComponent {
       meta={[
         {
           name: 'description',
-          content: `${settings.app.name} - ${t('userEdit.meta')}`
-        }
+          content: `${settings.app.name} - ${t('userEdit.meta')}`,
+        },
       ]}
     />
   );

@@ -8,7 +8,7 @@ import translate from '../../../i18n'
 class RegisterView extends React.PureComponent {
   static propTypes = {
     register: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   onSubmit = async (values) => {
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'stretch',
-    flex: 1
-  }
+    flex: 1,
+  },
 })
 
 export default translate('user')(RegisterView)

@@ -16,7 +16,7 @@ IconButton.propTypes = {
   onPress: PropTypes.func,
   iconName: PropTypes.string,
   iconSize: PropTypes.number,
-  iconColor: PropTypes.string
+  iconColor: PropTypes.string,
 }
 
 export default IconButton

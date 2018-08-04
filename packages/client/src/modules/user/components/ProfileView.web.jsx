@@ -17,8 +17,8 @@ const renderMetaData = (t) => {
       meta={[
         {
           name: 'description',
-          content: `${settings.app.name} - ${t('profile.meta')}`
-        }
+          content: `${settings.app.name} - ${t('profile.meta')}`,
+        },
       ]}
     />
   )
@@ -82,7 +82,7 @@ const ProfileView = ({ currentUserLoading, currentUser, t }) => {
 ProfileView.propTypes = {
   currentUserLoading: PropTypes.bool,
   currentUser: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 export default translate('user')(ProfileView)

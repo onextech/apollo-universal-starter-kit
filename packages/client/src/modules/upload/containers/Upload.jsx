@@ -16,47 +16,47 @@ const UploadWithApollo = compose(
   graphql(FILES_QUERY, {
     options: () => {
       return {
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-and-network',
       }
     },
     props({ data: { loading, error, files, refetch } }) {
       if (error) throw new Error(error)
       return { loading, files, refetch }
-    }
+    },
   }),
   graphql(UPLOAD_FILES, {
     props: ({ ownProps: { refetch }, mutate }) => ({
       uploadFiles: async (files) => {
         try {
           const {
-            data: { uploadFiles }
+            data: { uploadFiles },
           } = await mutate({
-            variables: { files }
+            variables: { files },
           })
           refetch()
           return uploadFiles
         } catch (e) {
           return { error: e.graphQLErrors[0].message }
         }
-      }
-    })
+      },
+    }),
   }),
   graphql(REMOVE_FILE, {
     props: ({ ownProps: { refetch }, mutate }) => ({
       removeFile: async (id) => {
         try {
           const {
-            data: { removeFile }
+            data: { removeFile },
           } = await mutate({
-            variables: { id }
+            variables: { id },
           })
           refetch()
           return removeFile
         } catch (e) {
           return { error: e.graphQLErrors[0].message }
         }
-      }
-    })
+      },
+    }),
   })
 )(Upload)
 

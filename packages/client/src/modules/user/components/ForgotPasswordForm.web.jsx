@@ -8,7 +8,7 @@ import { Form, RenderField, Button, Alert } from '../../common/components/web'
 import { required, email, validateForm } from '../../../../../common/validation'
 
 const forgotPasswordFormSchema = {
-  email: [required, email]
+  email: [required, email],
 }
 
 const validate = (values) => validateForm(values, forgotPasswordFormSchema)
@@ -40,7 +40,7 @@ ForgotPasswordForm.propTypes = {
   error: PropTypes.string,
   sent: PropTypes.bool,
   values: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const ForgotPasswordFormWithFormik = withFormik({
@@ -51,7 +51,7 @@ const ForgotPasswordFormWithFormik = withFormik({
     {
       setErrors,
       resetForm,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     await onSubmit(values)
@@ -59,7 +59,7 @@ const ForgotPasswordFormWithFormik = withFormik({
       .catch((e) => setErrors(e))
   },
   validate: (values) => validate(values),
-  displayName: 'ForgotPasswordForm' // helps with React DevTools
+  displayName: 'ForgotPasswordForm', // helps with React DevTools
 })
 
 export default translate('user')(ForgotPasswordFormWithFormik(ForgotPasswordForm))

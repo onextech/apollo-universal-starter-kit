@@ -52,25 +52,25 @@ export default compose(
       }
 
       return {
-        variables: { id }
+        variables: { id },
       }
     },
     props({ data: { loading, user } }) {
       const userPayload = user ? { user: user.user, errors: user.errors } : {}
       return {
         loading,
-        ...userPayload
+        ...userPayload,
       }
-    }
+    },
   }),
   graphql(EDIT_USER, {
     props: ({ ownProps: { history, navigation, location }, mutate }) => ({
       editUser: async (input) => {
         try {
           const {
-            data: { editUser }
+            data: { editUser },
           } = await mutate({
-            variables: { input }
+            variables: { input },
           })
           if (editUser.errors) {
             return { errors: editUser.errors }
@@ -88,7 +88,7 @@ export default compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(UserEdit)

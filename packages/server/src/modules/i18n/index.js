@@ -22,8 +22,8 @@ const initI18n = (i18n, i18nMiddleware) => {
     whitelist: settings.i18n.langList,
     preload: settings.i18n.langList,
     detection: {
-      lookupCookie: settings.i18n.cookie
-    }
+      lookupCookie: settings.i18n.cookie,
+    },
   })
   addResourcesI18n(i18n)
 }
@@ -48,5 +48,5 @@ export default new Feature({
         next()
       })
     }
-  }
+  },
 })

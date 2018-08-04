@@ -12,11 +12,11 @@ class UsersView extends React.PureComponent {
     orderBy: PropTypes.object,
     onOrderBy: PropTypes.func.isRequired,
     deleteUser: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   state = {
-    errors: []
+    errors: [],
   };
 
   handleDeleteUser = async (id) => {
@@ -55,7 +55,7 @@ class UsersView extends React.PureComponent {
       } else if (orderBy.order === 'desc') {
         return onOrderBy({
           column: '',
-          order: ''
+          order: '',
         })
       }
     }
@@ -80,7 +80,7 @@ class UsersView extends React.PureComponent {
           <Link className='user-link' to={`/users/${record.id}`}>
             {text}
           </Link>
-        )
+        ),
       },
       {
         title: (
@@ -89,7 +89,7 @@ class UsersView extends React.PureComponent {
           </a>
         ),
         dataIndex: 'email',
-        key: 'email'
+        key: 'email',
       },
       {
         title: (
@@ -98,7 +98,7 @@ class UsersView extends React.PureComponent {
           </a>
         ),
         dataIndex: 'role',
-        key: 'role'
+        key: 'role',
       },
       {
         title: (
@@ -108,7 +108,7 @@ class UsersView extends React.PureComponent {
         ),
         dataIndex: 'isActive',
         key: 'isActive',
-        render: (text) => text.toString()
+        render: (text) => text.toString(),
       },
       {
         title: t('users.column.actions'),
@@ -117,8 +117,8 @@ class UsersView extends React.PureComponent {
           <Button color='primary' size='sm' onClick={() => this.handleDeleteUser(record.id)}>
             {t('users.btn.delete')}
           </Button>
-        )
-      }
+        ),
+      },
     ]
 
     if (loading && !users) {

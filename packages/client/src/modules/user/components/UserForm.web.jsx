@@ -12,19 +12,19 @@ import settings from '../../../../../../settings'
 
 const userFormSchema = {
   username: [required, minLength(3)],
-  email: [required, email]
+  email: [required, email],
 }
 
 const createUserFormSchema = {
   ...userFormSchema,
   password: [required, minLength(8)],
-  passwordConfirmation: [required, match('password'), minLength(8)]
+  passwordConfirmation: [required, match('password'), minLength(8)],
 }
 
 const updateUserFormSchema = {
   ...userFormSchema,
   password: minLength(8),
-  passwordConfirmation: [match('password'), minLength(8)]
+  passwordConfirmation: [match('password'), minLength(8)],
 }
 
 const validate = (values, createNew) => validateForm(values, createNew ? createUserFormSchema : updateUserFormSchema)
@@ -125,7 +125,7 @@ UserForm.propTypes = {
   errors: PropTypes.object,
   initialValues: PropTypes.object.isRequired,
   touched: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const UserFormWithFormik = withFormik({
@@ -140,24 +140,24 @@ const UserFormWithFormik = withFormik({
       passwordConfirmation: '',
       profile: {
         firstName: profile && profile.firstName,
-        lastName: profile && profile.lastName
+        lastName: profile && profile.lastName,
       },
       auth: {
-        ...values.initialValues.auth
-      }
+        ...values.initialValues.auth,
+      },
     }
   },
   async handleSubmit(
     values,
     {
       setErrors,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     await onSubmit(values).catch((e) => setErrors(e))
   },
   displayName: 'SignUpForm ', // helps with React DevTools
-  validate: (values, props) => validate(values, isEmpty(props.initialValues))
+  validate: (values, props) => validate(values, isEmpty(props.initialValues)),
 })
 
 export default translate('user')(UserFormWithFormik(UserForm))

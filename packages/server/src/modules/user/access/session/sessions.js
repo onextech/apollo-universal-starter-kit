@@ -23,7 +23,7 @@ export const writeSession = (req, session) => {
   const cookieParams = {
     httpOnly: true,
     maxAge: 7 * 24 * 3600,
-    path: '/'
+    path: '/',
   }
   req.universalCookies.set('session', encryptSession(session), cookieParams)
   req.universalCookies.set('x-token', session.csrfToken, cookieParams)

@@ -14,12 +14,12 @@ if (settings.engine.engineConfig.apiKey) {
       {
         backend: {
           url: apiUrl,
-          supportsBatch: true
-        }
-      }
+          supportsBatch: true,
+        },
+      },
     ],
     graphqlPort: serverPort, // GraphQL port
-    endpoint: url.parse(__API_URL__).pathname // GraphQL endpoint suffix - '/graphql' by default
+    endpoint: url.parse(__API_URL__).pathname, // GraphQL endpoint suffix - '/graphql' by default
   })
 
   engine.start()
@@ -30,5 +30,5 @@ export default new Feature({
     if (settings.engine.engineConfig.apiKey) {
       app.use(engine.expressMiddleware())
     }
-  }
+  },
 })

@@ -36,11 +36,11 @@ const CardInfoView = ({ loading, expiryMonth, expiryYear, last4, brand, t }) => 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   buttonWrapper: {
-    paddingHorizontal: 10
-  }
+    paddingHorizontal: 10,
+  },
 })
 
 CardInfoView.propTypes = {
@@ -49,7 +49,7 @@ CardInfoView.propTypes = {
   expiryYear: PropTypes.number,
   last4: PropTypes.string,
   brand: PropTypes.string,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 export default translate('subscription')(CardInfoView)

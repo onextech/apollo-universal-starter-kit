@@ -17,14 +17,14 @@ if (settings.user.auth.google.enabled && !__TEST__) {
       {
         clientID: settings.user.auth.google.clientID,
         clientSecret: settings.user.auth.google.clientSecret,
-        callbackURL: '/auth/google/callback'
+        callbackURL: '/auth/google/callback',
       },
       async function(accessToken, refreshToken, profile, cb) {
         const {
           id,
           username,
           displayName,
-          emails: [{ value }]
+          emails: [{ value }],
         } = profile
         try {
           let user = await User.getUserByGoogleIdOrEmail(id, value)
@@ -35,21 +35,21 @@ if (settings.user.auth.google.enabled && !__TEST__) {
               username: username ? username : value,
               email: value,
               password: id,
-              isActive
+              isActive,
             })
 
             await User.createGoogleOAuth({
               id,
               displayName,
-              userId: createdUserId
+              userId: createdUserId,
             })
 
             await User.editUserProfile({
               id: createdUserId,
               profile: {
                 firstName: profile.name.givenName,
-                lastName: profile.name.familyName
-              }
+                lastName: profile.name.familyName,
+              },
             })
 
             user = await User.getUser(createdUserId)
@@ -57,7 +57,7 @@ if (settings.user.auth.google.enabled && !__TEST__) {
             await User.createGoogleOAuth({
               id,
               displayName,
-              userId: user.id
+              userId: user.id,
             })
           }
 
@@ -74,7 +74,7 @@ if (settings.user.auth.google.enabled && !__TEST__) {
     app.get('/auth/google', (req, res, next) => {
       passport.authenticate('google', {
         scope: settings.user.auth.google.scope,
-        state: req.query.expoUrl
+        state: req.query.expoUrl,
       })(req, res, next)
     })
 
@@ -91,7 +91,7 @@ if (settings.user.auth.google.enabled && !__TEST__) {
               ? '?data=' +
                 JSON.stringify({
                   tokens,
-                  user: currentUser.data
+                  user: currentUser.data,
                 })
               : '')
         )

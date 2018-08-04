@@ -34,12 +34,12 @@ export default function withDataProvider(WrappedComponent) {
           totalCount: allEdges.length,
           pageInfo: {
             endCursor: endCursor,
-            hasNextPage: hasNextPage
+            hasNextPage: hasNextPage,
           },
           edges: edges,
           offset: offset,
-          limit: itemsNumber
-        }
+          limit: itemsNumber,
+        },
       })
     };
 

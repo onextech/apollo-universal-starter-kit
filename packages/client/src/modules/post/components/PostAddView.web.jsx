@@ -20,8 +20,8 @@ const PostAddView = ({ addPost, t }) => {
       meta={[
         {
           name: 'description',
-          content: t('post.meta')
-        }
+          content: t('post.meta'),
+        },
       ]}
     />
   )
@@ -42,7 +42,7 @@ const PostAddView = ({ addPost, t }) => {
 
 PostAddView.propTypes = {
   addPost: PropTypes.func.isRequired,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 export default translate('post')(PostAddView)

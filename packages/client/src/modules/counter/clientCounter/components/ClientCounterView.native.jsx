@@ -15,17 +15,17 @@ export const ClientCounterView = ({ text, children }) => (
 
 const styles = StyleSheet.create({
   element: {
-    paddingTop: 30
+    paddingTop: 30,
   },
   box: {
     textAlign: 'center',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 })
 
 ClientCounterView.propTypes = {
   text: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export const ClientCounterButton = ({ onClick, text }) => (
@@ -36,7 +36,7 @@ export const ClientCounterButton = ({ onClick, text }) => (
 
 ClientCounterButton.propTypes = {
   onClick: PropTypes.func,
-  text: PropTypes.string
+  text: PropTypes.string,
 }
 
 export default ClientCounterView

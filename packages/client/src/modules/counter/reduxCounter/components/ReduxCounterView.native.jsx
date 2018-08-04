@@ -15,17 +15,17 @@ export const ReduxCounterView = ({ text, children }) => (
 
 const styles = StyleSheet.create({
   element: {
-    paddingTop: 30
+    paddingTop: 30,
   },
   box: {
     textAlign: 'center',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 })
 
 ReduxCounterView.propTypes = {
   text: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export const ReduxCounterButton = ({ onClick, text }) => (
@@ -36,5 +36,5 @@ export const ReduxCounterButton = ({ onClick, text }) => (
 
 ReduxCounterButton.propTypes = {
   onClick: PropTypes.func,
-  text: PropTypes.string
+  text: PropTypes.string,
 }

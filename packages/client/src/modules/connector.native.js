@@ -17,7 +17,7 @@ export default class {
       resolver,
       routerFactory,
       rootComponentFactory,
-      data
+      data,
     },
     ...features
   ) {

@@ -34,7 +34,7 @@ class LoginView extends React.PureComponent {
     if (decodedData.user) {
       await client.writeQuery({
         query: CURRENT_USER_QUERY,
-        data: decodedData.user
+        data: decodedData.user,
       })
     }
 
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    padding: 10
+    padding: 10,
   },
   examplesArea: {
     borderWidth: 0.5,
@@ -93,34 +93,34 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#e3e3e3',
-    padding: 10
+    padding: 10,
   },
   examplesContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
     fontSize: 18,
     fontWeight: '600',
     textAlign: 'center',
-    color: placeholderColor
+    color: placeholderColor,
   },
   exampleText: {
     fontSize: 14,
     fontWeight: '400',
-    color: placeholderColor
+    color: placeholderColor,
   },
   loginContainer: {
-    flex: 3
-  }
+    flex: 3,
+  },
 })
 
 LoginView.propTypes = {
   login: PropTypes.func.isRequired,
   t: PropTypes.func,
   error: PropTypes.string,
-  navigation: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  navigation: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 }
 
 export default translate('user')(LoginView)

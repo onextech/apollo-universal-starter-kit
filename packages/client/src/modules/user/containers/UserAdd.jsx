@@ -49,9 +49,9 @@ export default compose(
       addUser: async (input) => {
         try {
           const {
-            data: { addUser }
+            data: { addUser },
           } = await mutate({
-            variables: { input }
+            variables: { input },
           })
 
           if (addUser.errors) {
@@ -67,7 +67,7 @@ export default compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(UserAdd)

@@ -87,5 +87,5 @@ export const reconcileBatchManyToMany = (
 export default {
   reconcileBatchOneToOne,
   reconcileBatchOneToMany,
-  reconcileBatchManyToMany
+  reconcileBatchManyToMany,
 }

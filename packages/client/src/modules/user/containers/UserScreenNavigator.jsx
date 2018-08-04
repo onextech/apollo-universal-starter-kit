@@ -11,7 +11,7 @@ class UserScreenNavigator extends React.Component {
     currentUser: PropTypes.object,
     context: PropTypes.object,
     currentUserLoading: PropTypes.bool.isRequired,
-    routeConfigs: PropTypes.object
+    routeConfigs: PropTypes.object,
   };
 
   shouldComponentUpdate(nextProps) {
@@ -55,7 +55,7 @@ class UserScreenNavigator extends React.Component {
       { ...this.navItemsFilter() },
       {
         contentComponent: DrawerComponent,
-        initialRouteName: this.getInitialRoute()
+        initialRouteName: this.getInitialRoute(),
       }
     )
 

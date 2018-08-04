@@ -9,7 +9,7 @@ import { placeholderColor } from '../../common/components/native/styles'
 import { required, validateForm } from '../../../../../common/validation'
 
 const commentFormSchema = {
-  content: [required]
+  content: [required],
 }
 
 const validate = (values) => validateForm(values, commentFormSchema)
@@ -40,7 +40,7 @@ PostCommentForm.propTypes = {
   onSubmit: PropTypes.func,
   submitting: PropTypes.bool,
   values: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const PostCommentFormWithFormik = withFormik({
@@ -51,7 +51,7 @@ const PostCommentFormWithFormik = withFormik({
     resetForm({ content: '' })
   },
   displayName: 'CommentForm', // helps with React DevTools
-  enableReinitialize: true
+  enableReinitialize: true,
 })
 
 export default translate('post')(PostCommentFormWithFormik(PostCommentForm))

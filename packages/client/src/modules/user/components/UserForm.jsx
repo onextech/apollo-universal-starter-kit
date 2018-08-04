@@ -15,7 +15,7 @@ const userFormSchema = {
   username: [required, minLength(3)],
   email: [required, email],
   password: [required, minLength(8)],
-  passwordConfirmation: [match('password'), required, minLength(8)]
+  passwordConfirmation: [match('password'), required, minLength(8)],
 }
 
 const handleRoleChange = (type, value, setFieldValue) => {
@@ -29,12 +29,12 @@ const UserForm = ({ values, handleSubmit, setFieldValue, t, shouldRoleDisplay, s
   const options = [
     {
       value: 'user',
-      label: t('userEdit.form.field.role.user')
+      label: t('userEdit.form.field.role.user'),
     },
     {
       value: 'admin',
-      label: t('userEdit.form.field.role.admin')
-    }
+      label: t('userEdit.form.field.role.admin'),
+    },
   ]
 
   const { username, email, role, isActive, profile, auth, password, passwordConfirmation } = values
@@ -151,7 +151,7 @@ UserForm.propTypes = {
   values: PropTypes.object,
   errors: PropTypes.object,
   initialValues: PropTypes.object.isRequired,
-  touched: PropTypes.object
+  touched: PropTypes.object,
 }
 
 const UserFormWithFormik = withFormik({
@@ -166,37 +166,37 @@ const UserFormWithFormik = withFormik({
       passwordConfirmation: '',
       profile: {
         firstName: profile && profile.firstName,
-        lastName: profile && profile.lastName
+        lastName: profile && profile.lastName,
       },
       auth: {
-        ...values.initialValues.auth
-      }
+        ...values.initialValues.auth,
+      },
     }
   },
   handleSubmit(
     values,
     {
       setErrors,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     onSubmit(values).catch((e) => setErrors(e))
   },
   displayName: 'SignUpForm ', // helps with React DevTools
-  validate: (values) => validate(values)
+  validate: (values) => validate(values),
 })
 
 const styles = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 20,
     justifyContent: 'center',
-    flex: 1
+    flex: 1,
   },
   submit,
   formView: {
     flex: 1,
-    alignSelf: 'stretch'
-  }
+    alignSelf: 'stretch',
+  },
 })
 
 export default translate('user')(UserFormWithFormik(UserForm))

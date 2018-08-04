@@ -20,5 +20,5 @@ export default new Feature({
       <NavLinkWithI18n />
     </MenuItem>
   ),
-  localization: { ns: 'pagination', resources }
+  localization: { ns: 'pagination', resources },
 })

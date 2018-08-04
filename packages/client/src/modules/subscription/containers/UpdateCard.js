@@ -32,10 +32,10 @@ const UpdateCardWithApollo = compose(
       updateCard: async ({ token, expiryMonth, expiryYear, last4, brand }) => {
         try {
           const {
-            data: { updateCard }
+            data: { updateCard },
           } = await mutate({
             variables: { input: { token, expiryMonth, expiryYear, last4, brand } },
-            refetchQueries: [{ query: CARD_INFO }]
+            refetchQueries: [{ query: CARD_INFO }],
           })
 
           if (!updateCard) {
@@ -49,8 +49,8 @@ const UpdateCardWithApollo = compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(UpdateCard)
 

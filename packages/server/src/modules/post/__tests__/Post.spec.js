@@ -20,7 +20,7 @@ describe('Post and comments example API works', () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
     })
 
     expect(result.data).to.deep.equal({
@@ -33,18 +33,18 @@ describe('Post and comments example API works', () => {
               id: 20,
               title: 'Post title 20',
               content: 'Post content 20',
-              __typename: 'Post'
+              __typename: 'Post',
             },
-            __typename: 'PostEdges'
-          }
+            __typename: 'PostEdges',
+          },
         ],
         pageInfo: {
           endCursor: 0,
           hasNextPage: true,
-          __typename: 'PostPageInfo'
+          __typename: 'PostPageInfo',
         },
-        __typename: 'Posts'
-      }
+        __typename: 'Posts',
+      },
     })
   })
 
@@ -61,15 +61,15 @@ describe('Post and comments example API works', () => {
           {
             id: 1,
             content: 'Comment title 1 for post 1',
-            __typename: 'Comment'
+            __typename: 'Comment',
           },
           {
             id: 2,
             content: 'Comment title 2 for post 1',
-            __typename: 'Comment'
-          }
-        ]
-      }
+            __typename: 'Comment',
+          },
+        ],
+      },
     })
   })
 
@@ -79,9 +79,9 @@ describe('Post and comments example API works', () => {
       variables: {
         input: {
           title: 'New post 1',
-          content: 'New post content 1'
-        }
-      }
+          content: 'New post content 1',
+        },
+      },
     })
 
     let subscription
@@ -89,7 +89,7 @@ describe('Post and comments example API works', () => {
     subscription = apollo
       .subscribe({
         query: POSTS_SUBSCRIPTION,
-        variables: { endCursor: 10 }
+        variables: { endCursor: 10 },
       })
       .subscribe({
         next(data) {
@@ -101,15 +101,15 @@ describe('Post and comments example API works', () => {
                   id: 21,
                   title: 'New post 1',
                   content: 'New post content 1',
-                  __typename: 'Post'
+                  __typename: 'Post',
                 },
-                __typename: 'UpdatePostPayload'
-              }
-            }
+                __typename: 'UpdatePostPayload',
+              },
+            },
           })
           subscription.unsubscribe()
           done()
-        }
+        },
       })
   })
 
@@ -117,7 +117,7 @@ describe('Post and comments example API works', () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
     })
     expect(result.data.posts).to.have.property('totalCount', 21)
     expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'New post 1')
@@ -131,9 +131,9 @@ describe('Post and comments example API works', () => {
         input: {
           id: 21,
           title: 'New post 2',
-          content: 'New post content 2'
-        }
-      }
+          content: 'New post content 2',
+        },
+      },
     })
 
     let subscription
@@ -141,7 +141,7 @@ describe('Post and comments example API works', () => {
     subscription = apollo
       .subscribe({
         query: POSTS_SUBSCRIPTION,
-        variables: { endCursor: 10 }
+        variables: { endCursor: 10 },
       })
       .subscribe({
         next(data) {
@@ -153,15 +153,15 @@ describe('Post and comments example API works', () => {
                   id: 21,
                   title: 'New post 2',
                   content: 'New post content 2',
-                  __typename: 'Post'
+                  __typename: 'Post',
                 },
-                __typename: 'UpdatePostPayload'
-              }
-            }
+                __typename: 'UpdatePostPayload',
+              },
+            },
           })
           subscription.unsubscribe()
           done()
-        }
+        },
       })
   })
 
@@ -169,7 +169,7 @@ describe('Post and comments example API works', () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
     })
     expect(result.data.posts).to.have.property('totalCount', 21)
     expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'New post 2')
@@ -179,7 +179,7 @@ describe('Post and comments example API works', () => {
   step('Publishes post on removal', (done) => {
     apollo.mutate({
       mutation: DELETE_POST,
-      variables: { id: '21' }
+      variables: { id: '21' },
     })
 
     let subscription
@@ -187,7 +187,7 @@ describe('Post and comments example API works', () => {
     subscription = apollo
       .subscribe({
         query: POSTS_SUBSCRIPTION,
-        variables: { endCursor: 10 }
+        variables: { endCursor: 10 },
       })
       .subscribe({
         next(data) {
@@ -199,15 +199,15 @@ describe('Post and comments example API works', () => {
                   id: 21,
                   title: 'New post 2',
                   content: 'New post content 2',
-                  __typename: 'Post'
+                  __typename: 'Post',
                 },
-                __typename: 'UpdatePostPayload'
-              }
-            }
+                __typename: 'UpdatePostPayload',
+              },
+            },
           })
           subscription.unsubscribe()
           done()
-        }
+        },
       })
   })
 
@@ -215,7 +215,7 @@ describe('Post and comments example API works', () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 2, after: 0 },
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
     })
     expect(result.data.posts).to.have.property('totalCount', 20)
     expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'Post title 20')

@@ -24,7 +24,7 @@ export default async (req, res, next) => {
           ? formatResponse({ logger: log.debug.bind(log) }, response, options)
           : response,
       tracing: !!settings.engine.engineConfig.apiKey,
-      cacheControl: !!settings.engine.engineConfig.apiKey
+      cacheControl: !!settings.engine.engineConfig.apiKey,
     }))(req, res, next)
   } catch (e) {
     // If createContext decided to finish response, don't pass error downwards

@@ -1,4 +1,7 @@
-const url = require('url');
+const path = require('path')
+
+// Root is at ./packages
+const root = path.join(__dirname, '..');
 
 const config = {
   builders: {
@@ -33,24 +36,30 @@ const config = {
       __API_URL__: '"/graphql"'
     },
     webpackConfig: {
+      resolve: {
+        alias: {
+          client: path.resolve(root, 'client'),
+          server: path.resolve(root, 'server'),
+        },
+      },
       devServer: {
         disableHostCheck: true
-      }
+      },
     }
   }
-};
+}
 
-config.options.devProxy = config.options.ssr;
+config.options.devProxy = config.options.ssr
 
 if (process.env.NODE_ENV === 'production') {
   // Generating source maps for production will slowdown compilation for roughly 25%
-  config.options.sourceMap = false;
+  config.options.sourceMap = false
 }
 
 const extraDefines = {
   __SSR__: config.options.ssr
-};
+}
 
-config.options.defines = Object.assign(config.options.defines, extraDefines);
+config.options.defines = Object.assign(config.options.defines, extraDefines)
 
-module.exports = config;
+module.exports = config

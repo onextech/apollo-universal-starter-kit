@@ -70,14 +70,14 @@ export default new Feature(access, {
       component={withRouter(({ history }) => <Login onLogin={() => history.push('/profile')} />)}
     />,
     <AuthRoute exact path='/forgot-password' redirectOnLoggedIn redirect='/profile' component={ForgotPassword} />,
-    <AuthRoute exact path='/reset-password/:token' redirectOnLoggedIn redirect='/profile' component={ResetPassword} />
+    <AuthRoute exact path='/reset-password/:token' redirectOnLoggedIn redirect='/profile' component={ResetPassword} />,
   ],
   navItem: [
     <IfLoggedIn key='/users' role='admin'>
       <MenuItem>
         <NavLinkUsersWithI18n />
       </MenuItem>
-    </IfLoggedIn>
+    </IfLoggedIn>,
   ],
   navItemRight: [
     <IfLoggedIn key='/profile'>
@@ -96,10 +96,10 @@ export default new Feature(access, {
       <MenuItem>
         <NavLinkLoginWithI18n />
       </MenuItem>
-    </IfNotLoggedIn>
+    </IfNotLoggedIn>,
   ],
   resolver: resolvers,
   localization: { ns: 'user', resources },
   // eslint-disable-next-line react/display-name
-  rootComponentFactory: (req) => (req ? <CookiesProvider cookies={req.universalCookies} /> : <CookiesProvider />)
+  rootComponentFactory: (req) => (req ? <CookiesProvider cookies={req.universalCookies} /> : <CookiesProvider />),
 })

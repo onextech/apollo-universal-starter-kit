@@ -79,7 +79,7 @@ exports.up = function(knex, Promise) {
         .inTable('user')
         .onDelete('CASCADE')
       table.timestamps(false, true)
-    })
+    }),
   ])
 }
 
@@ -91,6 +91,6 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTable('auth_github'),
     knex.schema.dropTable('auth_linkedin'),
     knex.schema.dropTable('user_profile'),
-    knex.schema.dropTable('user')
+    knex.schema.dropTable('user'),
   ])
 }

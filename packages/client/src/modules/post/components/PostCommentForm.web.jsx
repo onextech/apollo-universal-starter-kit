@@ -8,7 +8,7 @@ import { Form, RenderField, Row, Col, Label, Button } from '../../common/compone
 import { required, validateForm } from '../../../../../common/validation'
 
 const commentFormSchema = {
-  content: [required]
+  content: [required],
 }
 
 const validate = (values) => validateForm(values, commentFormSchema)
@@ -49,7 +49,7 @@ PostCommentForm.propTypes = {
   values: PropTypes.object,
   content: PropTypes.string,
   changeContent: PropTypes.func,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const PostCommentFormWithFormik = withFormik({
@@ -58,7 +58,7 @@ const PostCommentFormWithFormik = withFormik({
     values,
     {
       resetForm,
-      props: { onSubmit }
+      props: { onSubmit },
     }
   ) {
     await onSubmit(values)
@@ -66,7 +66,7 @@ const PostCommentFormWithFormik = withFormik({
   },
   validate: (values) => validate(values),
   displayName: 'CommentForm', // helps with React DevTools,
-  enableReinitialize: true
+  enableReinitialize: true,
 })
 
 export default translate('post')(PostCommentFormWithFormik(PostCommentForm))

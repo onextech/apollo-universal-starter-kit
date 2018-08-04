@@ -23,15 +23,15 @@ const IncreaseButton = ({ counterAmount, t }) => (
 
 IncreaseButton.propTypes = {
   counterAmount: PropTypes.number,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const ClientCounter = ({ t }) => (
   <Query query={COUNTER_QUERY_CLIENT} t={t}>
     {({
       data: {
-        clientCounter: { amount }
-      }
+        clientCounter: { amount },
+      },
     }) => {
       return (
         <ClientCounterView text={t('text', { amount })} t>
@@ -43,7 +43,7 @@ const ClientCounter = ({ t }) => (
 )
 
 ClientCounter.propTypes = {
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 export default translate('clientCounter')(ClientCounter)

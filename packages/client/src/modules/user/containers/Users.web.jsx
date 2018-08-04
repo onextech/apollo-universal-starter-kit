@@ -17,8 +17,8 @@ const Users = ({ t }) => {
       meta={[
         {
           name: 'description',
-          content: `${settings.app.name} - ${t('users.meta')}`
-        }
+          content: `${settings.app.name} - ${t('users.meta')}`,
+        },
       ]}
     />
   )
@@ -39,7 +39,7 @@ const Users = ({ t }) => {
 }
 
 Users.propTypes = {
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 export default translate('user')(Users)

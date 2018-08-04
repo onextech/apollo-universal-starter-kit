@@ -14,7 +14,7 @@ const ReduxCounter = ({ t, onReduxIncrement, reduxCount }) => (
 ReduxCounter.propTypes = {
   t: PropTypes.func,
   onReduxIncrement: PropTypes.func,
-  reduxCount: PropTypes.number
+  reduxCount: PropTypes.number,
 }
 
 export default connect(
@@ -24,8 +24,8 @@ export default connect(
       return () =>
         dispatch({
           type: 'COUNTER_INCREMENT',
-          value: Number(value)
+          value: Number(value),
         })
-    }
+    },
   })
 )(translate('reduxCounter')(ReduxCounter))

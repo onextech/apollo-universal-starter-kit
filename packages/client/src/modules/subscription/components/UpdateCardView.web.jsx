@@ -13,7 +13,7 @@ import settings from '../../../../../../settings'
 class UpdateCardView extends React.Component {
   static propTypes = {
     updateCard: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   onSubmit = (updateCard) => async (values) => {
@@ -22,7 +22,7 @@ class UpdateCardView extends React.Component {
 
     if (result.errors) {
       let submitError = {
-        _error: t('update.errorMsg')
+        _error: t('update.errorMsg'),
       }
       result.errors.map((error) => (submitError[error.field] = error.message))
       throw submitError
@@ -38,8 +38,8 @@ class UpdateCardView extends React.Component {
         meta={[
           {
             name: 'description',
-            content: `${settings.app.name} - ${t('update.meta')}`
-          }
+            content: `${settings.app.name} - ${t('update.meta')}`,
+          },
         ]}
       />
     )

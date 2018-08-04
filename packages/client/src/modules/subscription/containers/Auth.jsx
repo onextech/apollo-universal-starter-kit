@@ -18,7 +18,7 @@ const SubscriberNav = ({ loading, active, children, ...rest }) => {
 SubscriberNav.propTypes = {
   active: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
-  children: PropTypes.object
+  children: PropTypes.object,
 }
 
 const SubscriberNavWithApollo = compose(
@@ -27,9 +27,9 @@ const SubscriberNavWithApollo = compose(
       const { loading, subscription } = data
       return {
         loading,
-        active: subscription && subscription.active
+        active: subscription && subscription.active,
       }
-    }
+    },
   })
 )(SubscriberNav)
 
@@ -51,7 +51,7 @@ const SubscriberRoute = ({ loading, active, component, ...rest }) => {
 SubscriberRoute.propTypes = {
   component: PropTypes.func,
   loading: PropTypes.bool.isRequired,
-  active: PropTypes.bool
+  active: PropTypes.bool,
 }
 
 const SubscriberRouteWithApollo = compose(
@@ -60,9 +60,9 @@ const SubscriberRouteWithApollo = compose(
       const { loading, subscription } = data
       return {
         loading,
-        active: subscription && subscription.active
+        active: subscription && subscription.active,
       }
-    }
+    },
   })
 )(SubscriberRoute)
 

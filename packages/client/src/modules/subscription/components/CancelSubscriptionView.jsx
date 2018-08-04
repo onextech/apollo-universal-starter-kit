@@ -10,12 +10,12 @@ class CancelSubscriptionView extends React.Component {
     loading: PropTypes.bool,
     active: PropTypes.bool,
     cancel: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   state = {
     cancelling: false,
-    errors: null
+    errors: null,
   };
 
   onClick = async () => {
@@ -25,7 +25,7 @@ class CancelSubscriptionView extends React.Component {
     if (errors) {
       this.setState({
         cancelling: false,
-        errors
+        errors,
       })
     }
   };
@@ -74,23 +74,23 @@ class CancelSubscriptionView extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   alertTextWrapper: {
     flex: 20,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   alertIconWrapper: {
     padding: 5,
     flex: 4,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   alertText: {
     color: '#c22',
     fontSize: 16,
-    fontWeight: '400'
+    fontWeight: '400',
   },
   alertWrapper: {
     backgroundColor: '#ecb7b7',
@@ -100,14 +100,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     borderRadius: 5,
     paddingVertical: 5,
-    marginTop: 10
+    marginTop: 10,
   },
   subscriptionText: {
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   buttonWrapper: {
-    paddingHorizontal: 10
-  }
+    paddingHorizontal: 10,
+  },
 })
 
 export default translate('subscription')(CancelSubscriptionView)

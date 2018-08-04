@@ -22,9 +22,9 @@ function AddComment(prev, node) {
   return update(prev, {
     post: {
       comments: {
-        $set: [...filteredComments, node]
-      }
-    }
+        $set: [...filteredComments, node],
+      },
+    },
   })
 }
 
@@ -39,9 +39,9 @@ function DeleteComment(prev, id) {
   return update(prev, {
     post: {
       comments: {
-        $splice: [[index, 1]]
-      }
-    }
+        $splice: [[index, 1]],
+      },
+    },
   })
 }
 
@@ -51,7 +51,7 @@ class PostComments extends React.Component {
     comments: PropTypes.array.isRequired,
     comment: PropTypes.object.isRequired,
     onCommentSelect: PropTypes.func.isRequired,
-    subscribeToMore: PropTypes.func.isRequired
+    subscribeToMore: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -100,9 +100,9 @@ class PostComments extends React.Component {
         {
           subscriptionData: {
             data: {
-              commentUpdated: { mutation, id, node }
-            }
-          }
+              commentUpdated: { mutation, id, node },
+            },
+          },
         }
       ) => {
         let newResult = prev
@@ -114,7 +114,7 @@ class PostComments extends React.Component {
         }
 
         return newResult
-      }
+      },
     })
   };
 
@@ -134,25 +134,25 @@ const PostCommentsWithApollo = compose(
             addComment: {
               __typename: 'Comment',
               id: null,
-              content: content
-            }
+              content: content,
+            },
           },
           updateQueries: {
             post: (
               prev,
               {
                 mutationResult: {
-                  data: { addComment }
-                }
+                  data: { addComment },
+                },
               }
             ) => {
               if (prev.post) {
                 return AddComment(prev, addComment)
               }
-            }
-          }
-        })
-    })
+            },
+          },
+        }),
+    }),
   }),
   graphql(EDIT_COMMENT, {
     props: ({ ownProps: { postId }, mutate }) => ({
@@ -164,11 +164,11 @@ const PostCommentsWithApollo = compose(
             editComment: {
               __typename: 'Comment',
               id: id,
-              content: content
-            }
-          }
-        })
-    })
+              content: content,
+            },
+          },
+        }),
+    }),
   }),
   graphql(DELETE_COMMENT, {
     props: ({ ownProps: { postId }, mutate }) => ({
@@ -179,35 +179,35 @@ const PostCommentsWithApollo = compose(
             __typename: 'Mutation',
             deleteComment: {
               __typename: 'Comment',
-              id: id
-            }
+              id: id,
+            },
           },
           updateQueries: {
             post: (
               prev,
               {
                 mutationResult: {
-                  data: { deleteComment }
-                }
+                  data: { deleteComment },
+                },
               }
             ) => {
               if (prev.post) {
                 return DeleteComment(prev, deleteComment.id)
               }
-            }
-          }
-        })
-    })
+            },
+          },
+        }),
+    }),
   }),
   graphql(ADD_COMMENT_CLIENT, {
     props: ({ mutate }) => ({
       onCommentSelect: (comment) => {
         mutate({ variables: { comment: comment } })
-      }
-    })
+      },
+    }),
   }),
   graphql(COMMENT_QUERY_CLIENT, {
-    props: ({ data: { comment } }) => ({ comment })
+    props: ({ data: { comment } }) => ({ comment }),
   })
 )(PostComments)
 

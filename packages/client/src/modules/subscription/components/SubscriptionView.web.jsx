@@ -14,7 +14,7 @@ const ElementsClientOnly = clientOnly(Elements)
 class SubscriptionView extends React.Component {
   static propTypes = {
     subscribe: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   onSubmit = (subscribe) => async (values) => {
@@ -23,7 +23,7 @@ class SubscriptionView extends React.Component {
 
     if (result.errors) {
       let submitError = {
-        _error: t('errorMsg')
+        _error: t('errorMsg'),
       }
       result.errors.map((error) => (submitError[error.field] = error.message))
       throw submitError
@@ -39,8 +39,8 @@ class SubscriptionView extends React.Component {
         meta={[
           {
             name: 'description',
-            content: `${settings.app.name} - ${t('meta')}`
-          }
+            content: `${settings.app.name} - ${t('meta')}`,
+          },
         ]}
       />
     )

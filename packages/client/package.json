@@ -7,17 +7,6 @@
     "node": ">= 6.11.1",
     "yarn": ">= 1.0.0"
   },
-  "scripts": {
-    "build": "cross-env NODE_ENV=production spin build",
-    "clean": "rimraf build .tmp",
-    "tests": "cross-env NODE_ENV=test PORT=7070 spin test -t 10000 --full-trace --exit \"src/**/*.spec.js\"",
-    "tests:watch": "cross-env NODE_ENV=test PORT=7070 spin test -t 10000 --full-trace --watch \"src/**/*.spec.js\"",
-    "test": "yarn tests && yarn lint",
-    "lint": "eslint --fix --ext js --ext jsx --ext json src config",
-    "watch": "spin watch",
-    "heroku-postbuild": "yarn build",
-    "cli": "node ../../tools/cli"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sysgears/apollo-universal-starter-kit"
@@ -183,5 +172,16 @@
     "react-native-simple-picker": "^2.0.0",
     "react-navigation": "^1.5.11",
     "spinjs": "^0.4.0"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production spin build",
+    "clean": "rimraf build .tmp",
+    "tests": "cross-env NODE_ENV=test PORT=7070 spin test -t 10000 --full-trace --exit \"src/**/*.spec.js\"",
+    "tests:watch": "cross-env NODE_ENV=test PORT=7070 spin test -t 10000 --full-trace --watch \"src/**/*.spec.js\"",
+    "test": "yarn tests && yarn lint",
+    "lint": "eslint --fix --ext js --ext jsx --ext json src config",
+    "watch": "spin watch",
+    "heroku-postbuild": "yarn build",
+    "cli": "node ../../tools/cli"
   }
 }

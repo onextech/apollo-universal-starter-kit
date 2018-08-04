@@ -13,11 +13,11 @@ class UploadView extends React.PureComponent {
     files: PropTypes.array,
     uploadFiles: PropTypes.func.isRequired,
     removeFile: PropTypes.func.isRequired,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   state = {
-    error: null
+    error: null,
   };
 
   renderMetaData = () => {
@@ -28,8 +28,8 @@ class UploadView extends React.PureComponent {
         meta={[
           {
             name: 'description',
-            content: `${settings.app.name} - ${t('meta')}`
-          }
+            content: `${settings.app.name} - ${t('meta')}`,
+          },
         ]}
       />
     )
@@ -67,7 +67,7 @@ class UploadView extends React.PureComponent {
           <a href={record.path} download={text}>
             {text} ({filesize(record.size)})
           </a>
-        )
+        ),
       },
       {
         title: t('table.column.actions'),
@@ -77,8 +77,8 @@ class UploadView extends React.PureComponent {
           <Button color='primary' size='sm' className='delete-button' onClick={() => this.handleRemoveFile(record.id)}>
             {t('table.btnDel')}
           </Button>
-        )
-      }
+        ),
+      },
     ]
 
     return (

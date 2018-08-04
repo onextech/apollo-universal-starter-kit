@@ -9,7 +9,7 @@ const Button = ({ textStyle, children, onPress, onClick, type, style, ...props }
   const btnProps = {
     ...props,
     type: btnData.type || 'default',
-    style: [btnData.styles, style]
+    style: [btnData.styles, style],
   }
 
   return (
@@ -27,39 +27,39 @@ Button.propTypes = {
   type: PropTypes.string,
   textStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   style: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 }
 
 const getStyles = (color) => {
   return {
     backgroundColor: color,
-    borderColor: color
+    borderColor: color,
   }
 }
 
 const buttonTypes = {
   primary: {
-    type: TYPES.primary
+    type: TYPES.primary,
   },
   success: {
     type: TYPES.primary,
-    styles: getStyles('#59b662')
+    styles: getStyles('#59b662'),
   },
   dark: {
     type: TYPES.primary,
-    styles: getStyles('#000')
+    styles: getStyles('#000'),
   },
   info: {
     type: TYPES.primary,
-    styles: getStyles('#51b1f3')
+    styles: getStyles('#51b1f3'),
   },
   danger: {
-    type: TYPES.warning
+    type: TYPES.warning,
   },
   warning: {
     type: TYPES.primary,
-    styles: getStyles('#f6aa57')
-  }
+    styles: getStyles('#f6aa57'),
+  },
 }
 
 export default Button

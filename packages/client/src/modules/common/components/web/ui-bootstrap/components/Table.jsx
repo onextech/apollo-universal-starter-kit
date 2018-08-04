@@ -37,7 +37,7 @@ const Table = ({ dataSource, columns, ...props }) => {
 
 Table.propTypes = {
   dataSource: PropTypes.array,
-  columns: PropTypes.array
+  columns: PropTypes.array,
 }
 
 export default Table

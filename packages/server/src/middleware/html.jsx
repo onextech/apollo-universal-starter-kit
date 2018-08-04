@@ -28,7 +28,7 @@ const Html = ({ content, state, assetMap, css, helmet }) => {
         {!!__DEV__ && (
           <style
             dangerouslySetInnerHTML={{
-              __html: styles._getCss() + clientModules.stylesInserts.map((style) => style._getCss()).join('')
+              __html: styles._getCss() + clientModules.stylesInserts.map((style) => style._getCss()).join(''),
             }}
           />
         )}
@@ -44,8 +44,8 @@ const Html = ({ content, state, assetMap, css, helmet }) => {
         <script
           dangerouslySetInnerHTML={{
             __html: `window.__APOLLO_STATE__=${serialize(state, {
-              isJSON: true
-            })};`
+              isJSON: true,
+            })};`,
           }}
           charSet='UTF-8'
         />
@@ -61,7 +61,7 @@ Html.propTypes = {
   state: PropTypes.object.isRequired,
   assetMap: PropTypes.object.isRequired,
   css: PropTypes.array,
-  helmet: PropTypes.object
+  helmet: PropTypes.object,
 }
 
 export default Html

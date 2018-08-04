@@ -15,7 +15,7 @@ const CancelSubscription = ({ loading, active, cancel }) => {
 CancelSubscription.propTypes = {
   cancel: PropTypes.func.isRequired,
   loading: PropTypes.bool,
-  active: PropTypes.bool
+  active: PropTypes.bool,
 }
 
 const CancelSubscriptionWithApollo = compose(
@@ -30,23 +30,23 @@ const CancelSubscriptionWithApollo = compose(
     props({ data: { loading, subscription } }) {
       return {
         loading,
-        active: subscription && subscription.active
+        active: subscription && subscription.active,
       }
-    }
+    },
   }),
   graphql(CANCEL, {
     props: ({ mutate }) => ({
       cancel: async () => {
         try {
           const {
-            data: { cancel }
+            data: { cancel },
           } = await mutate({
             update: (store, { data: { cancel } }) => {
               const data = store.readQuery({ query: SUBSCRIPTION_QUERY })
               data.subscription = cancel
               store.writeQuery({ query: SUBSCRIPTION_QUERY, data })
             },
-            refetchQueries: [{ query: CARD_INFO }]
+            refetchQueries: [{ query: CARD_INFO }],
           })
 
           if (cancel.errors) {
@@ -57,8 +57,8 @@ const CancelSubscriptionWithApollo = compose(
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })
 )(CancelSubscription)
 

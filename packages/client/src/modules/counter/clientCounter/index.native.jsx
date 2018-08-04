@@ -15,16 +15,16 @@ export default new Feature({
     Counter: {
       screen: createStackNavigator({
         Counter: {
-          screen: ClientCounter
-        }
+          screen: ClientCounter,
+        },
       }),
       navigationOptions: {
-        drawerLabel: <HeaderTitleWithI18n i18nKey='title' />
-      }
-    }
+        drawerLabel: <HeaderTitleWithI18n i18nKey='title' />,
+      },
+    },
   },
   resolver: resolvers,
-  localization: { ns: 'clientCounter', resources }
+  localization: { ns: 'clientCounter', resources },
 })
 
 export { ClientCounter }

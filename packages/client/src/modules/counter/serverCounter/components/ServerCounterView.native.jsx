@@ -21,19 +21,19 @@ export const ServerCounterView = ({ t, children, counter, loading }) => {
 
 const styles = StyleSheet.create({
   element: {
-    paddingTop: 30
+    paddingTop: 30,
   },
   box: {
     textAlign: 'center',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 })
 
 ServerCounterView.propTypes = {
   t: PropTypes.func,
   children: PropTypes.node,
   counter: PropTypes.object,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 }
 
 export const ServerCounterButton = ({ onClick, text }) => (
@@ -44,5 +44,5 @@ export const ServerCounterButton = ({ onClick, text }) => (
 
 ServerCounterButton.propTypes = {
   onClick: PropTypes.func,
-  text: PropTypes.string
+  text: PropTypes.string,
 }

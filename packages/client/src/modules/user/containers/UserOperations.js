@@ -13,7 +13,7 @@ const withUsersState = (Component) =>
   graphql(USERS_STATE_QUERY, {
     props({ data: { usersState } }) {
       return removeTypename(usersState)
-    }
+    },
   })(Component)
 
 const withUsers = (Component) =>
@@ -21,12 +21,12 @@ const withUsers = (Component) =>
     options: ({ orderBy, filter }) => {
       return {
         fetchPolicy: 'network-only',
-        variables: { orderBy, filter }
+        variables: { orderBy, filter },
       }
     },
     props({ data: { loading, users, refetch, error, subscribeToMore } }) {
       return { loading, users, refetch, subscribeToMore, errors: error ? error.graphQLErrors : null }
-    }
+    },
   })(Component)
 
 const withUsersDeleting = (Component) =>
@@ -35,9 +35,9 @@ const withUsersDeleting = (Component) =>
       deleteUser: async (id) => {
         try {
           const {
-            data: { deleteUser }
+            data: { deleteUser },
           } = await mutate({
-            variables: { id }
+            variables: { id },
           })
 
           if (deleteUser.errors) {
@@ -46,8 +46,8 @@ const withUsersDeleting = (Component) =>
         } catch (e) {
           console.log(e.graphQLErrors)
         }
-      }
-    })
+      },
+    }),
   })(Component)
 
 const withOrderByUpdating = (Component) =>
@@ -55,8 +55,8 @@ const withOrderByUpdating = (Component) =>
     props: ({ mutate }) => ({
       onOrderBy: (orderBy) => {
         mutate({ variables: { orderBy } })
-      }
-    })
+      },
+    }),
   })(Component)
 
 const withFilterUpdating = (Component) =>
@@ -70,15 +70,15 @@ const withFilterUpdating = (Component) =>
       },
       onIsActiveChange(isActive) {
         mutate({ variables: { filter: { isActive } } })
-      }
-    })
+      },
+    }),
   })(Component)
 
 function addUser(prev, node) {
   return update(prev, {
     users: {
-      $set: [...prev.users, node]
-    }
+      $set: [...prev.users, node],
+    },
   })
 }
 
@@ -90,8 +90,8 @@ function deleteUser(prev, id) {
   }
   return update(prev, {
     users: {
-      $splice: [[index, 1]]
-    }
+      $splice: [[index, 1]],
+    },
   })
 }
 
@@ -104,9 +104,9 @@ const subscribeToUsersList = (subscribeToMore, filter) => {
       {
         subscriptionData: {
           data: {
-            usersUpdated: { mutation, node }
-          }
-        }
+            usersUpdated: { mutation, node },
+          },
+        },
       }
     ) => {
       switch (mutation) {
@@ -119,7 +119,7 @@ const subscribeToUsersList = (subscribeToMore, filter) => {
         default:
           return prev
       }
-    }
+    },
   })
 }
 

@@ -6,7 +6,7 @@ import { createStackNavigator } from 'react-navigation'
 import translate from '../../i18n'
 import { Button, HeaderTitle, IconButton, primary } from '../common/components/native'
 
-import Post from './containers/Post'
+import Post from './containers/Posts'
 import PostEdit from './containers/PostEdit'
 import PostAdd from './containers/PostAdd'
 
@@ -31,7 +31,7 @@ const PostListHeaderRight = ({ navigation, t }) => {
 }
 PostListHeaderRight.propTypes = {
   navigation: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 class PostListScreen extends React.Component {
@@ -41,7 +41,7 @@ class PostListScreen extends React.Component {
     headerLeft: (
       <IconButton iconName='menu' iconSize={32} iconColor='#0275d8' onPress={() => navigation.openDrawer()} />
     ),
-    headerStyle: styles.header
+    headerStyle: styles.header,
   });
 
   render() {
@@ -50,7 +50,7 @@ class PostListScreen extends React.Component {
 }
 
 PostListScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 const PostEditTitle = ({ t }) => (
@@ -60,7 +60,7 @@ const PostEditTitle = ({ t }) => (
 )
 PostEditTitle.propTypes = {
   navigation: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 const PostAddTitle = ({ t }) => (
@@ -70,13 +70,13 @@ const PostAddTitle = ({ t }) => (
 )
 PostAddTitle.propTypes = {
   navigation: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
 }
 
 class PostEditScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: withI18N(PostEditTitle, { navigation }),
-    headerStyle: styles.header
+    headerStyle: styles.header,
   });
 
   render() {
@@ -84,13 +84,13 @@ class PostEditScreen extends React.Component {
   }
 }
 PostEditScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 class PostAddScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: withI18N(PostAddTitle, { navigation }),
-    headerStyle: styles.header
+    headerStyle: styles.header,
   });
 
   render() {
@@ -99,36 +99,36 @@ class PostAddScreen extends React.Component {
 }
 
 PostAddScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 }
 
 const PostNavigator = createStackNavigator({
   PostList: { screen: PostListScreen },
   PostEdit: { screen: PostEditScreen },
-  PostAdd: { screen: PostAddScreen }
+  PostAdd: { screen: PostAddScreen },
 })
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   subTitle: {
     fontSize: Platform.OS === 'ios' ? 17 : 20,
     fontWeight: Platform.OS === 'ios' ? '700' : '500',
     color: 'rgba(0, 0, 0, .9)',
     textAlign: Platform.OS === 'ios' ? 'center' : 'left',
-    marginHorizontal: 16
+    marginHorizontal: 16,
   },
   addButtonContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10
+    padding: 10,
   },
   addButton: {
     height: 32,
-    width: 60
-  }
+    width: 60,
+  },
 })
 
 export default new Feature({
@@ -136,10 +136,10 @@ export default new Feature({
     Post: {
       screen: PostNavigator,
       navigationOptions: {
-        drawerLabel: withI18N(HeaderTitle, { i18nKey: 'list.title' })
-      }
-    }
+        drawerLabel: withI18N(HeaderTitle, { i18nKey: 'list.title' }),
+      },
+    },
   },
   resolver: resolvers,
-  localization: { ns: 'post', resources }
+  localization: { ns: 'post', resources },
 })

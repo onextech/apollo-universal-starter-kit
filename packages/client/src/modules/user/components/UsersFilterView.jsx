@@ -12,7 +12,7 @@ import {
   success,
   danger,
   Modal,
-  Button
+  Button,
 } from '../../common/components/native'
 import { itemAction, itemContainer, itemTitle } from '../../common/components/native/styles'
 
@@ -29,7 +29,7 @@ class UsersFilterView extends React.PureComponent {
     orderBy: PropTypes.object,
     onOrderBy: PropTypes.func.isRequired,
     t: PropTypes.func,
-    filter: PropTypes.object
+    filter: PropTypes.object,
   };
 
   constructor(props) {
@@ -38,8 +38,8 @@ class UsersFilterView extends React.PureComponent {
       showModal: false,
       orderBy: {
         column: '',
-        order: ''
-      }
+        order: '',
+      },
     }
     this.onChangeTextDelayed = debounce(this.handleSearch, 500)
   }
@@ -69,8 +69,8 @@ class UsersFilterView extends React.PureComponent {
         return this.setState({
           orderBy: {
             column: '',
-            order: ''
-          }
+            order: '',
+          },
         })
       }
     }
@@ -96,20 +96,20 @@ class UsersFilterView extends React.PureComponent {
     const orderByParams = [
       {
         label: t('users.column.name'),
-        value: 'username'
+        value: 'username',
       },
       {
         label: t('users.column.email'),
-        value: 'email'
+        value: 'email',
       },
       {
         label: t('users.column.role'),
-        value: 'role'
+        value: 'role',
       },
       {
         label: t('users.column.active'),
-        value: 'isActive'
-      }
+        value: 'isActive',
+      },
     ]
     return (
       <View>
@@ -148,7 +148,7 @@ class UsersFilterView extends React.PureComponent {
   handleIsActive = () => {
     const {
       onIsActiveChange,
-      filter: { isActive }
+      filter: { isActive },
     } = this.props
     onIsActiveChange(!isActive)
   };
@@ -156,12 +156,12 @@ class UsersFilterView extends React.PureComponent {
   render() {
     const {
       filter: { role, isActive },
-      t
+      t,
     } = this.props
     const options = [
       { value: '', label: t('users.list.item.role.all') },
       { value: 'user', label: t('users.list.item.role.user') },
-      { value: 'admin', label: t('users.list.item.role.admin') }
+      { value: 'admin', label: t('users.list.item.role.admin') },
     ]
     return (
       <View style={styles.container}>
@@ -214,23 +214,23 @@ class UsersFilterView extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   itemAction,
   itemContainer,
   itemTitle,
   itemSelect: {
-    flex: 2
+    flex: 2,
   },
   iconStyle: {
-    color: '#000'
+    color: '#000',
   },
   buttonWrapper: {
-    marginTop: 10
+    marginTop: 10,
   },
   listWrapper: {
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 })
 
 export default translate('user')(UsersFilterView)

@@ -25,7 +25,7 @@ const PageLayout = ({ children, navBar }) => {
 
 PageLayout.propTypes = {
   children: PropTypes.node,
-  navBar: PropTypes.bool
+  navBar: PropTypes.bool,
 }
 
 export default PageLayout

@@ -7,5 +7,5 @@ import resources from './locales'
 
 export default new Feature({
   route: <Route component={PageNotFound} />,
-  localization: { ns: 'notFound', resources }
+  localization: { ns: 'notFound', resources },
 })

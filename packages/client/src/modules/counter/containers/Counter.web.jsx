@@ -11,7 +11,7 @@ import { ReduxCounter } from '../reduxCounter'
 
 class Counter extends React.Component {
   static propTypes = {
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   constructor(props) {
@@ -29,8 +29,8 @@ class Counter extends React.Component {
           meta={[
             {
               name: 'description',
-              content: `${settings.app.name} - ${t('meta')}`
-            }
+              content: `${settings.app.name} - ${t('meta')}`,
+            },
           ]}
         />
         <ServerCounter />

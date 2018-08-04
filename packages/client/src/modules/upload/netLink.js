@@ -10,6 +10,6 @@ export default (uri) =>
     createUploadLink({ uri, credentials: 'include' }),
     new BatchHttpLink({
       uri,
-      credentials: 'include'
+      credentials: 'include',
     })
   )

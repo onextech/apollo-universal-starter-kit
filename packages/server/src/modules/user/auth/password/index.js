@@ -7,7 +7,7 @@ export default new Feature(
   settings.user.auth.password.enabled
     ? {
         schema,
-        createResolversFunc: resolvers
+        createResolversFunc: resolvers,
       }
     : {}
 )

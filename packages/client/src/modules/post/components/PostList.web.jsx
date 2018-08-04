@@ -15,7 +15,7 @@ class PostList extends React.PureComponent {
     posts: PropTypes.object,
     deletePost: PropTypes.func.isRequired,
     loadData: PropTypes.func,
-    t: PropTypes.func
+    t: PropTypes.func,
   };
 
   handleDeletePost = (id) => {
@@ -31,8 +31,8 @@ class PostList extends React.PureComponent {
         meta={[
           {
             name: 'description',
-            content: `${settings.app.name} - ${t('list.meta')}`
-          }
+            content: `${settings.app.name} - ${t('list.meta')}`,
+          },
         ]}
       />
     )
@@ -41,9 +41,9 @@ class PostList extends React.PureComponent {
   handlePageChange = (pagination, pageNumber) => {
     const {
       posts: {
-        pageInfo: { endCursor }
+        pageInfo: { endCursor },
       },
-      loadData
+      loadData,
     } = this.props
     if (pagination === 'relay') {
       loadData(endCursor + 1, 'add')
@@ -71,7 +71,7 @@ class PostList extends React.PureComponent {
             <Link className='post-link' to={`/post/${record.id}`}>
               {text}
             </Link>
-          )
+          ),
         },
         {
           title: t('list.column.actions'),
@@ -86,8 +86,8 @@ class PostList extends React.PureComponent {
             >
               {t('post.btn.del')}
             </Button>
-          )
-        }
+          ),
+        },
       ]
       return (
         <PageLayout>

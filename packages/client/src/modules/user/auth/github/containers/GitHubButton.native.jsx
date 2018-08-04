@@ -15,7 +15,7 @@ import {
   separator,
   btnIconContainer,
   btnTextContainer,
-  btnText
+  btnText,
 } from '../../../../common/components/native/styles'
 
 const githubLogin = () => {
@@ -81,7 +81,7 @@ class GitHubComponent extends React.Component {
 GitHubComponent.propTypes = {
   client: PropTypes.object,
   type: PropTypes.string,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 }
 
 const styles = StyleSheet.create({
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
   buttonContainer: {
     ...buttonContainer,
     marginTop: 15,
-    backgroundColor: '#464646'
+    backgroundColor: '#464646',
   },
   separator,
   btnIconContainer,
   btnTextContainer,
-  btnText
+  btnText,
 })
 
 export default GitHubComponent
