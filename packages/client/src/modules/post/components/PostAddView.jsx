@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
-import translate from '../../../i18n';
-import PostForm from './PostForm';
+import translate from '../../../i18n'
+import PostForm from './PostForm'
 
-const onSubmit = addPost => values => {
-  addPost(values.title, values.content);
-};
+const onSubmit = (addPost) => (values) => {
+  addPost(values.title, values.content)
+}
 
 const PostAddView = ({ addPost }) => {
   return (
@@ -16,12 +16,12 @@ const PostAddView = ({ addPost }) => {
         <PostForm onSubmit={onSubmit(addPost)} />
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
 PostAddView.propTypes = {
   addPost: PropTypes.func.isRequired
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff'
   }
-});
+})
 
-export default translate('post')(PostAddView);
+export default translate('post')(PostAddView)

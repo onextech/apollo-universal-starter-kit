@@ -1,5 +1,5 @@
 /*eslint-disable no-unused-vars*/
-export default pubsub => ({
+export default (pubsub) => ({
   Mutation: {
     async contact(obj, { input }, context) {
       try {
@@ -9,12 +9,12 @@ export default pubsub => ({
             to: process.env.EMAIL_USER,
             subject: 'New email through contact us page',
             html: `<p>${input.name} is sending the following message.</p><p>${input.content}</p>`
-          });
+          })
         }
-        return true;
+        return true
       } catch (e) {
-        return true;
+        return true
       }
     }
   }
-});
+})

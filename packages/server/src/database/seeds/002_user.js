@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs';
-import { returnId, truncateTables } from '../../sql/helpers';
+import bcrypt from 'bcryptjs'
+import { returnId, truncateTables } from '../../sql/helpers'
 
 export async function seed(knex, Promise) {
   await truncateTables(knex, Promise, [
@@ -9,7 +9,7 @@ export async function seed(knex, Promise) {
     'auth_facebook',
     'auth_github',
     'auth_linkedin'
-  ]);
+  ])
 
   await returnId(knex('user')).insert({
     username: 'admin',
@@ -17,7 +17,7 @@ export async function seed(knex, Promise) {
     password_hash: await bcrypt.hash('admin123', 12),
     role: 'admin',
     is_active: true
-  });
+  })
 
   await returnId(knex('user')).insert({
     username: 'user',
@@ -25,5 +25,5 @@ export async function seed(knex, Promise) {
     password_hash: await bcrypt.hash('user1234', 12),
     role: 'user',
     is_active: true
-  });
+  })
 }

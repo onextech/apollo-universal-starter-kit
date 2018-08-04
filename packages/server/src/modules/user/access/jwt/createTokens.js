@@ -1,11 +1,11 @@
-import jwt from 'jsonwebtoken';
-import { pick } from 'lodash';
+import jwt from 'jsonwebtoken'
+import { pick } from 'lodash'
 
-import settings from '../../../../../../../settings';
+import settings from '../../../../../../../settings'
 
 const createTokens = async (user, secret, refreshSecret) => {
-  let tokenUser = pick(user, ['id', 'username', 'role']);
-  tokenUser.fullName = user.firstName ? `${user.firstName} ${user.lastName}` : null;
+  let tokenUser = pick(user, ['id', 'username', 'role'])
+  tokenUser.fullName = user.firstName ? `${user.firstName} ${user.lastName}` : null
 
   const createToken = jwt.sign(
     {
@@ -15,7 +15,7 @@ const createTokens = async (user, secret, refreshSecret) => {
     {
       expiresIn: settings.user.auth.access.jwt.tokenExpiresIn
     }
-  );
+  )
 
   const createRefreshToken = jwt.sign(
     {
@@ -25,9 +25,9 @@ const createTokens = async (user, secret, refreshSecret) => {
     {
       expiresIn: settings.user.auth.access.jwt.refreshTokenExpiresIn
     }
-  );
+  )
 
-  return Promise.all([createToken, createRefreshToken]);
-};
+  return Promise.all([createToken, createRefreshToken])
+}
 
-export default createTokens;
+export default createTokens

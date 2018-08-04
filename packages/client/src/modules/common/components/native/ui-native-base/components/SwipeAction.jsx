@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { SwipeRow, Button, Text } from 'native-base';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { SwipeRow, Button, Text } from 'native-base'
 
 const SwipeAction = ({ children, onPress, right, ...props }) => {
   return (
@@ -19,13 +19,13 @@ const SwipeAction = ({ children, onPress, right, ...props }) => {
         </Button>
       }
     />
-  );
-};
+  )
+}
 
 SwipeAction.propTypes = {
   children: PropTypes.node,
   right: PropTypes.object,
   onPress: PropTypes.func
-};
+}
 
-export default SwipeAction;
+export default SwipeAction

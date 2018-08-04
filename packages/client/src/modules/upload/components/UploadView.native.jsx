@@ -1,14 +1,14 @@
 // Common react native component - iOS + Android
 
 // React
-import React from 'react';
+import React from 'react'
 
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 // React native UI
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'
 
-import translate from '../../../i18n';
+import translate from '../../../i18n'
 
 const UploadView = ({ t }) => {
   return (
@@ -17,12 +17,12 @@ const UploadView = ({ t }) => {
         <Text style={styles.box}>{t('nativeMock')}</Text>
       </View>
     </View>
-  );
-};
+  )
+}
 
 UploadView.propTypes = {
   t: PropTypes.func
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15
   }
-});
+})
 
-export default translate('upload')(UploadView);
+export default translate('upload')(UploadView)

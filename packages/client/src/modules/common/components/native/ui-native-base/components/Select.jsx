@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Platform, StyleSheet } from 'react-native';
-import { Picker, Item } from 'native-base';
-import { FontAwesome } from '@expo/vector-icons';
-import SelectStyles from '../styles/Select';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Platform, StyleSheet } from 'react-native'
+import { Picker, Item } from 'native-base'
+import { FontAwesome } from '@expo/vector-icons'
+import SelectStyles from '../styles/Select'
 
 const Select = ({
   icon,
@@ -50,8 +50,8 @@ const Select = ({
         ))}
       </Picker>
     </Item>
-  );
-};
+  )
+}
 
 Select.propTypes = {
   data: PropTypes.array.isRequired,
@@ -66,8 +66,8 @@ Select.propTypes = {
   iconSize: PropTypes.number,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   itemStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
-};
+}
 
-const styles = StyleSheet.create(SelectStyles);
+const styles = StyleSheet.create(SelectStyles)
 
-export default Select;
+export default Select

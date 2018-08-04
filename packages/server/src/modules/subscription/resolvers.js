@@ -1,48 +1,48 @@
 /*eslint-disable no-unused-vars*/
-import { pick } from 'lodash';
-import Stripe from 'stripe';
+import { pick } from 'lodash'
+import Stripe from 'stripe'
 
-import FieldError from '../../../../common/FieldError';
-import settings from '../../../../../settings';
+import FieldError from '../../../../common/FieldError'
+import settings from '../../../../../settings'
 
-const stripe = Stripe(settings.subscription.stripeSecretKey);
+const stripe = Stripe(settings.subscription.stripeSecretKey)
 
-export default pubsub => ({
+export default (pubsub) => ({
   Query: {
     subscription(obj, args, context) {
-      return context.subscription;
+      return context.subscription
     },
     subscribersOnlyNumber(obj, args, context) {
-      if (!context.subscription.active) return;
-      const number = Math.floor(Math.random() * 10);
-      return { number };
+      if (!context.subscription.active) return
+      const number = Math.floor(Math.random() * 10)
+      return { number }
     },
     async subscriptionCardInfo(obj, args, context) {
-      const { user } = context;
-      return !user ? undefined : context.Subscription.getCardInfo(user.id);
+      const { user } = context
+      return !user ? undefined : context.Subscription.getCardInfo(user.id)
     }
   },
   Mutation: {
     async subscribe(obj, { input }, context) {
       try {
-        const e = new FieldError();
-        const data = pick(input, ['token', 'expiryMonth', 'expiryYear', 'last4', 'brand']);
-        const user = await context.User.getUserByUsername(context.user.username);
-        const { subscription } = context;
+        const e = new FieldError()
+        const data = pick(input, ['token', 'expiryMonth', 'expiryYear', 'last4', 'brand'])
+        const user = await context.User.getUserByUsername(context.user.username)
+        const { subscription } = context
 
-        let customerId, stripeSourceId;
+        let customerId, stripeSourceId
 
         // use existing stripe customer if user has subscribed before
         if (subscription && subscription.stripeCustomerId) {
-          customerId = subscription.stripeCustomerId;
+          customerId = subscription.stripeCustomerId
           const source = await stripe.customers.createSource(customerId, {
             source: data.token
-          });
-          stripeSourceId = source.id;
+          })
+          stripeSourceId = source.id
         } else {
-          const customer = await stripe.customers.create({ email: user.email, source: data.token });
-          customerId = customer.id;
-          stripeSourceId = customer.default_source;
+          const customer = await stripe.customers.create({ email: user.email, source: data.token })
+          customerId = customer.id
+          stripeSourceId = customer.default_source
         }
 
         await context.Subscription.editSubscription({
@@ -55,7 +55,7 @@ export default pubsub => ({
             last4: data.last4,
             brand: data.brand
           }
-        });
+        })
 
         const newSubscription = await stripe.subscriptions.create({
           customer: customerId,
@@ -64,7 +64,7 @@ export default pubsub => ({
               plan: 'basic'
             }
           ]
-        });
+        })
 
         await context.Subscription.editSubscription({
           userId: user.id,
@@ -72,25 +72,25 @@ export default pubsub => ({
             active: true,
             stripeSubscriptionId: newSubscription.id
           }
-        });
+        })
 
-        return { active: true, errors: null };
+        return { active: true, errors: null }
       } catch (e) {
-        return { active: false, errors: e };
+        return { active: false, errors: e }
       }
     },
     async updateCard(obj, { input }, context) {
       try {
-        const data = pick(input, ['token', 'expiryMonth', 'expiryYear', 'last4', 'brand']);
-        const user = await context.User.getUserByUsername(context.user.username);
+        const data = pick(input, ['token', 'expiryMonth', 'expiryYear', 'last4', 'brand'])
+        const user = await context.User.getUserByUsername(context.user.username)
         const {
           subscription: { stripeCustomerId, stripeSourceId }
-        } = context;
+        } = context
 
-        await stripe.customers.deleteSource(stripeCustomerId, stripeSourceId);
+        await stripe.customers.deleteSource(stripeCustomerId, stripeSourceId)
         const source = await stripe.customers.createSource(stripeCustomerId, {
           source: data.token
-        });
+        })
 
         await context.Subscription.editSubscription({
           userId: user.id,
@@ -101,26 +101,26 @@ export default pubsub => ({
             last4: data.last4,
             brand: data.brand
           }
-        });
+        })
 
-        return true;
+        return true
       } catch (e) {
-        console.log(e);
-        return false;
+        console.log(e)
+        return false
       }
     },
     async cancel(obj, args, context) {
       try {
-        const { id } = await context.User.getUserByUsername(context.user.username);
-        const { stripeSubscriptionId, stripeCustomerId, stripeSourceId } = context.subscription;
+        const { id } = await context.User.getUserByUsername(context.user.username)
+        const { stripeSubscriptionId, stripeCustomerId, stripeSourceId } = context.subscription
 
         try {
-          await stripe.subscriptions.del(stripeSubscriptionId);
-          await stripe.customers.deleteSource(stripeCustomerId, stripeSourceId);
+          await stripe.subscriptions.del(stripeSubscriptionId)
+          await stripe.customers.deleteSource(stripeCustomerId, stripeSourceId)
         } catch (e) {
-          const e = new FieldError();
-          e.setError('subscription', context.req.t('subscription:cancelSubscription'));
-          e.throwIf();
+          const e = new FieldError()
+          e.setError('subscription', context.req.t('subscription:cancelSubscription'))
+          e.throwIf()
         }
 
         await context.Subscription.editSubscription({
@@ -134,13 +134,13 @@ export default pubsub => ({
             last4: null,
             brand: null
           }
-        });
+        })
 
-        return { active: false, errors: null };
+        return { active: false, errors: null }
       } catch (e) {
-        return { active: true, errors: e };
+        return { active: true, errors: e }
       }
     }
   },
   Subscription: {}
-});
+})

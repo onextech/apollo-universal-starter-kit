@@ -1,49 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { withFormik } from 'formik';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
+import { withFormik } from 'formik'
 
-import translate from '../../../i18n';
-import Field from '../../../utils/FieldAdapter';
-import { RenderField, Button, primary, FormView } from '../../common/components/native';
-import { placeholderColor, submit } from '../../common/components/native/styles';
-import { required, minLength, validateForm } from '../../../../../common/validation';
-import FacebookButton from '../auth/facebook';
-import GoogleButton from '../auth/google';
-import GitHubButton from '../auth/github';
-import LinkedInButton from '../auth/linkedin';
-import settings from '../../../../../../settings';
+import translate from '../../../i18n'
+import Field from '../../../utils/FieldAdapter'
+import { RenderField, Button, primary, FormView } from '../../common/components/native'
+import { placeholderColor, submit } from '../../common/components/native/styles'
+import { required, minLength, validateForm } from '../../../../../common/validation'
+import FacebookButton from '../auth/facebook'
+import GoogleButton from '../auth/google'
+import GitHubButton from '../auth/github'
+import LinkedInButton from '../auth/linkedin'
+import settings from '../../../../../../settings'
 
 const loginFormSchema = {
   usernameOrEmail: [required, minLength(3)],
   password: [required, minLength(8)]
-};
+}
 
-const validate = values => validateForm(values, loginFormSchema);
-const { facebook, linkedin, google, github } = settings.user.auth;
+const validate = (values) => validateForm(values, loginFormSchema)
+const { facebook, linkedin, google, github } = settings.user.auth
 
 const renderSocialButtons = (buttonsLength, t) => {
   return buttonsLength > 2 ? (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-      {facebook.enabled && <FacebookButton text={t('login.fbBtn')} type="icon" />}
-      {google.enabled && <GoogleButton text={t('login.googleBtn')} type="icon" />}
-      {github.enabled && <GitHubButton text={t('login.githubBtn')} type="icon" />}
-      {linkedin.enabled && <LinkedInButton text={t('login.linkedinBtn')} type="icon" />}
+      {facebook.enabled && <FacebookButton text={t('login.fbBtn')} type='icon' />}
+      {google.enabled && <GoogleButton text={t('login.googleBtn')} type='icon' />}
+      {github.enabled && <GitHubButton text={t('login.githubBtn')} type='icon' />}
+      {linkedin.enabled && <LinkedInButton text={t('login.linkedinBtn')} type='icon' />}
     </View>
   ) : buttonsLength > 0 ? (
     <View>
-      {facebook.enabled && <FacebookButton text={t('login.fbBtn')} type="button" />}
-      {google.enabled && <GoogleButton text={t('login.googleBtn')} type="button" />}
-      {github.enabled && <GitHubButton text={t('login.githubBtn')} type="button" />}
-      {linkedin.enabled && <LinkedInButton text={t('login.linkedinBtn')} type="button" />}
+      {facebook.enabled && <FacebookButton text={t('login.fbBtn')} type='button' />}
+      {google.enabled && <GoogleButton text={t('login.googleBtn')} type='button' />}
+      {github.enabled && <GitHubButton text={t('login.githubBtn')} type='button' />}
+      {linkedin.enabled && <LinkedInButton text={t('login.linkedinBtn')} type='button' />}
     </View>
-  ) : null;
-};
+  ) : null
+}
 
 const LoginForm = ({ handleSubmit, valid, values, navigation, t }) => {
-  const buttonsLength = [facebook.enabled, linkedin.enabled, google.enabled, github.enabled].filter(button => button)
-    .length;
+  const buttonsLength = [facebook.enabled, linkedin.enabled, google.enabled, github.enabled].filter((button) => button)
+    .length
   return (
     <FormView contentContainerStyle={{ flexGrow: 1 }} style={styles.formView}>
       <View style={styles.formContainer}>
@@ -51,22 +51,22 @@ const LoginForm = ({ handleSubmit, valid, values, navigation, t }) => {
           <View>
             <View>
               <Field
-                autoCapitalize="none"
+                autoCapitalize='none'
                 autoCorrect={false}
-                name="usernameOrEmail"
+                name='usernameOrEmail'
                 component={RenderField}
-                type="text"
-                keyboardType="email-address"
+                type='text'
+                keyboardType='email-address'
                 placeholder={t('mobile.login.usernameOrEmail.placeholder')}
                 placeholderTextColor={placeholderColor}
                 value={values.usernameOrEmail}
               />
               <Field
-                autoCapitalize="none"
+                autoCapitalize='none'
                 autoCorrect={false}
-                name="password"
+                name='password'
                 component={RenderField}
-                type="password"
+                type='password'
                 secureTextEntry={true}
                 placeholder={t('mobile.login.pass.placeholder')}
                 placeholderTextColor={placeholderColor}
@@ -95,8 +95,8 @@ const LoginForm = ({ handleSubmit, valid, values, navigation, t }) => {
         </View>
       </View>
     </FormView>
-  );
-};
+  )
+}
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func,
@@ -105,7 +105,7 @@ LoginForm.propTypes = {
   values: PropTypes.object,
   navigation: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   t: PropTypes.func
-};
+}
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     textAlign: 'center'
   }
-});
+})
 
 const LoginFormWithFormik = withFormik({
   enableReinitialize: true,
@@ -156,12 +156,12 @@ const LoginFormWithFormik = withFormik({
       props: { onSubmit }
     }
   ) {
-    onSubmit(values).catch(e => {
-      setErrors(e);
-    });
+    onSubmit(values).catch((e) => {
+      setErrors(e)
+    })
   },
-  validate: values => validate(values),
+  validate: (values) => validate(values),
   displayName: 'LoginForm' // helps with React DevTools
-});
+})
 
-export default translate('user')(LoginFormWithFormik(LoginForm));
+export default translate('user')(LoginFormWithFormik(LoginForm))

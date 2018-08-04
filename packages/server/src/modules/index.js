@@ -1,17 +1,17 @@
-import cookies from './cookies';
-import i18n from './i18n';
-import counter from './counter';
-import post from './post';
-import upload from './upload';
-import user from './user';
-import subscription from './subscription';
-import contact from './contact';
-import mailer from './mailer';
-import graphqlTypes from './graphqlTypes';
-import apolloEngine from './apolloEngine';
-import './debug';
+import cookies from './cookies'
+import i18n from './i18n'
+import counter from './counter'
+import post from './post'
+import upload from './upload'
+import user from './user'
+import subscription from './subscription'
+import contact from './contact'
+import mailer from './mailer'
+import graphqlTypes from './graphqlTypes'
+import apolloEngine from './apolloEngine'
+import './debug'
 
-import Feature from './connector';
+import Feature from './connector'
 
 export default new Feature(
   cookies,
@@ -25,4 +25,4 @@ export default new Feature(
   mailer,
   graphqlTypes,
   apolloEngine
-);
+)

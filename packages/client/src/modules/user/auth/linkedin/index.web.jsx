@@ -1,3 +1,3 @@
-import LinkedInButton from './containers/LinkedInButton';
+import LinkedInButton from './containers/LinkedInButton'
 
-export default LinkedInButton;
+export default LinkedInButton

@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { FormGroup, Label, Input, FormFeedback } from 'reactstrap'
 
 const RenderCheckBox = ({ input, label, type, meta: { touched, error } }) => {
-  let color = 'normal';
+  let color = 'normal'
   if (touched && error) {
-    color = 'danger';
+    color = 'danger'
   }
 
   return (
@@ -15,14 +15,14 @@ const RenderCheckBox = ({ input, label, type, meta: { touched, error } }) => {
         {touched && (error && <FormFeedback>{error}</FormFeedback>)}
       </Label>
     </FormGroup>
-  );
-};
+  )
+}
 
 RenderCheckBox.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   type: PropTypes.string,
   meta: PropTypes.object
-};
+}
 
-export default RenderCheckBox;
+export default RenderCheckBox

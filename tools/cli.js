@@ -1,5 +1,5 @@
-const prog = require('caporal');
-const moduleCmd = require('./cli/module');
+const prog = require('caporal')
+const moduleCmd = require('./cli/module')
 
 prog
   .version('1.0.0')
@@ -20,6 +20,6 @@ prog
     ['both', 'server', 'client'],
     'both'
   )
-  .action((args, options, logger) => moduleCmd('deletemodule', args, options, logger));
+  .action((args, options, logger) => moduleCmd('deletemodule', args, options, logger))
 
-prog.parse(process.argv);
+prog.parse(process.argv)

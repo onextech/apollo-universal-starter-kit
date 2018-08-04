@@ -1,8 +1,8 @@
-import bcrypt from 'bcryptjs';
-import { returnId, truncateTables } from '../../sql/helpers';
+import bcrypt from 'bcryptjs'
+import { returnId, truncateTables } from '../../sql/helpers'
 
 export async function seed(knex, Promise) {
-  await truncateTables(knex, Promise, ['subscription']);
+  await truncateTables(knex, Promise, ['subscription'])
 
   const [subscriberId] = await returnId(knex('user')).insert({
     username: 'subscriber',
@@ -10,7 +10,7 @@ export async function seed(knex, Promise) {
     password_hash: await bcrypt.hash('subscriber', 12),
     role: 'user',
     is_active: true
-  });
+  })
   await returnId(knex('subscription')).insert({
     stripe_customer_id: 'test',
     stripe_subscription_id: 'test',
@@ -21,5 +21,5 @@ export async function seed(knex, Promise) {
     last4: '1111',
     brand: 'Visa',
     user_id: subscriberId
-  });
+  })
 }

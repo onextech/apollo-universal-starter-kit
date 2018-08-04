@@ -7,4 +7,4 @@ export default {
     itemsNumber: 10,
     type: 'relay' // 'standard' or 'relay'
   }
-};
+}

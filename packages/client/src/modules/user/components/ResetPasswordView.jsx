@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, StyleSheet } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View, StyleSheet } from 'react-native'
 
-import ResetPasswordForm from '../components/ResetPasswordForm';
-import translate from '../../../i18n';
+import ResetPasswordForm from '../components/ResetPasswordForm'
+import translate from '../../../i18n'
 
 class ResetPasswordView extends React.Component {
   static propTypes = {
@@ -16,30 +16,30 @@ class ResetPasswordView extends React.Component {
     }).isRequired
   };
 
-  onSubmit = resetPassword => async values => {
+  onSubmit = (resetPassword) => async (values) => {
     const { errors } = await resetPassword({
       ...values,
       token: this.props.match.params.token
-    });
+    })
 
     if (errors && errors.length) {
       throw errors.reduce(
         (res, error) => {
-          res[error.field] = error.message;
-          return res;
+          res[error.field] = error.message
+          return res
         },
         { _error: this.props.t('resetPass.errorMsg') }
-      );
+      )
     }
   };
 
   render() {
-    const { resetPassword } = this.props;
+    const { resetPassword } = this.props
     return (
       <View style={styles.container}>
         <ResetPasswordForm onSubmit={this.onSubmit(resetPassword)} />
       </View>
-    );
+    )
   }
 }
 
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     flex: 1
   }
-});
+})
 
-export default translate('user')(ResetPasswordView);
+export default translate('user')(ResetPasswordView)

@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
-import { PageLayout, Table, Button, Pagination } from '../../common/components/web';
-import translate from '../../../i18n';
-import settings from '../../../../../../settings';
-import paginationConfig from '../../../../../../config/pagination';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
+import { Link } from 'react-router-dom'
+import { PageLayout, Table, Button, Pagination } from '../../common/components/web'
+import translate from '../../../i18n'
+import settings from '../../../../../../settings'
+import paginationConfig from '../../../../../../config/pagination'
 
-const { itemsNumber, type } = paginationConfig.web;
+const { itemsNumber, type } = paginationConfig.web
 
 class PostList extends React.PureComponent {
   static propTypes = {
@@ -18,13 +18,13 @@ class PostList extends React.PureComponent {
     t: PropTypes.func
   };
 
-  handleDeletePost = id => {
-    const { deletePost } = this.props;
-    deletePost(id);
+  handleDeletePost = (id) => {
+    const { deletePost } = this.props
+    deletePost(id)
   };
 
   renderMetaData = () => {
-    const { t } = this.props;
+    const { t } = this.props
     return (
       <Helmet
         title={`${settings.app.name} - ${t('list.title')}`}
@@ -35,7 +35,7 @@ class PostList extends React.PureComponent {
           }
         ]}
       />
-    );
+    )
   };
 
   handlePageChange = (pagination, pageNumber) => {
@@ -44,23 +44,23 @@ class PostList extends React.PureComponent {
         pageInfo: { endCursor }
       },
       loadData
-    } = this.props;
+    } = this.props
     if (pagination === 'relay') {
-      loadData(endCursor + 1, 'add');
+      loadData(endCursor + 1, 'add')
     } else {
-      loadData((pageNumber - 1) * itemsNumber, 'replace');
+      loadData((pageNumber - 1) * itemsNumber, 'replace')
     }
   };
 
   render() {
-    const { loading, posts, t } = this.props;
+    const { loading, posts, t } = this.props
     if (loading && !posts) {
       return (
         <PageLayout>
           {this.renderMetaData()}
-          <div className="text-center">{t('post.loadMsg')}</div>
+          <div className='text-center'>{t('post.loadMsg')}</div>
         </PageLayout>
-      );
+      )
     } else {
       const columns = [
         {
@@ -68,7 +68,7 @@ class PostList extends React.PureComponent {
           dataIndex: 'title',
           key: 'title',
           render: (text, record) => (
-            <Link className="post-link" to={`/post/${record.id}`}>
+            <Link className='post-link' to={`/post/${record.id}`}>
               {text}
             </Link>
           )
@@ -79,22 +79,22 @@ class PostList extends React.PureComponent {
           width: 50,
           render: (text, record) => (
             <Button
-              color="primary"
-              size="sm"
-              className="delete-button"
+              color='primary'
+              size='sm'
+              className='delete-button'
               onClick={() => this.handleDeletePost(record.id)}
             >
               {t('post.btn.del')}
             </Button>
           )
         }
-      ];
+      ]
       return (
         <PageLayout>
           {this.renderMetaData()}
           <h2>{t('list.subTitle')}</h2>
-          <Link to="/post/new">
-            <Button color="primary">{t('list.btn.add')}</Button>
+          <Link to='/post/new'>
+            <Button color='primary'>{t('list.btn.add')}</Button>
           </Link>
           <h1 />
           <Table dataSource={posts.edges.map(({ node }) => node)} columns={columns} />
@@ -108,9 +108,9 @@ class PostList extends React.PureComponent {
             defaultPageSize={itemsNumber}
           />
         </PageLayout>
-      );
+      )
     }
   }
 }
 
-export default translate('post')(PostList);
+export default translate('post')(PostList)

@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import translate from '../../../i18n';
-import PaginationDemoView from '../components/PaginationDemoView.native';
-import withDataProvider from '../containers/DataProvider';
-import { itemAction, itemTitle } from '../../common/components/native/styles';
-import { Select } from '../../common/components/native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import translate from '../../../i18n'
+import PaginationDemoView from '../components/PaginationDemoView.native'
+import withDataProvider from '../containers/DataProvider'
+import { itemAction, itemTitle } from '../../common/components/native/styles'
+import { Select } from '../../common/components/native'
 
 @translate('pagination')
 class PaginationDemo extends React.Component {
@@ -17,17 +17,17 @@ class PaginationDemo extends React.Component {
 
   state = { pagination: 'standard' };
 
-  onPaginationTypeChange = itemValue => {
-    const { loadData, items } = this.props;
-    this.setState({ pagination: itemValue }, loadData(0, items.limit));
+  onPaginationTypeChange = (itemValue) => {
+    const { loadData, items } = this.props
+    this.setState({ pagination: itemValue }, loadData(0, items.limit))
   };
 
   handlePageChange = (pagination, pageNumber) => {
-    const { loadData, items } = this.props;
+    const { loadData, items } = this.props
     if (pagination === 'relay') {
-      loadData(items.pageInfo.endCursor, 'add');
+      loadData(items.pageInfo.endCursor, 'add')
     } else {
-      loadData((pageNumber - 1) * items.limit, 'replace');
+      loadData((pageNumber - 1) * items.limit, 'replace')
     }
   };
 
@@ -40,25 +40,25 @@ class PaginationDemo extends React.Component {
       <TouchableOpacity style={styles.postWrapper}>
         <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
-    );
+    )
   };
 
   render() {
-    const { t, items } = this.props;
-    const { pagination } = this.state;
+    const { t, items } = this.props
+    const { pagination } = this.state
     const options = [
       { value: 'standard', label: t('list.title.standard') },
       { value: 'relay', label: t('list.title.relay') },
       { value: 'scroll', label: t('list.title.scroll') }
-    ];
+    ]
     return (
       <View style={styles.container}>
         <View style={styles.itemContainer}>
           <View style={[styles.itemAction, styles.itemSelect]}>
             <Select
               icon
-              iconName="caret-down"
-              mode="dropdown"
+              iconName='caret-down'
+              mode='dropdown'
               data={options}
               selectedValue={pagination}
               onValueChange={this.onPaginationTypeChange}
@@ -77,7 +77,7 @@ class PaginationDemo extends React.Component {
           />
         )}
       </View>
-    );
+    )
   }
 }
 
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
   itemSelect: {
     flex: 25
   }
-});
+})
 
-const PaginationDemoWithData = withDataProvider(PaginationDemo);
+const PaginationDemoWithData = withDataProvider(PaginationDemo)
 
-export default PaginationDemoWithData;
+export default PaginationDemoWithData

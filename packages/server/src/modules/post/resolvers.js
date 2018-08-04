@@ -1,25 +1,25 @@
-import { withFilter } from 'graphql-subscriptions';
-import { createBatchResolver } from 'graphql-resolve-batch';
+import { withFilter } from 'graphql-subscriptions'
+import { createBatchResolver } from 'graphql-resolve-batch'
 
-const POST_SUBSCRIPTION = 'post_subscription';
-const POSTS_SUBSCRIPTION = 'posts_subscription';
-const COMMENT_SUBSCRIPTION = 'comment_subscription';
+const POST_SUBSCRIPTION = 'post_subscription'
+const POSTS_SUBSCRIPTION = 'posts_subscription'
+const COMMENT_SUBSCRIPTION = 'comment_subscription'
 
-export default pubsub => ({
+export default (pubsub) => ({
   Query: {
     async posts(obj, { limit, after }, context) {
-      let edgesArray = [];
-      let posts = await context.Post.postsPagination(limit, after);
+      let edgesArray = []
+      let posts = await context.Post.postsPagination(limit, after)
 
       posts.map((post, index) => {
         edgesArray.push({
           cursor: after + index,
           node: post
-        });
-      });
-      const endCursor = edgesArray.length > 0 ? edgesArray[edgesArray.length - 1].cursor : 0;
-      const total = (await context.Post.getTotal()).count;
-      const hasNextPage = total > after + limit;
+        })
+      })
+      const endCursor = edgesArray.length > 0 ? edgesArray[edgesArray.length - 1].cursor : 0
+      const total = (await context.Post.getTotal()).count
+      const hasNextPage = total > after + limit
       return {
         totalCount: total,
         edges: edgesArray,
@@ -27,21 +27,21 @@ export default pubsub => ({
           endCursor: endCursor,
           hasNextPage: hasNextPage
         }
-      };
+      }
     },
     post(obj, { id }, context) {
-      return context.Post.post(id);
+      return context.Post.post(id)
     }
   },
   Post: {
     comments: createBatchResolver((sources, args, context) => {
-      return context.Post.getCommentsForPostIds(sources.map(({ id }) => id));
+      return context.Post.getCommentsForPostIds(sources.map(({ id }) => id))
     })
   },
   Mutation: {
     async addPost(obj, { input }, context) {
-      const [id] = await context.Post.addPost(input);
-      const post = await context.Post.post(id);
+      const [id] = await context.Post.addPost(input)
+      const post = await context.Post.post(id)
       // publish for post list
       pubsub.publish(POSTS_SUBSCRIPTION, {
         postsUpdated: {
@@ -49,12 +49,12 @@ export default pubsub => ({
           id,
           node: post
         }
-      });
-      return post;
+      })
+      return post
     },
     async deletePost(obj, { id }, context) {
-      const post = await context.Post.post(id);
-      const isDeleted = await context.Post.deletePost(id);
+      const post = await context.Post.post(id)
+      const isDeleted = await context.Post.deletePost(id)
       if (isDeleted) {
         // publish for post list
         pubsub.publish(POSTS_SUBSCRIPTION, {
@@ -63,7 +63,7 @@ export default pubsub => ({
             id,
             node: post
           }
-        });
+        })
         // publish for edit post page
         pubsub.publish(POST_SUBSCRIPTION, {
           postUpdated: {
@@ -71,15 +71,15 @@ export default pubsub => ({
             id,
             node: post
           }
-        });
-        return { id: post.id };
+        })
+        return { id: post.id }
       } else {
-        return { id: null };
+        return { id: null }
       }
     },
     async editPost(obj, { input }, context) {
-      await context.Post.editPost(input);
-      const post = await context.Post.post(input.id);
+      await context.Post.editPost(input)
+      const post = await context.Post.post(input.id)
       // publish for post list
       pubsub.publish(POSTS_SUBSCRIPTION, {
         postsUpdated: {
@@ -87,7 +87,7 @@ export default pubsub => ({
           id: post.id,
           node: post
         }
-      });
+      })
       // publish for edit post page
       pubsub.publish(POST_SUBSCRIPTION, {
         postUpdated: {
@@ -95,12 +95,12 @@ export default pubsub => ({
           id: post.id,
           node: post
         }
-      });
-      return post;
+      })
+      return post
     },
     async addComment(obj, { input }, context) {
-      const [id] = await context.Post.addComment(input);
-      const comment = await context.Post.getComment(id);
+      const [id] = await context.Post.addComment(input)
+      const comment = await context.Post.getComment(id)
       // publish for edit post page
       pubsub.publish(COMMENT_SUBSCRIPTION, {
         commentUpdated: {
@@ -109,8 +109,8 @@ export default pubsub => ({
           postId: input.postId,
           node: comment
         }
-      });
-      return comment;
+      })
+      return comment
     },
     async deleteComment(
       obj,
@@ -119,7 +119,7 @@ export default pubsub => ({
       },
       context
     ) {
-      await context.Post.deleteComment(id);
+      await context.Post.deleteComment(id)
       // publish for edit post page
       pubsub.publish(COMMENT_SUBSCRIPTION, {
         commentUpdated: {
@@ -128,12 +128,12 @@ export default pubsub => ({
           postId,
           node: null
         }
-      });
-      return { id };
+      })
+      return { id }
     },
     async editComment(obj, { input }, context) {
-      await context.Post.editComment(input);
-      const comment = await context.Post.getComment(input.id);
+      await context.Post.editComment(input)
+      const comment = await context.Post.getComment(input.id)
       // publish for edit post page
       pubsub.publish(COMMENT_SUBSCRIPTION, {
         commentUpdated: {
@@ -142,8 +142,8 @@ export default pubsub => ({
           postId: input.postId,
           node: comment
         }
-      });
-      return comment;
+      })
+      return comment
     }
   },
   Subscription: {
@@ -151,7 +151,7 @@ export default pubsub => ({
       subscribe: withFilter(
         () => pubsub.asyncIterator(POST_SUBSCRIPTION),
         (payload, variables) => {
-          return payload.postUpdated.id === variables.id;
+          return payload.postUpdated.id === variables.id
         }
       )
     },
@@ -159,7 +159,7 @@ export default pubsub => ({
       subscribe: withFilter(
         () => pubsub.asyncIterator(POSTS_SUBSCRIPTION),
         (payload, variables) => {
-          return variables.endCursor <= payload.postsUpdated.id;
+          return variables.endCursor <= payload.postsUpdated.id
         }
       )
     },
@@ -167,9 +167,9 @@ export default pubsub => ({
       subscribe: withFilter(
         () => pubsub.asyncIterator(COMMENT_SUBSCRIPTION),
         (payload, variables) => {
-          return payload.commentUpdated.postId === variables.postId;
+          return payload.commentUpdated.postId === variables.postId
         }
       )
     }
   }
-});
+})

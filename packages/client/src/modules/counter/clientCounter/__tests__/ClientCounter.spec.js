@@ -1,16 +1,16 @@
-import React from 'react';
-import chai from 'chai';
-import { step } from 'mocha-steps';
+import React from 'react'
+import chai from 'chai'
+import { step } from 'mocha-steps'
 
-import Renderer from '../../../../testHelpers/Renderer';
-import { click, find, wait, render } from '../../../../testHelpers/testUtils';
-import ClientCounter from '../containers/ClientCounter';
-import translate from '../../../../i18n';
+import Renderer from '../../../../testHelpers/Renderer'
+import { click, find, wait, render } from '../../../../testHelpers/testUtils'
+import ClientCounter from '../containers/ClientCounter'
+import translate from '../../../../i18n'
 
-chai.should();
+chai.should()
 
-const COUNTER_APOLLO_LINK_VALUE = 20;
-const INCREMENT = 1;
+const COUNTER_APOLLO_LINK_VALUE = 20
+const INCREMENT = 1
 
 const mockedCache = {
   data: {
@@ -19,7 +19,7 @@ const mockedCache = {
       __typename: 'ClientCounter'
     }
   }
-};
+}
 
 const resolvers = {
   defaults: {
@@ -36,39 +36,39 @@ const resolvers = {
             amount: mockedCache.data.clientCounter.amount + INCREMENT,
             __typename: 'ClientCounter'
           }
-        };
-        return null;
+        }
+        return null
       }
     }
   }
-};
+}
 
 describe('Client counter example UI works', () => {
-  const renderer = new Renderer({}, {}, resolvers);
+  const renderer = new Renderer({}, {}, resolvers)
 
-  let app;
-  let container;
-  let content;
-  const ApolloLinkStateCounterWithI18n = translate('counter')(ClientCounter);
+  let app
+  let container
+  let content
+  const ApolloLinkStateCounterWithI18n = translate('counter')(ClientCounter)
 
   beforeEach(() => {
     if (app) {
-      container = app.container;
-      content = container.firstChild;
+      container = app.container
+      content = container.firstChild
     }
-  });
+  })
 
   step('Counter section renders with link data', () => {
-    app = render(renderer.withApollo(<ApolloLinkStateCounterWithI18n />));
-    container = app.container;
-    content = container.firstChild;
-    content.textContent.should.has.string(`Current apolloLinkStateCount, is ${COUNTER_APOLLO_LINK_VALUE}.`);
-  });
+    app = render(renderer.withApollo(<ApolloLinkStateCounterWithI18n />))
+    container = app.container
+    content = container.firstChild
+    content.textContent.should.has.string(`Current apolloLinkStateCount, is ${COUNTER_APOLLO_LINK_VALUE}.`)
+  })
 
   step('Clicking on increase counter button increases counter', async () => {
-    const apolloLinkButton = find(container, '#apollo-link-button');
-    await click(apolloLinkButton);
-    await wait();
-    mockedCache.data.clientCounter.amount.should.to.equal(COUNTER_APOLLO_LINK_VALUE + INCREMENT);
-  });
-});
+    const apolloLinkButton = find(container, '#apollo-link-button')
+    await click(apolloLinkButton)
+    await wait()
+    mockedCache.data.clientCounter.amount.should.to.equal(COUNTER_APOLLO_LINK_VALUE + INCREMENT)
+  })
+})

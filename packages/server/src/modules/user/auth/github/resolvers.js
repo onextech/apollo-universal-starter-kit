@@ -1,15 +1,15 @@
 export default () => ({
   UserAuth: {
     github(obj) {
-      return obj;
+      return obj
     }
   },
   GithubAuth: {
     ghId(obj) {
-      return obj.ghId;
+      return obj.ghId
     },
     displayName(obj) {
-      return obj.ghDisplayName;
+      return obj.ghDisplayName
     }
   }
-});
+})

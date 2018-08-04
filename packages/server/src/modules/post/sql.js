@@ -1,5 +1,5 @@
-import { returnId, orderedFor } from '../../sql/helpers';
-import knex from '../../sql/connector';
+import { returnId, orderedFor } from '../../sql/helpers'
+import knex from '../../sql/connector'
 
 export default class Post {
   postsPagination(limit, after) {
@@ -8,22 +8,22 @@ export default class Post {
       .from('post')
       .orderBy('id', 'desc')
       .limit(limit)
-      .offset(after);
+      .offset(after)
   }
 
   async getCommentsForPostIds(postIds) {
     const res = await knex
       .select('id', 'content', 'post_id AS postId')
       .from('comment')
-      .whereIn('post_id', postIds);
+      .whereIn('post_id', postIds)
 
-    return orderedFor(res, postIds, 'postId', false);
+    return orderedFor(res, postIds, 'postId', false)
   }
 
   getTotal() {
     return knex('post')
       .countDistinct('id as count')
-      .first();
+      .first()
   }
 
   post(id) {
@@ -31,17 +31,17 @@ export default class Post {
       .select('id', 'title', 'content')
       .from('post')
       .where('id', '=', id)
-      .first();
+      .first()
   }
 
   addPost({ title, content }) {
-    return returnId(knex('post')).insert({ title, content });
+    return returnId(knex('post')).insert({ title, content })
   }
 
   deletePost(id) {
     return knex('post')
       .where('id', '=', id)
-      .del();
+      .del()
   }
 
   editPost({ id, title, content }) {
@@ -50,11 +50,11 @@ export default class Post {
       .update({
         title: title,
         content: content
-      });
+      })
   }
 
   addComment({ content, postId }) {
-    return returnId(knex('comment')).insert({ content, post_id: postId });
+    return returnId(knex('comment')).insert({ content, post_id: postId })
   }
 
   getComment(id) {
@@ -62,13 +62,13 @@ export default class Post {
       .select('id', 'content')
       .from('comment')
       .where('id', '=', id)
-      .first();
+      .first()
   }
 
   deleteComment(id) {
     return knex('comment')
       .where('id', '=', id)
-      .del();
+      .del()
   }
 
   editComment({ id, content }) {
@@ -76,6 +76,6 @@ export default class Post {
       .where('id', '=', id)
       .update({
         content: content
-      });
+      })
   }
 }

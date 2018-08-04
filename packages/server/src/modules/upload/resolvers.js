@@ -1,73 +1,72 @@
 /*eslint-disable no-unused-vars*/
-import { GraphQLUpload } from 'apollo-upload-server';
-import shell from 'shelljs';
-import fs from 'fs';
-import mkdirp from 'mkdirp';
-import shortid from 'shortid';
+import { GraphQLUpload } from 'apollo-upload-server'
+import shell from 'shelljs'
+import fs from 'fs'
+import mkdirp from 'mkdirp'
+import shortid from 'shortid'
 
-import FieldError from '../../../../common/FieldError';
+import FieldError from '../../../../common/FieldError'
 
-const UPLOAD_DIR = 'public';
+const UPLOAD_DIR = 'public'
 
 const storeFS = ({ stream, filename }) => {
   // Check if UPLOAD_DIR exists, create one if not
   if (!fs.existsSync(UPLOAD_DIR)) {
-    mkdirp(UPLOAD_DIR, err => {
-      if (err) throw new Error(err);
-    });
+    mkdirp(UPLOAD_DIR, (err) => {
+      if (err) throw new Error(err)
+    })
   }
 
-  const id = shortid.generate();
-  const path = `${UPLOAD_DIR}/${id}-${filename}`;
+  const id = shortid.generate()
+  const path = `${UPLOAD_DIR}/${id}-${filename}`
   return new Promise((resolve, reject) =>
     stream
-      .on('error', error => {
+      .on('error', (error) => {
         if (stream.truncated) {
           // Delete the truncated file
-          fs.unlinkSync(path);
+          fs.unlinkSync(path)
         }
-        reject(error);
+        reject(error)
       })
       .pipe(fs.createWriteStream(path))
-      .on('error', error => reject(error))
-      .on('finish', () => resolve({ id, path, size: fs.statSync(path).size }))
-  );
-};
+      .on('error', (error) => reject(error))
+      .on('finish', () => resolve({ id, path, size: fs.statSync(path).size })))
+}
 
-const processUpload = async uploadPromise => {
-  const { stream, filename, mimetype, encoding } = await uploadPromise;
-  const { id, path, size } = await storeFS({ stream, filename });
-  return { name: filename, type: mimetype, path, size };
-};
+const processUpload = async (uploadPromise) => {
+  const { stream, filename, mimetype, encoding } = await uploadPromise
+  const { id, path, size } = await storeFS({ stream, filename })
+  return { name: filename, type: mimetype, path, size }
+}
 
-export default pubsub => ({
+export default (pubsub) => ({
   Query: {
     files(obj, args, { Upload }) {
-      return Upload.files();
+      return Upload.files()
     }
   },
   Mutation: {
     uploadFiles: async (obj, { files }, { Upload }) => {
-      const results = await Promise.all(files.map(processUpload));
-      return Upload.saveFiles(results);
+      const results = await Promise.all(files.map(processUpload))
+      return Upload.saveFiles(results)
     },
     removeFile: async (obj, { id }, { Upload }) => {
-      const file = await Upload.file(id);
+      const file = await Upload.file(id)
       if (!file) {
-        throw new Error('File not found.');
+        throw new Error('File not found.')
       }
 
-      const ok = await Upload.deleteFile(id);
+      const ok = await Upload.deleteFile(id)
       if (ok) {
-        const filePath = `${file.path}`;
-        const res = shell.rm(filePath);
+        const filePath = `${file.path}`
+        const res = shell.rm(filePath)
         if (res.code > 0) {
-          throw new Error('Unable to delete file.');
+          throw new Error('Unable to delete file.')
         }
       }
-      return ok;
+      return ok
     }
   },
   Subscription: {},
   Upload: GraphQLUpload
-});
+})

@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
-import translate from '../../../i18n';
-import { LayoutCenter } from '../../common/components';
-import { PageLayout, Card, CardGroup, CardTitle, CardText } from '../../common/components/web';
+import translate from '../../../i18n'
+import { LayoutCenter } from '../../common/components'
+import { PageLayout, Card, CardGroup, CardTitle, CardText } from '../../common/components/web'
 
-import LoginForm from './LoginForm';
-import settings from '../../../../../../settings';
+import LoginForm from './LoginForm'
+import settings from '../../../../../../settings'
 
 class LoginView extends React.PureComponent {
   static propTypes = {
@@ -16,24 +16,24 @@ class LoginView extends React.PureComponent {
     t: PropTypes.func
   };
 
-  onSubmit = login => async values => {
-    const res = await login(values);
-    const { errors } = res;
-    const { t } = this.props;
+  onSubmit = (login) => async (values) => {
+    const res = await login(values)
+    const { errors } = res
+    const { t } = this.props
 
     if (errors && errors.length) {
       throw errors.reduce(
         (res, error) => {
-          res[error.field] = error.message;
-          return res;
+          res[error.field] = error.message
+          return res
         },
         { _error: t('login.errorMsg') }
-      );
+      )
     }
   };
 
   render() {
-    const { login, t } = this.props;
+    const { login, t } = this.props
 
     const renderMetaData = () => (
       <Helmet
@@ -45,13 +45,13 @@ class LoginView extends React.PureComponent {
           }
         ]}
       />
-    );
+    )
 
     return (
       <PageLayout>
         {renderMetaData()}
         <LayoutCenter>
-          <h1 className="text-center">{t('login.form.title')}</h1>
+          <h1 className='text-center'>{t('login.form.title')}</h1>
           <LoginForm onSubmit={this.onSubmit(login)} />
           <hr />
           <Card>
@@ -64,8 +64,8 @@ class LoginView extends React.PureComponent {
           </Card>
         </LayoutCenter>
       </PageLayout>
-    );
+    )
   }
 }
 
-export default translate('user')(LoginView);
+export default translate('user')(LoginView)

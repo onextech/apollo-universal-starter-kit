@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
-import { PageLayout } from '../../common/components/web';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
+import { Link } from 'react-router-dom'
+import { PageLayout } from '../../common/components/web'
 
-import UserForm from './UserForm';
-import settings from '../../../../../../settings';
-import translate from '../../../i18n';
+import UserForm from './UserForm'
+import settings from '../../../../../../settings'
+import translate from '../../../i18n'
 
 class UserAddView extends React.PureComponent {
   static propTypes = {
@@ -19,19 +19,19 @@ class UserAddView extends React.PureComponent {
   };
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   state = {};
 
   static getDerivedStateFromProps(nextProps) {
     if (!nextProps.loading && nextProps.errors && nextProps.errors.length) {
-      nextProps.history.push('/profile');
+      nextProps.history.push('/profile')
     }
-    return null;
+    return null
   }
 
-  renderMetaData = t => (
+  renderMetaData = (t) => (
     <Helmet
       title={`${settings.app.name} - ${t('userEdit.title')}`}
       meta={[
@@ -44,12 +44,12 @@ class UserAddView extends React.PureComponent {
   );
 
   render() {
-    const { t } = this.props;
+    const { t } = this.props
 
     return (
       <PageLayout>
         {this.renderMetaData(t)}
-        <Link id="back-button" to="/users">
+        <Link id='back-button' to='/users'>
           Back
         </Link>
         <h2>
@@ -62,8 +62,8 @@ class UserAddView extends React.PureComponent {
           shouldActiveDisplay={true}
         />
       </PageLayout>
-    );
+    )
   }
 }
 
-export default translate('user')(UserAddView);
+export default translate('user')(UserAddView)

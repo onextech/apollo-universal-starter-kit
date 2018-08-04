@@ -1,10 +1,10 @@
 // React
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'react-apollo';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { compose } from 'react-apollo'
 
 // Components
-import UsersListView from '../components/UsersListView';
+import UsersListView from '../components/UsersListView'
 
 import {
   withUsersState,
@@ -12,36 +12,36 @@ import {
   withUsersDeleting,
   withOrderByUpdating,
   subscribeToUsersList
-} from './UserOperations';
+} from './UserOperations'
 
 class UsersList extends React.Component {
   constructor(props) {
-    super(props);
-    this.subscription = null;
+    super(props)
+    this.subscription = null
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { subscribeToMore, filter, users } = this.props;
+    const { subscribeToMore, filter, users } = this.props
     if (!nextProps.loading) {
       if (this.subscription && nextProps.users.length !== users.length) {
-        this.subscription();
-        this.subscription = null;
+        this.subscription()
+        this.subscription = null
       }
 
       if (!this.subscription) {
-        this.subscription = subscribeToUsersList(subscribeToMore, filter);
+        this.subscription = subscribeToUsersList(subscribeToMore, filter)
       }
     }
   }
 
   componentWillUnmount() {
     if (this.subscription) {
-      this.subscription();
+      this.subscription()
     }
   }
 
   render() {
-    return <UsersListView {...this.props} />;
+    return <UsersListView {...this.props} />
   }
 }
 
@@ -50,11 +50,11 @@ UsersList.propTypes = {
   users: PropTypes.array,
   subscribeToMore: PropTypes.func,
   loading: PropTypes.bool
-};
+}
 
 export default compose(
   withUsersState,
   withUsers,
   withOrderByUpdating,
   withUsersDeleting
-)(UsersList);
+)(UsersList)

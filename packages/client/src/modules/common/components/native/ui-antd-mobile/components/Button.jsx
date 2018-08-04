@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ADButton from 'antd-mobile/lib/button';
-import { Text } from 'react-native';
-import * as TYPES from '../../ButtonTypes';
+import React from 'react'
+import PropTypes from 'prop-types'
+import ADButton from 'antd-mobile/lib/button'
+import { Text } from 'react-native'
+import * as TYPES from '../../ButtonTypes'
 
 const Button = ({ textStyle, children, onPress, onClick, type, style, ...props }) => {
-  const btnData = buttonTypes[type] || {};
+  const btnData = buttonTypes[type] || {}
   const btnProps = {
     ...props,
     type: btnData.type || 'default',
     style: [btnData.styles, style]
-  };
+  }
 
   return (
     <ADButton onClick={onPress || onClick} {...btnProps}>
@@ -18,8 +18,8 @@ const Button = ({ textStyle, children, onPress, onClick, type, style, ...props }
         {children}
       </Text>
     </ADButton>
-  );
-};
+  )
+}
 
 Button.propTypes = {
   children: PropTypes.node,
@@ -28,14 +28,14 @@ Button.propTypes = {
   textStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   style: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   onClick: PropTypes.func
-};
+}
 
-const getStyles = color => {
+const getStyles = (color) => {
   return {
     backgroundColor: color,
     borderColor: color
-  };
-};
+  }
+}
 
 const buttonTypes = {
   primary: {
@@ -60,6 +60,6 @@ const buttonTypes = {
     type: TYPES.primary,
     styles: getStyles('#f6aa57')
   }
-};
+}
 
-export default Button;
+export default Button

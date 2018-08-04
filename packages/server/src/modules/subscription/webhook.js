@@ -1,33 +1,33 @@
-import Stripe from 'stripe';
+import Stripe from 'stripe'
 
-import SubscriptionDAO from './sql';
-import mailer from '../mailer/mailer';
-import User from '../user/sql';
-import settings from '../../../../../settings';
+import SubscriptionDAO from './sql'
+import mailer from '../mailer/mailer'
+import User from '../user/sql'
+import settings from '../../../../../settings'
 
-const Subscription = new SubscriptionDAO();
-const stripe = Stripe(settings.subscription.stripeSecretKey);
+const Subscription = new SubscriptionDAO()
+const stripe = Stripe(settings.subscription.stripeSecretKey)
 
 export default async (req, res) => {
   try {
-    const { stripeEndpointSecret } = settings.subscription;
-    let event;
+    const { stripeEndpointSecret } = settings.subscription
+    let event
 
     if (stripeEndpointSecret) {
-      const sig = req.headers['stripe-signature'];
-      event = stripe.webhooks.constructEvent(req.body, sig, settings.subscription.stripeEndpointSecret);
+      const sig = req.headers['stripe-signature']
+      event = stripe.webhooks.constructEvent(req.body, sig, settings.subscription.stripeEndpointSecret)
     } else {
-      event = req.body;
+      event = req.body
     }
 
     if (event.type === 'customer.subscription.deleted') {
-      const response = event.data.object;
-      const subscription = await Subscription.getSubscriptionByStripeSubscriptionId(response.id);
+      const response = event.data.object
+      const subscription = await Subscription.getSubscriptionByStripeSubscriptionId(response.id)
       if (subscription) {
-        const { userId, stripeCustomerId, stripeSourceId } = subscription;
-        const user = await User.getUser(userId);
+        const { userId, stripeCustomerId, stripeSourceId } = subscription
+        const user = await User.getUser(userId)
 
-        await stripe.customers.deleteSource(stripeCustomerId, stripeSourceId);
+        await stripe.customers.deleteSource(stripeCustomerId, stripeSourceId)
         await Subscription.editSubscription({
           userId: userId,
           subscription: {
@@ -39,39 +39,39 @@ export default async (req, res) => {
             last4: null,
             brand: null
           }
-        });
+        })
 
-        const url = `${req.protocol}://${req.get('host')}/subscription`;
+        const url = `${req.protocol}://${req.get('host')}/subscription`
 
         mailer.sendMail({
           from: `${settings.app.name} <${process.env.EMAIL_USER}>`,
           to: user.email,
           subject: 'Subscription Canceled',
           html: `Your subscription has been canceled. To resubscribe click here: <a href="${url}">${url}</a>`
-        });
+        })
       }
     }
 
     if (event.type === 'invoice.payment_failed') {
-      const response = event.data.object;
-      const subscription = await Subscription.getSubscriptionByStripeCustomerId(response.customer);
+      const response = event.data.object
+      const subscription = await Subscription.getSubscriptionByStripeCustomerId(response.customer)
       if (subscription) {
-        const { userId } = subscription;
-        const user = await User.getUser(userId);
+        const { userId } = subscription
+        const user = await User.getUser(userId)
 
-        const url = `${req.protocol}://${req.get('host')}/profile`;
+        const url = `${req.protocol}://${req.get('host')}/profile`
 
         mailer.sendMail({
           from: `${settings.app.name} <${process.env.EMAIL_USER}>`,
           to: user.email,
           subject: 'Charge Failed',
           html: `We are having trouble charging your card. Please update your card details here: <a href="${url}">${url}</a>`
-        });
+        })
       }
     }
 
-    res.json({ success: true });
+    res.json({ success: true })
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.status(500).json({ error: e.message })
   }
-};
+}

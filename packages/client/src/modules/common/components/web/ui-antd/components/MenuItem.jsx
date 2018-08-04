@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Menu } from 'antd';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Menu } from 'antd'
 
 class MenuItem extends React.Component {
   static propTypes = {
@@ -8,9 +8,9 @@ class MenuItem extends React.Component {
   };
 
   render() {
-    const { children, ...props } = this.props;
-    return <Menu.Item {...props}>{children}</Menu.Item>;
+    const { children, ...props } = this.props
+    return <Menu.Item {...props}>{children}</Menu.Item>
   }
 }
 
-export default MenuItem;
+export default MenuItem

@@ -3,6 +3,6 @@ const FormViewStyles = {
     paddingBottom: 10,
     backgroundColor: '#fff'
   }
-};
+}
 
-export default FormViewStyles;
+export default FormViewStyles

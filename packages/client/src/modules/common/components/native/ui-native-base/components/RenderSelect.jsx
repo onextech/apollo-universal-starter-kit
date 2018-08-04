@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Platform, StyleSheet, View, Text } from 'react-native';
-import Select from './Select';
-import RenderSelectStyles from '../styles/RenderSelect';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Platform, StyleSheet, View, Text } from 'react-native'
+import Select from './Select'
+import RenderSelectStyles from '../styles/RenderSelect'
 
 const RenderSelect = ({ style, label, ...props }) => {
   const selectProps = {
@@ -10,7 +10,7 @@ const RenderSelect = ({ style, label, ...props }) => {
     icon: true,
     iconSize: 20,
     ...props
-  };
+  }
   return (
     <View style={styles.container}>
       {Platform.OS === 'ios' ? (
@@ -29,14 +29,14 @@ const RenderSelect = ({ style, label, ...props }) => {
         </View>
       )}
     </View>
-  );
-};
+  )
+}
 
 RenderSelect.propTypes = {
   style: PropTypes.number,
   label: PropTypes.string
-};
+}
 
-const styles = StyleSheet.create(RenderSelectStyles);
+const styles = StyleSheet.create(RenderSelectStyles)
 
-export default RenderSelect;
+export default RenderSelect

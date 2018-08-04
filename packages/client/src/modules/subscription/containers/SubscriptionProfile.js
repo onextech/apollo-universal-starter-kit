@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import CardInfo from './CardInfo';
-import CancelSubscription from './CancelSubscription';
+import CardInfo from './CardInfo'
+import CancelSubscription from './CancelSubscription'
 
 const SubscriptionProfile = () => {
   return (
@@ -9,7 +9,7 @@ const SubscriptionProfile = () => {
       <CardInfo />
       <CancelSubscription />
     </div>
-  );
-};
+  )
+}
 
-export default SubscriptionProfile;
+export default SubscriptionProfile

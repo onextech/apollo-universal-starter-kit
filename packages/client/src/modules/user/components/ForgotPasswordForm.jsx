@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withFormik } from 'formik';
-import { FontAwesome } from '@expo/vector-icons';
-import { View, StyleSheet, Text, Keyboard } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import Field from '../../../utils/FieldAdapter';
-import { RenderField, Button, primary } from '../../common/components/native';
-import { placeholderColor, submit } from '../../common/components/native/styles';
-import { required, email, validateForm } from '../../../../../common/validation';
-import translate from '../../../i18n';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withFormik } from 'formik'
+import { FontAwesome } from '@expo/vector-icons'
+import { View, StyleSheet, Text, Keyboard } from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
+import Field from '../../../utils/FieldAdapter'
+import { RenderField, Button, primary } from '../../common/components/native'
+import { placeholderColor, submit } from '../../common/components/native/styles'
+import { required, email, validateForm } from '../../../../../common/validation'
+import translate from '../../../i18n'
 
 const forgotPasswordFormSchema = {
   email: [required, email]
-};
+}
 
-const validate = values => validateForm(values, forgotPasswordFormSchema);
+const validate = (values) => validateForm(values, forgotPasswordFormSchema)
 
 const ForgotPasswordForm = ({ handleSubmit, values, sent, t }) => {
   return (
@@ -23,7 +23,7 @@ const ForgotPasswordForm = ({ handleSubmit, values, sent, t }) => {
         {sent && (
           <View style={styles.alertWrapper}>
             <View style={styles.alertIconWrapper}>
-              <FontAwesome name="check-circle" size={30} style={{ color: '#155724' }} />
+              <FontAwesome name='check-circle' size={30} style={{ color: '#155724' }} />
             </View>
             <View style={styles.alertTextWrapper}>
               <Text style={styles.alertText}>{t('forgotPass.form.submitMsg')}</Text>
@@ -34,12 +34,12 @@ const ForgotPasswordForm = ({ handleSubmit, values, sent, t }) => {
       <View style={styles.form}>
         <View>
           <Field
-            name="email"
+            name='email'
             component={RenderField}
-            type="email"
+            type='email'
             placeholder={t('forgotPass.form.fldEmail')}
             value={values.email}
-            keyboardType="email-address"
+            keyboardType='email-address'
             placeholderTextColor={placeholderColor}
           />
         </View>
@@ -51,15 +51,15 @@ const ForgotPasswordForm = ({ handleSubmit, values, sent, t }) => {
       </View>
       <KeyboardSpacer />
     </View>
-  );
-};
+  )
+}
 
 ForgotPasswordForm.propTypes = {
   handleSubmit: PropTypes.func,
   t: PropTypes.func,
   values: PropTypes.object,
   sent: PropTypes.bool
-};
+}
 
 const ForgotPasswordFormWithFormik = withFormik({
   enableReinitialize: true,
@@ -72,16 +72,16 @@ const ForgotPasswordFormWithFormik = withFormik({
       props: { onSubmit }
     }
   ) {
-    Keyboard.dismiss();
+    Keyboard.dismiss()
     await onSubmit(values)
       .then(() => {
-        resetForm();
+        resetForm()
       })
-      .catch(e => setErrors(e));
+      .catch((e) => setErrors(e))
   },
-  validate: values => validate(values),
+  validate: (values) => validate(values),
   displayName: 'ForgotPasswordForm' // helps with React DevTools
-});
+})
 
 const styles = StyleSheet.create({
   submit,
@@ -125,6 +125,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400'
   }
-});
+})
 
-export default translate('user')(ForgotPasswordFormWithFormik(ForgotPasswordForm));
+export default translate('user')(ForgotPasswordFormWithFormik(ForgotPasswordForm))

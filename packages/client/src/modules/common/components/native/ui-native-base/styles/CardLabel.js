@@ -4,6 +4,6 @@ const CardLabelStyles = {
     fontWeight: '600',
     color: '#686b70'
   }
-};
+}
 
-export default CardLabelStyles;
+export default CardLabelStyles

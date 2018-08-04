@@ -1,30 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Text, Platform, View } from 'react-native';
-import { ActionSheet } from 'native-base';
-import SimplePicker from 'react-native-simple-picker';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Text, Platform, View } from 'react-native'
+import { ActionSheet } from 'native-base'
+import SimplePicker from 'react-native-simple-picker'
 
-import { HeaderTitle } from '../..';
+import { HeaderTitle } from '../..'
 
 export default class LanguagePicker extends React.Component {
   constructor(props) {
-    super(props);
-    this.changeLang = this.changeLang.bind(this);
+    super(props)
+    this.changeLang = this.changeLang.bind(this)
     this.state = {
       currentLang: this.props.i18n.language
-    };
+    }
   }
 
   changeLang(lang) {
     if (lang) {
-      this.props.i18n.changeLanguage(lang);
-      this.setState({ currentLang: lang });
+      this.props.i18n.changeLanguage(lang)
+      this.setState({ currentLang: lang })
     }
   }
 
   render() {
-    const { i18n } = this.props;
-    const langs = Object.keys(i18n.store.data);
+    const { i18n } = this.props
+    const langs = Object.keys(i18n.store.data)
     return (
       i18n.language &&
       langs.length > 1 && (
@@ -35,10 +35,10 @@ export default class LanguagePicker extends React.Component {
                 ? this.pickerRef.show()
                 : ActionSheet.show(
                     {
-                      options: langs.map(lang => lang.slice(0, 2).toUpperCase()),
+                      options: langs.map((lang) => lang.slice(0, 2).toUpperCase()),
                       title: i18n.t('i18n:pickerTitle')
                     },
-                    langIndex => this.changeLang(langs[langIndex])
+                    (langIndex) => this.changeLang(langs[langIndex])
                   )
             }
           >
@@ -49,18 +49,18 @@ export default class LanguagePicker extends React.Component {
           </Text>
           {Platform.OS === 'ios' && (
             <SimplePicker
-              ref={el => (this.pickerRef = el)}
-              options={langs.map(lang => lang.slice(0, 2).toUpperCase())}
-              onSubmit={lang => this.changeLang(langs.filter(lng => lng.indexOf(lang) > -1)[0] || lang)}
+              ref={(el) => (this.pickerRef = el)}
+              options={langs.map((lang) => lang.slice(0, 2).toUpperCase())}
+              onSubmit={(lang) => this.changeLang(langs.filter((lng) => lng.indexOf(lang) > -1)[0] || lang)}
               buttonStyle={{ fontWeight: '700', color: '#0275d8', fontSize: 20 }}
             />
           )}
         </View>
       )
-    );
+    )
   }
 }
 
 LanguagePicker.propTypes = {
   i18n: PropTypes.object.isRequired
-};
+}

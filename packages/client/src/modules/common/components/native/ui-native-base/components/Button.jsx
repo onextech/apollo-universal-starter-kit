@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button as NBButton, Text } from 'native-base';
-import { StyleSheet } from 'react-native';
-import ButtonStyles from '../styles/Button';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Button as NBButton, Text } from 'native-base'
+import { StyleSheet } from 'react-native'
+import ButtonStyles from '../styles/Button'
 
 const Button = ({ textStyle, children, onClick, onPress, type, size, ...props }) => {
   const btnProps = {
@@ -11,7 +11,7 @@ const Button = ({ textStyle, children, onClick, onPress, type, size, ...props })
     [size]: true,
     block: true,
     onPress: onPress || onClick
-  };
+  }
 
   return (
     <NBButton {...btnProps}>
@@ -19,10 +19,10 @@ const Button = ({ textStyle, children, onClick, onPress, type, size, ...props })
         {children}
       </Text>
     </NBButton>
-  );
-};
+  )
+}
 
-const styles = StyleSheet.create(ButtonStyles);
+const styles = StyleSheet.create(ButtonStyles)
 
 Button.propTypes = {
   children: PropTypes.string,
@@ -31,6 +31,6 @@ Button.propTypes = {
   size: PropTypes.string,
   onPress: PropTypes.func,
   onClick: PropTypes.func
-};
+}
 
-export default Button;
+export default Button

@@ -1,14 +1,14 @@
-import React from 'react';
-import { graphql, compose } from 'react-apollo';
-import { StripeProvider } from 'react-stripe-elements';
+import React from 'react'
+import { graphql, compose } from 'react-apollo'
+import { StripeProvider } from 'react-stripe-elements'
 
-import SubscriptionView from '../components/SubscriptionView';
+import SubscriptionView from '../components/SubscriptionView'
 
-import SUBSCRIBE from '../graphql/Subscribe.graphql';
-import SUBSCRIPTION_QUERY from '../graphql/SubscriptionQuery.graphql';
-import CARD_INFO from '../graphql/CardInfoQuery.graphql';
+import SUBSCRIBE from '../graphql/Subscribe.graphql'
+import SUBSCRIPTION_QUERY from '../graphql/SubscriptionQuery.graphql'
+import CARD_INFO from '../graphql/CardInfoQuery.graphql'
 
-import settings from '../../../../../../settings';
+import settings from '../../../../../../settings'
 
 // react-stripe-elements will not render on the server.
 class Subscription extends React.Component {
@@ -23,7 +23,7 @@ class Subscription extends React.Component {
           <SubscriptionView {...this.props} />
         )}
       </div>
-    );
+    )
   }
 }
 
@@ -37,31 +37,31 @@ const SubscriptionViewWithApollo = compose(
           } = await mutate({
             variables: { input: { token, expiryMonth, expiryYear, last4, brand } },
             update: (store, { data: { subscribe } }) => {
-              const data = store.readQuery({ query: SUBSCRIPTION_QUERY });
-              data.subscription = subscribe;
-              store.writeQuery({ query: SUBSCRIPTION_QUERY, data });
+              const data = store.readQuery({ query: SUBSCRIPTION_QUERY })
+              data.subscription = subscribe
+              store.writeQuery({ query: SUBSCRIPTION_QUERY, data })
             },
             refetchQueries: [{ query: CARD_INFO }]
-          });
+          })
 
           if (subscribe.errors) {
-            return { errors: subscribe.errors };
+            return { errors: subscribe.errors }
           }
 
           if (history) {
-            history.push('/subscribers-only');
+            history.push('/subscribers-only')
           }
           if (navigation) {
-            navigation.goBack();
+            navigation.goBack()
           }
 
-          return subscribe;
+          return subscribe
         } catch (e) {
-          console.log(e.graphQLErrors);
+          console.log(e.graphQLErrors)
         }
       }
     })
   })
-)(Subscription);
+)(Subscription)
 
-export default SubscriptionViewWithApollo;
+export default SubscriptionViewWithApollo

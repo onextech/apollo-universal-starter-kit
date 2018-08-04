@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
-import ErrorStackParser from 'error-stack-parser';
-import { mapStackTrace } from 'sourcemapped-stacktrace';
-import React from 'react';
-import settings from '../../../../settings';
+import PropTypes from 'prop-types'
+import ErrorStackParser from 'error-stack-parser'
+import { mapStackTrace } from 'sourcemapped-stacktrace'
+import React from 'react'
+import settings from '../../../../settings'
 
 const format = (fmt, ...args) =>
-  fmt.replace(/{(\d+)}/g, (match, number) => (typeof args[number] != 'undefined' ? args[number] : match));
+  fmt.replace(/{(\d+)}/g, (match, number) => (typeof args[number] != 'undefined' ? args[number] : match))
 
 export default class RedBox extends React.Component {
   static propTypes = {
@@ -13,7 +13,7 @@ export default class RedBox extends React.Component {
   };
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   state = {
@@ -22,25 +22,25 @@ export default class RedBox extends React.Component {
 
   componentDidMount() {
     if (!this.state.mapped) {
-      mapStackTrace(this.props.error.stack, mappedStack => {
+      mapStackTrace(this.props.error.stack, (mappedStack) => {
         const processStack = __DEV__
           ? fetch('/servdir')
-              .then(res => res.text())
-              .then(servDir => mappedStack.map(frame => frame.replace('webpack:///', servDir)))
-          : Promise.resolve(mappedStack);
-        processStack.then(stack => {
-          this.props.error.stack = stack.join('\n');
-          this.setState({ mapped: true });
-        });
-      });
+              .then((res) => res.text())
+              .then((servDir) => mappedStack.map((frame) => frame.replace('webpack:///', servDir)))
+          : Promise.resolve(mappedStack)
+        processStack.then((stack) => {
+          this.props.error.stack = stack.join('\n')
+          this.setState({ mapped: true })
+        })
+      })
     }
   }
 
   renderFrames(frames) {
-    const { frame, file, linkToFile } = styles;
+    const { frame, file, linkToFile } = styles
     return frames.map((f, index) => {
-      const text = `at ${f.fileName}:${f.lineNumber}:${f.columnNumber}`;
-      const url = format(settings.app.stackFragmentFormat, f.fileName, f.lineNumber, f.columnNumber);
+      const text = `at ${f.fileName}:${f.lineNumber}:${f.columnNumber}`
+      const url = format(settings.app.stackFragmentFormat, f.fileName, f.lineNumber, f.columnNumber)
 
       return (
         <div style={frame} key={index}>
@@ -51,28 +51,28 @@ export default class RedBox extends React.Component {
             </a>
           </div>
         </div>
-      );
-    });
+      )
+    })
   }
 
   render() {
-    const error = this.props.error;
+    const error = this.props.error
 
-    const { redbox, message, stack, frame } = styles;
+    const { redbox, message, stack, frame } = styles
 
-    let frames;
-    let parseError;
+    let frames
+    let parseError
     try {
       if (error.message.indexOf('\n    at ') >= 0) {
         // We probably have stack in our error message
         // a trick used by our errorMiddleware to pass error stack
         // when GraphQL context creation failed, use that stack
-        error.stack = error.message;
-        error.message = error.stack.split('\n')[0];
+        error.stack = error.message
+        error.message = error.stack.split('\n')[0]
       }
-      frames = ErrorStackParser.parse(error);
+      frames = ErrorStackParser.parse(error)
     } catch (e) {
-      parseError = new Error('Failed to parse stack trace. Stack trace information unavailable.');
+      parseError = new Error('Failed to parse stack trace. Stack trace information unavailable.')
     }
 
     if (parseError) {
@@ -80,9 +80,9 @@ export default class RedBox extends React.Component {
         <div style={frame} key={0}>
           <div>{parseError.message}</div>
         </div>
-      );
+      )
     } else {
-      frames = this.renderFrames(frames);
+      frames = this.renderFrames(frames)
     }
 
     return (
@@ -92,7 +92,7 @@ export default class RedBox extends React.Component {
         </div>
         <div style={stack}>{frames}</div>
       </div>
-    );
+    )
   }
 }
 
@@ -133,4 +133,4 @@ const styles = {
     textDecoration: 'none',
     color: 'rgba(255, 255, 255, 0.7)'
   }
-};
+}

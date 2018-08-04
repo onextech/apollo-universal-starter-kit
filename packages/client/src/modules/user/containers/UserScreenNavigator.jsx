@@ -1,10 +1,10 @@
-import { createDrawerNavigator } from 'react-navigation';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { pickBy } from 'lodash';
-import { compose } from 'react-apollo';
-import { withUser } from './Auth';
-import { DrawerComponent } from '../../common/components/native';
+import { createDrawerNavigator } from 'react-navigation'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { pickBy } from 'lodash'
+import { compose } from 'react-apollo'
+import { withUser } from './Auth'
+import { DrawerComponent } from '../../common/components/native'
 
 class UserScreenNavigator extends React.Component {
   static propTypes = {
@@ -15,7 +15,7 @@ class UserScreenNavigator extends React.Component {
   };
 
   shouldComponentUpdate(nextProps) {
-    const { currentUserLoading, currentUser } = this.props;
+    const { currentUserLoading, currentUser } = this.props
     /**
      * After a user edits the profile the CurrentUser being updated in the State as well.
      * That leads to the Navigator re-rendering and, as a result, takes the user back to the initial route.
@@ -28,26 +28,26 @@ class UserScreenNavigator extends React.Component {
       nextProps.currentUser &&
       currentUser.id === nextProps.currentUser.id &&
       currentUser.role === nextProps.currentUser.role
-    );
+    )
   }
 
   navItemsFilter = () => {
-    const { currentUser, currentUserLoading, routeConfigs } = this.props;
+    const { currentUser, currentUserLoading, routeConfigs } = this.props
 
-    const userFilter = value => {
-      if (!value.userInfo) return true;
-      const { showOnLogin, role } = value.userInfo;
-      return showOnLogin && (!role || (Array.isArray(role) ? role : [role]).includes(currentUser.role));
-    };
+    const userFilter = (value) => {
+      if (!value.userInfo) return true
+      const { showOnLogin, role } = value.userInfo
+      return showOnLogin && (!role || (Array.isArray(role) ? role : [role]).includes(currentUser.role))
+    }
 
-    const guestFilter = value => !value.userInfo || (value.userInfo && !value.userInfo.showOnLogin);
+    const guestFilter = (value) => !value.userInfo || (value.userInfo && !value.userInfo.showOnLogin)
 
-    return pickBy(routeConfigs, currentUser && !currentUserLoading ? userFilter : guestFilter);
+    return pickBy(routeConfigs, currentUser && !currentUserLoading ? userFilter : guestFilter)
   };
 
   getInitialRoute = () => {
-    const { currentUser } = this.props;
-    return currentUser ? 'Profile' : 'Counter';
+    const { currentUser } = this.props
+    return currentUser ? 'Profile' : 'Counter'
   };
 
   render() {
@@ -57,23 +57,23 @@ class UserScreenNavigator extends React.Component {
         contentComponent: DrawerComponent,
         initialRouteName: this.getInitialRoute()
       }
-    );
+    )
 
-    return <MainScreenNavigatorComponent />;
+    return <MainScreenNavigatorComponent />
   }
 }
 
-const drawerNavigator = routeConfigs => {
-  const withRoutes = Component => {
-    const ownProps = { routeConfigs };
-    const WithRoutesComponent = ({ ...props }) => <Component {...props} {...ownProps} />;
-    return WithRoutesComponent;
-  };
+const drawerNavigator = (routeConfigs) => {
+  const withRoutes = (Component) => {
+    const ownProps = { routeConfigs }
+    const WithRoutesComponent = ({ ...props }) => <Component {...props} {...ownProps} />
+    return WithRoutesComponent
+  }
 
   return compose(
     withUser,
     withRoutes
-  )(UserScreenNavigator);
-};
+  )(UserScreenNavigator)
+}
 
-export default drawerNavigator;
+export default drawerNavigator

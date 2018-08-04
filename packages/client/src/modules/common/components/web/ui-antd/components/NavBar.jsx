@@ -1,21 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withRouter, NavLink } from 'react-router-dom';
-import { Menu, Row, Col } from 'antd';
-import MenuItem from './MenuItem';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withRouter, NavLink } from 'react-router-dom'
+import { Menu, Row, Col } from 'antd'
+import MenuItem from './MenuItem'
 
-import modules from '../../../../../../modules';
-import settings from '../../../../../../../../../settings';
+import modules from '../../../../../../modules'
+import settings from '../../../../../../../../../settings'
 
 class NavBar extends React.Component {
   state = {
     current: '/'
   };
 
-  handleClick = e => {
+  handleClick = (e) => {
     this.setState({
       current: e.key
-    });
+    })
   };
 
   render() {
@@ -25,12 +25,12 @@ class NavBar extends React.Component {
           <Menu
             onClick={this.handleClick}
             selectedKeys={[this.props.location.pathname]}
-            mode="horizontal"
-            theme="dark"
+            mode='horizontal'
+            theme='dark'
             style={{ lineHeight: '64px' }}
           >
-            <MenuItem key="/">
-              <NavLink to="/" className="nav-link">
+            <MenuItem key='/'>
+              <NavLink to='/' className='nav-link'>
                 {settings.app.name}
               </NavLink>
             </MenuItem>
@@ -41,25 +41,25 @@ class NavBar extends React.Component {
           <Menu
             onClick={this.handleClick}
             selectedKeys={[this.props.location.pathname]}
-            mode="horizontal"
-            theme="dark"
+            mode='horizontal'
+            theme='dark'
             style={{ lineHeight: '64px', float: 'right' }}
           >
             {modules.navItemsRight}
             {__DEV__ && (
               <MenuItem>
-                <a href="/graphiql">GraphiQL</a>
+                <a href='/graphiql'>GraphiQL</a>
               </MenuItem>
             )}
           </Menu>
         </Col>
       </Row>
-    );
+    )
   }
 }
 
 NavBar.propTypes = {
   location: PropTypes.object.isRequired
-};
+}
 
-export default withRouter(NavBar);
+export default withRouter(NavBar)

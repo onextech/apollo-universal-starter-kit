@@ -6,4 +6,4 @@ export default {
     }
   },
   dumpTraffic: true // Debug configuration that logs traffic between Proxy and GraphQL server
-};
+}

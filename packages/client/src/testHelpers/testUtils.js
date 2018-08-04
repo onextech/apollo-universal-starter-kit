@@ -1,45 +1,45 @@
-import { prettyDOM } from 'dom-testing-library';
-import { render, renderIntoDocument, Simulate, wait, waitForElement, fireEvent, cleanup } from 'react-testing-library';
+import { prettyDOM } from 'dom-testing-library'
+import { render, renderIntoDocument, Simulate, wait, waitForElement, fireEvent, cleanup } from 'react-testing-library'
 
 const find = (container, selector) => {
-  return container.querySelector(selector);
-};
+  return container.querySelector(selector)
+}
 
 const findAll = (container, selector) => {
-  return container.querySelectorAll(selector);
-};
+  return container.querySelectorAll(selector)
+}
 
 const isElementExist = (container, selector) => {
-  const element = find(container, selector);
+  const element = find(container, selector)
   if (!element) {
-    throw new Error(`Unable to find element by selector: ${selector}. Container: \n${prettyDOM(container)}`);
+    throw new Error(`Unable to find element by selector: ${selector}. Container: \n${prettyDOM(container)}`)
   }
-  return element;
-};
+  return element
+}
 
 const waitForElementRender = async (container, selector) => {
-  let element = null;
+  let element = null
   await wait(() => {
-    element = isElementExist(container, selector);
-  });
-  return element;
-};
+    element = isElementExist(container, selector)
+  })
+  return element
+}
 
-const click = element => {
-  Simulate.click(element, { button: 0 });
-};
+const click = (element) => {
+  Simulate.click(element, { button: 0 })
+}
 
 const change = (element, value) => {
-  Simulate.change(element, value);
-};
+  Simulate.change(element, value)
+}
 
-const submit = element => {
-  Simulate.submit(element);
-};
+const submit = (element) => {
+  Simulate.submit(element)
+}
 
-const updateContent = container => {
-  return find(container, '#content');
-};
+const updateContent = (container) => {
+  return find(container, '#content')
+}
 
 export {
   render,
@@ -57,4 +57,4 @@ export {
   click,
   change,
   submit
-};
+}

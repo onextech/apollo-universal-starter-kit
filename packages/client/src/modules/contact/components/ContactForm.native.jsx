@@ -1,22 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withFormik } from 'formik';
-import { Keyboard, View, StyleSheet } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withFormik } from 'formik'
+import { Keyboard, View, StyleSheet } from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import translate from '../../../i18n';
-import Field from '../../../utils/FieldAdapter';
-import { RenderField, FormView, Button } from '../../common/components/native';
-import { placeholderColor, submit } from '../../common/components/native/styles';
-import { email, minLength, required, validateForm } from '../../../../../common/validation';
+import translate from '../../../i18n'
+import Field from '../../../utils/FieldAdapter'
+import { RenderField, FormView, Button } from '../../common/components/native'
+import { placeholderColor, submit } from '../../common/components/native/styles'
+import { email, minLength, required, validateForm } from '../../../../../common/validation'
 
 const contactFormSchema = {
   name: [required, minLength(3)],
   email: [required, email],
   content: [required, minLength(10)]
-};
+}
 
-const validate = values => validateForm(values, contactFormSchema);
+const validate = (values) => validateForm(values, contactFormSchema)
 
 const ContactForm = ({ values, handleSubmit, t }) => {
   return (
@@ -24,26 +24,26 @@ const ContactForm = ({ values, handleSubmit, t }) => {
       <View style={styles.formContainer}>
         <View>
           <Field
-            name="name"
+            name='name'
             component={RenderField}
-            type="text"
+            type='text'
             placeholder={t('form.field.name')}
             value={values.name}
             placeholderTextColor={placeholderColor}
           />
           <Field
-            name="email"
+            name='email'
             component={RenderField}
-            type="text"
+            type='text'
             placeholder={t('form.field.email')}
             value={values.email}
-            keyboardType="email-address"
+            keyboardType='email-address'
             placeholderTextColor={placeholderColor}
           />
           <Field
-            name="content"
+            name='content'
             component={RenderField}
-            type="textarea"
+            type='textarea'
             placeholder={t('form.field.content')}
             value={values.content}
             placeholderTextColor={placeholderColor}
@@ -55,8 +55,8 @@ const ContactForm = ({ values, handleSubmit, t }) => {
       </View>
       <KeyboardSpacer />
     </FormView>
-  );
-};
+  )
+}
 
 ContactForm.propTypes = {
   handleSubmit: PropTypes.func,
@@ -66,7 +66,7 @@ ContactForm.propTypes = {
   sent: PropTypes.bool,
   values: PropTypes.object,
   t: PropTypes.func
-};
+}
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   submit
-});
+})
 
 const ContactFormWithFormik = withFormik({
   mapPropsToValues: () => ({ content: '', email: '', name: '' }),
@@ -91,12 +91,12 @@ const ContactFormWithFormik = withFormik({
       props: { onSubmit }
     }
   ) {
-    Keyboard.dismiss();
-    onSubmit(values);
-    resetForm();
+    Keyboard.dismiss()
+    onSubmit(values)
+    resetForm()
   },
-  validate: values => validate(values),
+  validate: (values) => validate(values),
   displayName: 'ContactUsForm' // helps with React DevTools
-});
+})
 
-export default translate('contact')(ContactFormWithFormik(ContactForm));
+export default translate('contact')(ContactFormWithFormik(ContactForm))

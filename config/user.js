@@ -1,4 +1,4 @@
-const CERTIFICATE_DEVSERIAL = '00';
+const CERTIFICATE_DEVSERIAL = '00'
 export default {
   secret: process.env.NODE_ENV === 'test' ? 'secret for tests' : process.env.AUTH_SECRET,
   auth: {
@@ -48,4 +48,4 @@ export default {
       scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile']
     }
   }
-};
+}

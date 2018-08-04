@@ -1,4 +1,4 @@
-import { itemAction, itemTitle } from '../../styles';
+import { itemAction, itemTitle } from '../../styles'
 
 const RenderSwitchStyles = {
   itemContainer: {
@@ -9,6 +9,6 @@ const RenderSwitchStyles = {
   },
   itemTitle,
   itemAction
-};
+}
 
-export default RenderSwitchStyles;
+export default RenderSwitchStyles

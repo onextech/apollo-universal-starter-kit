@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import translate from '../../../i18n';
-import { Table, Button } from '../../common/components/web';
-import PostCommentForm from './PostCommentForm';
+import translate from '../../../i18n'
+import { Table, Button } from '../../common/components/web'
+import PostCommentForm from './PostCommentForm'
 
 class PostCommentsView extends React.PureComponent {
   static propTypes = {
@@ -19,34 +19,34 @@ class PostCommentsView extends React.PureComponent {
   };
 
   handleEditComment = (id, content) => {
-    const { onCommentSelect } = this.props;
-    onCommentSelect({ id, content });
+    const { onCommentSelect } = this.props
+    onCommentSelect({ id, content })
   };
 
-  handleDeleteComment = id => {
-    const { comment, onCommentSelect, deleteComment } = this.props;
+  handleDeleteComment = (id) => {
+    const { comment, onCommentSelect, deleteComment } = this.props
 
     if (comment.id === id) {
-      onCommentSelect({ id: null, content: '' });
+      onCommentSelect({ id: null, content: '' })
     }
 
-    deleteComment(id);
+    deleteComment(id)
   };
 
-  onSubmit = () => values => {
-    const { comment, postId, addComment, editComment, onCommentSelect } = this.props;
+  onSubmit = () => (values) => {
+    const { comment, postId, addComment, editComment, onCommentSelect } = this.props
 
     if (comment.id === null) {
-      addComment(values.content, postId);
+      addComment(values.content, postId)
     } else {
-      editComment(comment.id, values.content);
+      editComment(comment.id, values.content)
     }
 
-    onCommentSelect({ id: null, content: '' });
+    onCommentSelect({ id: null, content: '' })
   };
 
   render() {
-    const { postId, comments, comment, t } = this.props;
+    const { postId, comments, comment, t } = this.props
     const columns = [
       {
         title: t('comment.column.content'),
@@ -60,17 +60,17 @@ class PostCommentsView extends React.PureComponent {
         render: (text, record) => (
           <div style={{ width: 120 }}>
             <Button
-              color="primary"
-              size="sm"
-              className="edit-comment"
+              color='primary'
+              size='sm'
+              className='edit-comment'
               onClick={() => this.handleEditComment(record.id, record.content)}
             >
               {t('comment.btn.edit')}
             </Button>{' '}
             <Button
-              color="primary"
-              size="sm"
-              className="delete-comment"
+              color='primary'
+              size='sm'
+              className='delete-comment'
               onClick={() => this.handleDeleteComment(record.id)}
             >
               {t('comment.btn.del')}
@@ -78,7 +78,7 @@ class PostCommentsView extends React.PureComponent {
           </div>
         )
       }
-    ];
+    ]
 
     return (
       <div>
@@ -87,8 +87,8 @@ class PostCommentsView extends React.PureComponent {
         <h1 />
         <Table dataSource={comments} columns={columns} />
       </div>
-    );
+    )
   }
 }
 
-export default translate('post')(PostCommentsView);
+export default translate('post')(PostCommentsView)

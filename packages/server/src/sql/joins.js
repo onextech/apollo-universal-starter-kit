@@ -7,49 +7,49 @@
  *  - args (required, variable) see knex docs
  */
 export default function joinBuilder(queryBuilder, args) {
-  let { joins } = args;
+  let { joins } = args
 
   // add group by
   if (joins) {
     for (let clause of joins) {
       if (clause) {
         if (clause.applyWhen && !clause.applyWhen(args)) {
-          continue;
+          continue
         }
-        let table = clause.table;
-        let joinArgs = clause.args;
-        let join = clause.type;
+        let table = clause.table
+        let joinArgs = clause.args
+        let join = clause.type
         if (!join) {
-          join = 'join';
+          join = 'join'
         }
 
         if (join === 'join') {
-          queryBuilder.join(table, ...joinArgs);
+          queryBuilder.join(table, ...joinArgs)
         }
         if (join === 'inner') {
-          queryBuilder.innerJoin(table, ...joinArgs);
+          queryBuilder.innerJoin(table, ...joinArgs)
         }
         if (join === 'left') {
-          queryBuilder.leftJoin(table, ...joinArgs);
+          queryBuilder.leftJoin(table, ...joinArgs)
         }
         if (join === 'leftOuter') {
-          queryBuilder.leftOuterJoin(table, ...joinArgs);
+          queryBuilder.leftOuterJoin(table, ...joinArgs)
         }
         if (join === 'right') {
-          queryBuilder.rightJoin(table, ...joinArgs);
+          queryBuilder.rightJoin(table, ...joinArgs)
         }
         if (join === 'rightOuter') {
-          queryBuilder.rightOuterJoin(table, ...joinArgs);
+          queryBuilder.rightOuterJoin(table, ...joinArgs)
         }
         if (join === 'outer') {
-          queryBuilder.outerJoin(table, ...joinArgs);
+          queryBuilder.outerJoin(table, ...joinArgs)
         }
         if (join === 'fullOuter') {
-          queryBuilder.fullOuterJoin(table, ...joinArgs);
+          queryBuilder.fullOuterJoin(table, ...joinArgs)
         }
       }
     }
   }
 
-  return queryBuilder;
+  return queryBuilder
 }

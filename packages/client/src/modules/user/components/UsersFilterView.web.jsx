@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { DebounceInput } from 'react-debounce-input';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { DebounceInput } from 'react-debounce-input'
 
-import translate from '../../../i18n';
-import { Form, FormItem, Select, Option, Label, Input } from '../../common/components/web';
+import translate from '../../../i18n'
+import { Form, FormItem, Select, Option, Label, Input } from '../../common/components/web'
 
 class UsersFilterView extends React.PureComponent {
   static propTypes = {
@@ -17,31 +17,31 @@ class UsersFilterView extends React.PureComponent {
     t: PropTypes.func
   };
 
-  handleSearch = e => {
-    const { onSearchTextChange } = this.props;
-    onSearchTextChange(e.target.value);
+  handleSearch = (e) => {
+    const { onSearchTextChange } = this.props
+    onSearchTextChange(e.target.value)
   };
 
-  handleRole = e => {
-    const { onRoleChange } = this.props;
-    onRoleChange(e.target.value);
+  handleRole = (e) => {
+    const { onRoleChange } = this.props
+    onRoleChange(e.target.value)
   };
 
   handleIsActive = () => {
     const {
       onIsActiveChange,
       filter: { isActive }
-    } = this.props;
-    onIsActiveChange(!isActive);
+    } = this.props
+    onIsActiveChange(!isActive)
   };
 
   render() {
     const {
       filter: { role, isActive },
       t
-    } = this.props;
+    } = this.props
     return (
-      <Form layout="inline">
+      <Form layout='inline'>
         <FormItem label={t('users.list.item.filter')}>
           <DebounceInput
             minLength={2}
@@ -53,14 +53,14 @@ class UsersFilterView extends React.PureComponent {
         </FormItem>
         &nbsp;
         <FormItem label={t('users.list.item.role.label')}>
-          <Select name="role" defaultValue={role} onChange={this.handleRole}>
-            <Option key={1} value="">
+          <Select name='role' defaultValue={role} onChange={this.handleRole}>
+            <Option key={1} value=''>
               {t('users.list.item.role.all')}
             </Option>
-            <Option key={2} value="user">
+            <Option key={2} value='user'>
               {t('users.list.item.role.user')}
             </Option>
-            <Option key={3} value="admin">
+            <Option key={3} value='admin'>
               {t('users.list.item.role.admin')}
             </Option>
           </Select>
@@ -68,13 +68,13 @@ class UsersFilterView extends React.PureComponent {
         &nbsp;
         <FormItem>
           <Label>
-            <Input type="checkbox" defaultChecked={isActive} onChange={this.handleIsActive} />
+            <Input type='checkbox' defaultChecked={isActive} onChange={this.handleIsActive} />
             {t('users.list.item.active')}
           </Label>
         </FormItem>
       </Form>
-    );
+    )
   }
 }
 
-export default translate('user')(UsersFilterView);
+export default translate('user')(UsersFilterView)

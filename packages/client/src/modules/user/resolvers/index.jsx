@@ -1,10 +1,10 @@
-import update from 'immutability-helper';
+import update from 'immutability-helper'
 
-import USERS_STATE_QUERY from '../graphql/UsersStateQuery.client.graphql';
+import USERS_STATE_QUERY from '../graphql/UsersStateQuery.client.graphql'
 
-const TYPE_USERS_STATE = 'UsersState';
-const TYPE_USERS_STATE_FILTER = 'FilterUserInput';
-const TYPE_USERS_STATE_ORDER_BY = 'OrderByUserInput';
+const TYPE_USERS_STATE = 'UsersState'
+const TYPE_USERS_STATE_FILTER = 'FilterUserInput'
+const TYPE_USERS_STATE_ORDER_BY = 'OrderByUserInput'
 
 const defaults = {
   usersState: {
@@ -21,46 +21,46 @@ const defaults = {
     },
     __typename: TYPE_USERS_STATE
   }
-};
+}
 
 const resolvers = {
   Mutation: {
     updateOrderBy: (_, { orderBy }, { cache }) => {
-      const { usersState } = cache.readQuery({ query: USERS_STATE_QUERY });
+      const { usersState } = cache.readQuery({ query: USERS_STATE_QUERY })
 
       const newUsersState = update(usersState, {
         orderBy: { $merge: orderBy }
-      });
+      })
 
       cache.writeData({
         data: {
           usersState: newUsersState,
           __type: TYPE_USERS_STATE
         }
-      });
+      })
 
-      return null;
+      return null
     },
     updateFilter: (_, { filter }, { cache }) => {
-      const { usersState } = cache.readQuery({ query: USERS_STATE_QUERY });
+      const { usersState } = cache.readQuery({ query: USERS_STATE_QUERY })
 
       const newUsersState = update(usersState, {
         filter: { $merge: filter }
-      });
+      })
 
       cache.writeData({
         data: {
           usersState: newUsersState,
           __type: TYPE_USERS_STATE
         }
-      });
+      })
 
-      return null;
+      return null
     }
   }
-};
+}
 
 export default {
   defaults,
   resolvers
-};
+}

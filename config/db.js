@@ -1,5 +1,5 @@
-let DB_TYPE = process.env.NODE_ENV === 'test' || !process.env.DB_TYPE ? 'sqlite' : process.env.DB_TYPE;
-let client = '';
+let DB_TYPE = process.env.NODE_ENV === 'test' || !process.env.DB_TYPE ? 'sqlite' : process.env.DB_TYPE
+let client = ''
 let connectionDevelopment = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -9,29 +9,29 @@ let connectionDevelopment = {
   ssl: process.env.DB_SSL,
   multipleStatements: true,
   charset: 'utf8'
-};
-let connectionProduction = connectionDevelopment;
-let pool = {};
+}
+let connectionProduction = connectionDevelopment
+let pool = {}
 if (DB_TYPE === 'mysql') {
   // mysql
-  client = 'mysql2';
+  client = 'mysql2'
 } else if (DB_TYPE === 'pg') {
   // postgres
-  client = 'pg';
+  client = 'pg'
 } else {
   // sqlite
-  client = 'sqlite3';
+  client = 'sqlite3'
   connectionDevelopment = {
     filename: './dev-db.sqlite3'
-  };
+  }
   connectionProduction = {
     filename: './prod-db.sqlite3'
-  };
+  }
   pool = {
     afterCreate: (conn, cb) => {
-      conn.run('PRAGMA foreign_keys = ON', cb);
+      conn.run('PRAGMA foreign_keys = ON', cb)
     }
-  };
+  }
 }
 
 export default {
@@ -42,4 +42,4 @@ export default {
     production: connectionProduction
   },
   pool: pool
-};
+}

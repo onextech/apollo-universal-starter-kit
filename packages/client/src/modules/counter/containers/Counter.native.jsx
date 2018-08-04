@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, View } from 'react-native'
 
-import translate from '../../../i18n';
-import { ClientCounter } from '../clientCounter';
-import { ReduxCounter } from '../reduxCounter';
-import { ServerCounter } from '../serverCounter';
+import translate from '../../../i18n'
+import { ClientCounter } from '../clientCounter'
+import { ReduxCounter } from '../reduxCounter'
+import { ServerCounter } from '../serverCounter'
 
 class Counter extends React.Component {
   static propTypes = {
@@ -13,12 +13,12 @@ class Counter extends React.Component {
   };
 
   constructor(props) {
-    super();
-    this.props = props;
+    super()
+    this.props = props
   }
 
   render() {
-    const { t } = this.props;
+    const { t } = this.props
 
     return (
       <View style={styles.container}>
@@ -26,7 +26,7 @@ class Counter extends React.Component {
         <ReduxCounter t={t} />
         <ClientCounter t={t} />
       </View>
-    );
+    )
   }
 }
 
@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 15
   }
-});
+})
 
-export default translate('counter')(Counter);
+export default translate('counter')(Counter)

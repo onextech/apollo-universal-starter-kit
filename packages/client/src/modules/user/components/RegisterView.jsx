@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, StyleSheet } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View, StyleSheet } from 'react-native'
 
-import RegisterForm from '../components/RegisterForm';
-import translate from '../../../i18n';
+import RegisterForm from '../components/RegisterForm'
+import translate from '../../../i18n'
 
 class RegisterView extends React.PureComponent {
   static propTypes = {
@@ -11,18 +11,18 @@ class RegisterView extends React.PureComponent {
     t: PropTypes.func
   };
 
-  onSubmit = async values => {
-    const { register, t } = this.props;
-    const { errors } = await register(values);
+  onSubmit = async (values) => {
+    const { register, t } = this.props
+    const { errors } = await register(values)
 
     if (errors && errors.length) {
       throw errors.reduce(
         (res, error) => {
-          res[error.field] = error.message;
-          return res;
+          res[error.field] = error.message
+          return res
         },
         { _error: t('reg.form.title') }
-      );
+      )
     }
   };
 
@@ -31,7 +31,7 @@ class RegisterView extends React.PureComponent {
       <View style={styles.container}>
         <RegisterForm onSubmit={this.onSubmit} />
       </View>
-    );
+    )
   }
 }
 
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     flex: 1
   }
-});
+})
 
-export default translate('user')(RegisterView);
+export default translate('user')(RegisterView)

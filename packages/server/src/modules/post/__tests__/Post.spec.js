@@ -1,27 +1,27 @@
-import { expect } from 'chai';
-import { step } from 'mocha-steps';
+import { expect } from 'chai'
+import { step } from 'mocha-steps'
 
-import { getApollo } from '../../../testHelpers/integrationSetup';
-import POSTS_QUERY from '../../../../../client/src/modules/post/graphql/PostsQuery.graphql';
-import POST_QUERY from '../../../../../client/src/modules/post/graphql/PostQuery.graphql';
-import ADD_POST from '../../../../../client/src/modules/post/graphql/AddPost.graphql';
-import EDIT_POST from '../../../../../client/src/modules/post/graphql/EditPost.graphql';
-import DELETE_POST from '../../../../../client/src/modules/post/graphql/DeletePost.graphql';
-import POSTS_SUBSCRIPTION from '../../../../../client/src/modules/post/graphql/PostsSubscription.graphql';
+import { getApollo } from '../../../testHelpers/integrationSetup'
+import POSTS_QUERY from '../../../../../client/src/modules/post/graphql/PostsQuery.graphql'
+import POST_QUERY from '../../../../../client/src/modules/post/graphql/PostQuery.graphql'
+import ADD_POST from '../../../../../client/src/modules/post/graphql/AddPost.graphql'
+import EDIT_POST from '../../../../../client/src/modules/post/graphql/EditPost.graphql'
+import DELETE_POST from '../../../../../client/src/modules/post/graphql/DeletePost.graphql'
+import POSTS_SUBSCRIPTION from '../../../../../client/src/modules/post/graphql/PostsSubscription.graphql'
 
 describe('Post and comments example API works', () => {
-  let apollo;
+  let apollo
 
   before(() => {
-    apollo = getApollo();
-  });
+    apollo = getApollo()
+  })
 
   step('Query post list works', async () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
       fetchPolicy: 'network-only'
-    });
+    })
 
     expect(result.data).to.deep.equal({
       posts: {
@@ -45,11 +45,11 @@ describe('Post and comments example API works', () => {
         },
         __typename: 'Posts'
       }
-    });
-  });
+    })
+  })
 
   step('Query single post with comments works', async () => {
-    let result = await apollo.query({ query: POST_QUERY, variables: { id: 1 } });
+    let result = await apollo.query({ query: POST_QUERY, variables: { id: 1 } })
 
     expect(result.data).to.deep.equal({
       post: {
@@ -70,10 +70,10 @@ describe('Post and comments example API works', () => {
           }
         ]
       }
-    });
-  });
+    })
+  })
 
-  step('Publishes post on add', done => {
+  step('Publishes post on add', (done) => {
     apollo.mutate({
       mutation: ADD_POST,
       variables: {
@@ -82,9 +82,9 @@ describe('Post and comments example API works', () => {
           content: 'New post content 1'
         }
       }
-    });
+    })
 
-    let subscription;
+    let subscription
 
     subscription = apollo
       .subscribe({
@@ -106,25 +106,25 @@ describe('Post and comments example API works', () => {
                 __typename: 'UpdatePostPayload'
               }
             }
-          });
-          subscription.unsubscribe();
-          done();
+          })
+          subscription.unsubscribe()
+          done()
         }
-      });
-  });
+      })
+  })
 
   step('Adding post works', async () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
       fetchPolicy: 'network-only'
-    });
-    expect(result.data.posts).to.have.property('totalCount', 21);
-    expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'New post 1');
-    expect(result.data.posts).to.have.nested.property('edges[0].node.content', 'New post content 1');
-  });
+    })
+    expect(result.data.posts).to.have.property('totalCount', 21)
+    expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'New post 1')
+    expect(result.data.posts).to.have.nested.property('edges[0].node.content', 'New post content 1')
+  })
 
-  step('Publishes post on update', done => {
+  step('Publishes post on update', (done) => {
     apollo.mutate({
       mutation: EDIT_POST,
       variables: {
@@ -134,9 +134,9 @@ describe('Post and comments example API works', () => {
           content: 'New post content 2'
         }
       }
-    });
+    })
 
-    let subscription;
+    let subscription
 
     subscription = apollo
       .subscribe({
@@ -158,31 +158,31 @@ describe('Post and comments example API works', () => {
                 __typename: 'UpdatePostPayload'
               }
             }
-          });
-          subscription.unsubscribe();
-          done();
+          })
+          subscription.unsubscribe()
+          done()
         }
-      });
-  });
+      })
+  })
 
   step('Updating post works', async () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
       fetchPolicy: 'network-only'
-    });
-    expect(result.data.posts).to.have.property('totalCount', 21);
-    expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'New post 2');
-    expect(result.data.posts).to.have.nested.property('edges[0].node.content', 'New post content 2');
-  });
+    })
+    expect(result.data.posts).to.have.property('totalCount', 21)
+    expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'New post 2')
+    expect(result.data.posts).to.have.nested.property('edges[0].node.content', 'New post content 2')
+  })
 
-  step('Publishes post on removal', done => {
+  step('Publishes post on removal', (done) => {
     apollo.mutate({
       mutation: DELETE_POST,
       variables: { id: '21' }
-    });
+    })
 
-    let subscription;
+    let subscription
 
     subscription = apollo
       .subscribe({
@@ -204,21 +204,21 @@ describe('Post and comments example API works', () => {
                 __typename: 'UpdatePostPayload'
               }
             }
-          });
-          subscription.unsubscribe();
-          done();
+          })
+          subscription.unsubscribe()
+          done()
         }
-      });
-  });
+      })
+  })
 
   step('Deleting post works', async () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 2, after: 0 },
       fetchPolicy: 'network-only'
-    });
-    expect(result.data.posts).to.have.property('totalCount', 20);
-    expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'Post title 20');
-    expect(result.data.posts).to.have.nested.property('edges[0].node.content', 'Post content 20');
-  });
-});
+    })
+    expect(result.data.posts).to.have.property('totalCount', 20)
+    expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'Post title 20')
+    expect(result.data.posts).to.have.nested.property('edges[0].node.content', 'Post content 20')
+  })
+})

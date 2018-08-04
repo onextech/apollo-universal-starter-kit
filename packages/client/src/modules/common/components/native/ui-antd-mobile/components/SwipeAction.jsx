@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ADSwipeAction from 'antd-mobile/lib/swipe-action';
-import List from 'antd-mobile/lib/list';
+import React from 'react'
+import PropTypes from 'prop-types'
+import ADSwipeAction from 'antd-mobile/lib/swipe-action'
+import List from 'antd-mobile/lib/list'
 
 const SwipeAction = ({ children, onPress, right, ...props }) => {
   return (
@@ -17,17 +17,17 @@ const SwipeAction = ({ children, onPress, right, ...props }) => {
         }
       ]}
     >
-      <List.Item arrow="horizontal" onClick={onPress}>
+      <List.Item arrow='horizontal' onClick={onPress}>
         {children}
       </List.Item>
     </ADSwipeAction>
-  );
-};
+  )
+}
 
 SwipeAction.propTypes = {
   children: PropTypes.node,
   right: PropTypes.object,
   onPress: PropTypes.func
-};
+}
 
-export default SwipeAction;
+export default SwipeAction

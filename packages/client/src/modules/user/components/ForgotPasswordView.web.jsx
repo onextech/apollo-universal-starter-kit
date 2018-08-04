@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
-import translate from '../../../i18n';
-import ForgotPasswordForm from '../components/ForgotPasswordForm';
-import { LayoutCenter } from '../../common/components';
-import { PageLayout } from '../../common/components/web';
+import translate from '../../../i18n'
+import ForgotPasswordForm from '../components/ForgotPasswordForm'
+import { LayoutCenter } from '../../common/components'
+import { PageLayout } from '../../common/components/web'
 
-import settings from '../../../../../../settings';
+import settings from '../../../../../../settings'
 
 class ForgotPasswordView extends React.Component {
   static propTypes = {
@@ -19,23 +19,23 @@ class ForgotPasswordView extends React.Component {
     sent: false
   };
 
-  onSubmit = ({ forgotPassword, t }) => async values => {
-    const result = await forgotPassword(values);
+  onSubmit = ({ forgotPassword, t }) => async (values) => {
+    const result = await forgotPassword(values)
     if (result && result.errors) {
       throw result.errors.reduce(
         (res, error) => {
-          res[error.field] = error.message;
-          return res;
+          res[error.field] = error.message
+          return res
         },
         { _error: t('forgotPass.errorMsg') }
-      );
+      )
     }
 
-    this.setState({ sent: true });
+    this.setState({ sent: true })
   };
 
   render() {
-    const { forgotPassword, t } = this.props;
+    const { forgotPassword, t } = this.props
 
     const renderMetaData = () => (
       <Helmet
@@ -47,18 +47,18 @@ class ForgotPasswordView extends React.Component {
           }
         ]}
       />
-    );
+    )
 
     return (
       <PageLayout>
         {renderMetaData()}
         <LayoutCenter>
-          <h1 className="text-center">{t('forgotPass.form.title')}</h1>
+          <h1 className='text-center'>{t('forgotPass.form.title')}</h1>
           <ForgotPasswordForm onSubmit={this.onSubmit({ forgotPassword, t })} sent={this.state.sent} />
         </LayoutCenter>
       </PageLayout>
-    );
+    )
   }
 }
 
-export default translate('user')(ForgotPasswordView);
+export default translate('user')(ForgotPasswordView)

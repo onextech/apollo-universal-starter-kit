@@ -1,49 +1,49 @@
-import http from 'http';
-import addGraphQLSubscriptions from './api/subscriptions';
+import http from 'http'
+import addGraphQLSubscriptions from './api/subscriptions'
 
-import { serverPort } from './net';
-import app from './app';
-import log from '../../common/log';
+import { serverPort } from './net'
+import app from './app'
+import log from '../../common/log'
 
 // eslint-disable-next-line import/no-mutable-exports
-let server;
+let server
 
-server = http.createServer();
-server.on('request', app);
+server = http.createServer()
+server.on('request', app)
 
-addGraphQLSubscriptions(server);
+addGraphQLSubscriptions(server)
 
 server.listen(serverPort, () => {
-  log.info(`API is now running on port ${serverPort}`);
-});
+  log.info(`API is now running on port ${serverPort}`)
+})
 
 server.on('close', () => {
-  server = undefined;
-});
+  server = undefined
+})
 
 if (module.hot) {
   module.hot.dispose(() => {
     try {
       if (server) {
-        server.close();
+        server.close()
       }
     } catch (error) {
-      log(error.stack);
+      log(error.stack)
     }
-  });
+  })
   module.hot.accept(['./app'], () => {
-    server.removeAllListeners('request');
-    server.on('request', app);
-  });
+    server.removeAllListeners('request')
+    server.on('request', app)
+  })
   module.hot.accept(['./api/subscriptions'], () => {
     try {
-      addGraphQLSubscriptions(server);
+      addGraphQLSubscriptions(server)
     } catch (error) {
-      log(error.stack);
+      log(error.stack)
     }
-  });
+  })
 
-  module.hot.accept();
+  module.hot.accept()
 }
 
-export default server;
+export default server

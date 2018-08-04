@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Form, Input } from 'antd';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Form, Input } from 'antd'
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 
 const RenderField = ({ input, label, type, meta: { touched, error }, placeholder }) => {
-  let validateStatus = '';
+  let validateStatus = ''
   if (touched && error) {
-    validateStatus = 'error';
+    validateStatus = 'error'
   }
 
   return (
@@ -16,8 +16,8 @@ const RenderField = ({ input, label, type, meta: { touched, error }, placeholder
         <Input {...input} placeholder={label || placeholder} type={type} />
       </div>
     </FormItem>
-  );
-};
+  )
+}
 
 RenderField.propTypes = {
   input: PropTypes.object,
@@ -25,6 +25,6 @@ RenderField.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   meta: PropTypes.object
-};
+}
 
-export default RenderField;
+export default RenderField

@@ -1,13 +1,13 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import React from 'react'
+import { createStackNavigator } from 'react-navigation'
 
-import translate from '../../../i18n';
-import { HeaderTitle } from '../../common/components/native';
-import ServerCounter from './containers/ServerCounter';
-import resources from './locales';
-import Feature from '../../connector';
+import translate from '../../../i18n'
+import { HeaderTitle } from '../../common/components/native'
+import ServerCounter from './containers/ServerCounter'
+import resources from './locales'
+import Feature from '../../connector'
 
-const HeaderTitleWithI18n = translate('counter')(HeaderTitle);
+const HeaderTitleWithI18n = translate('counter')(HeaderTitle)
 
 export default new Feature({
   drawerItem: {
@@ -18,11 +18,11 @@ export default new Feature({
         }
       }),
       navigationOptions: {
-        drawerLabel: <HeaderTitleWithI18n i18nKey="title" />
+        drawerLabel: <HeaderTitleWithI18n i18nKey='title' />
       }
     }
   },
   localization: { ns: 'serverCounter', resources }
-});
+})
 
-export { ServerCounter };
+export { ServerCounter }

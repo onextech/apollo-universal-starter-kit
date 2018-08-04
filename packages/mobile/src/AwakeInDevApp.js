@@ -1,8 +1,8 @@
-import Expo, { Constants } from 'expo';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import App from './App';
+import Expo, { Constants } from 'expo'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View } from 'react-native'
+import App from './App'
 
 // we don't want this to require transformation
 class AwakeInDevApp extends React.Component {
@@ -18,14 +18,14 @@ class AwakeInDevApp extends React.Component {
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
       Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')
-    });
+    })
 
-    this.setState({ isReady: true });
+    this.setState({ isReady: true })
   }
 
   render() {
     if (!this.state.isReady) {
-      return <Expo.AppLoading />;
+      return <Expo.AppLoading />
     }
 
     return React.createElement(
@@ -38,8 +38,8 @@ class AwakeInDevApp extends React.Component {
       },
       React.createElement(App, this.props),
       React.createElement(process.env.NODE_ENV === 'development' ? Expo.KeepAwake : View)
-    );
+    )
   }
 }
 
-Expo.registerRootComponent(AwakeInDevApp);
+Expo.registerRootComponent(AwakeInDevApp)

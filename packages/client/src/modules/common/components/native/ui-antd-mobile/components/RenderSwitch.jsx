@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
-import Switch from './Switch';
-import RenderSwitchStyles from '../styles/RenderSwitch';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, Text, View } from 'react-native'
+import Switch from './Switch'
+import RenderSwitchStyles from '../styles/RenderSwitch'
 
 const RenderSwitch = ({ label, ...props }) => {
   return (
@@ -12,13 +12,13 @@ const RenderSwitch = ({ label, ...props }) => {
         <Switch {...props} />
       </View>
     </View>
-  );
-};
+  )
+}
 
 RenderSwitch.propTypes = {
   label: PropTypes.string
-};
+}
 
-const styles = StyleSheet.create(RenderSwitchStyles);
+const styles = StyleSheet.create(RenderSwitchStyles)
 
-export default RenderSwitch;
+export default RenderSwitch

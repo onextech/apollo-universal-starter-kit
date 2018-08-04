@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'native-base';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, Text, View } from 'react-native'
+import { Button } from 'native-base'
 
 export default class Pagination extends React.Component {
   static propTypes = {
@@ -15,40 +15,40 @@ export default class Pagination extends React.Component {
   state = { pageNumber: 1, pagination: this.props.pagination };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    return nextProps.pagination !== prevState.pagination ? { pageNumber: 1, pagination: nextProps.pagination } : null;
+    return nextProps.pagination !== prevState.pagination ? { pageNumber: 1, pagination: nextProps.pagination } : null
   }
 
   showPreviousPage() {
     if (this.state.pageNumber > 1) {
-      this.setState(prevState => {
-        const newPageNumber = prevState.pageNumber - 1;
-        this.props.handlePageChange(this.props.pagination, newPageNumber);
+      this.setState((prevState) => {
+        const newPageNumber = prevState.pageNumber - 1
+        this.props.handlePageChange(this.props.pagination, newPageNumber)
         return {
           pageNumber: newPageNumber
-        };
-      });
+        }
+      })
     }
   }
 
   showNextPage(totalPages) {
     if (this.state.pageNumber < totalPages) {
-      this.setState(prevState => {
-        const newPageNumber = prevState.pageNumber + 1;
-        this.props.handlePageChange(this.props.pagination, newPageNumber);
+      this.setState((prevState) => {
+        const newPageNumber = prevState.pageNumber + 1
+        this.props.handlePageChange(this.props.pagination, newPageNumber)
         return {
           pageNumber: newPageNumber
-        };
-      });
+        }
+      })
     }
   }
 
   onPressLoadMore = () => {
-    this.props.handlePageChange(this.props.pagination, null);
+    this.props.handlePageChange(this.props.pagination, null)
   };
 
   render() {
-    const { pageNumber } = this.state;
-    const { totalPages, pagination, loadMoreText, hasNextPage } = this.props;
+    const { pageNumber } = this.state
+    const { totalPages, pagination, loadMoreText, hasNextPage } = this.props
     if (pagination === 'standard') {
       return (
         <View style={styles.paginationContainer}>
@@ -72,7 +72,7 @@ export default class Pagination extends React.Component {
             <Text style={styles.buttonText}>{'>'}</Text>
           </Button>
         </View>
-      );
+      )
     } else {
       return hasNextPage ? (
         <View style={styles.loadMoreView}>
@@ -80,7 +80,7 @@ export default class Pagination extends React.Component {
             <Text style={styles.loadMoreButtonText}>{loadMoreText}</Text>
           </Button>
         </View>
-      ) : null;
+      ) : null
     }
   }
 }
@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
   loadMoreButtonText: {
     color: 'white'
   }
-});
+})

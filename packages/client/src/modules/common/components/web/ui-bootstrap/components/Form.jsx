@@ -1,23 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Form as RSForm } from 'reactstrap';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Form as RSForm } from 'reactstrap'
 
 const Form = ({ children, layout, ...props }) => {
-  let inline = false;
+  let inline = false
   if (layout === 'inline') {
-    inline = true;
+    inline = true
   }
   return (
     <RSForm {...props} inline={inline}>
       {children}
     </RSForm>
-  );
-};
+  )
+}
 
 Form.propTypes = {
   children: PropTypes.node,
   layout: PropTypes.string,
   type: PropTypes.string
-};
+}
 
-export default Form;
+export default Form

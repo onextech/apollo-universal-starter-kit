@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, Text, View } from 'react-native'
 
-import { Button, primary } from '../../../common/components/native';
+import { Button, primary } from '../../../common/components/native'
 
 export const ReduxCounterView = ({ text, children }) => (
   <View>
@@ -11,7 +11,7 @@ export const ReduxCounterView = ({ text, children }) => (
     </View>
     {children}
   </View>
-);
+)
 
 const styles = StyleSheet.create({
   element: {
@@ -21,20 +21,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 5
   }
-});
+})
 
 ReduxCounterView.propTypes = {
   text: PropTypes.string,
   children: PropTypes.node
-};
+}
 
 export const ReduxCounterButton = ({ onClick, text }) => (
   <Button type={primary} onPress={onClick}>
     {text}
   </Button>
-);
+)
 
 ReduxCounterButton.propTypes = {
   onClick: PropTypes.func,
   text: PropTypes.string
-};
+}

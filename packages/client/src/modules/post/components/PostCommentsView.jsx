@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
   StyleSheet,
   FlatList,
@@ -9,13 +9,13 @@ import {
   TouchableOpacity,
   Platform,
   TouchableWithoutFeedback
-} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+} from 'react-native'
+import { FontAwesome } from '@expo/vector-icons'
 
-import translate from '../../../i18n';
-import { SwipeAction } from '../../common/components/native';
+import translate from '../../../i18n'
+import { SwipeAction } from '../../common/components/native'
 
-import PostCommentForm from './PostCommentForm';
+import PostCommentForm from './PostCommentForm'
 
 class PostCommentsView extends React.PureComponent {
   static propTypes = {
@@ -30,10 +30,10 @@ class PostCommentsView extends React.PureComponent {
     t: PropTypes.func
   };
 
-  keyExtractor = item => `${item.id}`;
+  keyExtractor = (item) => `${item.id}`;
 
   renderItemIOS = ({ item: { id, content } }) => {
-    const { comment, deleteComment, onCommentSelect, t } = this.props;
+    const { comment, deleteComment, onCommentSelect, t } = this.props
     return (
       <SwipeAction
         onPress={() => onCommentSelect({ id: id, content: content })}
@@ -44,11 +44,11 @@ class PostCommentsView extends React.PureComponent {
       >
         {content}
       </SwipeAction>
-    );
+    )
   };
 
   renderItemAndroid = ({ item: { id, content } }) => {
-    const { deleteComment, onCommentSelect, comment } = this.props;
+    const { deleteComment, onCommentSelect, comment } = this.props
     return (
       <TouchableWithoutFeedback onPress={() => onCommentSelect({ id: id, content: content })}>
         <View style={styles.postWrapper}>
@@ -57,35 +57,35 @@ class PostCommentsView extends React.PureComponent {
             style={styles.iconWrapper}
             onPress={() => this.onCommentDelete(comment, deleteComment, onCommentSelect, id)}
           >
-            <FontAwesome name="trash" size={20} style={{ color: '#3B5998' }} />
+            <FontAwesome name='trash' size={20} style={{ color: '#3B5998' }} />
           </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>
-    );
+    )
   };
 
   onCommentDelete = (comment, deleteComment, onCommentSelect, id) => {
     if (comment.id === id) {
-      onCommentSelect({ id: null, content: '' });
+      onCommentSelect({ id: null, content: '' })
     }
 
-    deleteComment(id);
+    deleteComment(id)
   };
 
-  onSubmit = (comment, postId, addComment, editComment, onCommentSelect) => values => {
+  onSubmit = (comment, postId, addComment, editComment, onCommentSelect) => (values) => {
     if (comment.id === null) {
-      addComment(values.content, postId);
+      addComment(values.content, postId)
     } else {
-      editComment(comment.id, values.content);
+      editComment(comment.id, values.content)
     }
 
-    onCommentSelect({ id: null, content: '' });
-    Keyboard.dismiss();
+    onCommentSelect({ id: null, content: '' })
+    Keyboard.dismiss()
   };
 
   render() {
-    const { postId, comment, addComment, editComment, comments, onCommentSelect, t } = this.props;
-    const renderItem = Platform.OS === 'android' ? this.renderItemAndroid : this.renderItemIOS;
+    const { postId, comment, addComment, editComment, comments, onCommentSelect, t } = this.props
+    const renderItem = Platform.OS === 'android' ? this.renderItemAndroid : this.renderItemIOS
 
     return (
       <View style={styles.container}>
@@ -96,16 +96,16 @@ class PostCommentsView extends React.PureComponent {
           comment={comment}
         />
         {comments.length > 0 && (
-          <View style={styles.list} keyboardDismissMode="on-drag">
+          <View style={styles.list} keyboardDismissMode='on-drag'>
             <FlatList data={comments} keyExtractor={this.keyExtractor} renderItem={renderItem} />
           </View>
         )}
       </View>
-    );
+    )
   }
 }
 
-export default translate('post')(PostCommentsView);
+export default translate('post')(PostCommentsView)
 
 const styles = StyleSheet.create({
   container: {
@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
     height: 50,
     paddingLeft: 7
   }
-});
+})

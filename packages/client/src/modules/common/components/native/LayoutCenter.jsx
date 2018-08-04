@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, StyleSheet } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View, StyleSheet } from 'react-native'
 
 const LayoutCenter = ({ children }) => {
-  const { container, layout, offset, content, column } = styles;
+  const { container, layout, offset, content, column } = styles
 
   return (
     <View style={container}>
@@ -15,8 +15,8 @@ const LayoutCenter = ({ children }) => {
         <View style={offset} />
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
   offset: {
     flexGrow: 3
   }
-});
+})
 
 LayoutCenter.propTypes = {
   children: PropTypes.node
-};
+}
 
-export default LayoutCenter;
+export default LayoutCenter

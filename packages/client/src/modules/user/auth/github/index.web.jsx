@@ -1,3 +1,3 @@
-import GitHubButton from './containers/GitHubButton';
+import GitHubButton from './containers/GitHubButton'
 
-export default GitHubButton;
+export default GitHubButton

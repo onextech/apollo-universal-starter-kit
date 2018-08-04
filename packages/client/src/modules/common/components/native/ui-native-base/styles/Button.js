@@ -3,6 +3,6 @@ const ButtonStyles = {
     flex: 1,
     textAlign: 'center'
   }
-};
+}
 
-export default ButtonStyles;
+export default ButtonStyles

@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import { Elements } from 'react-stripe-elements';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
+import { Elements } from 'react-stripe-elements'
 
-import translate from '../../../i18n';
-import { LayoutCenter, clientOnly } from '../../common/components';
-import { PageLayout } from '../../common/components/web';
-import SubscriptionCardForm from './SubscriptionCardForm';
-import settings from '../../../../../../settings';
+import translate from '../../../i18n'
+import { LayoutCenter, clientOnly } from '../../common/components'
+import { PageLayout } from '../../common/components/web'
+import SubscriptionCardForm from './SubscriptionCardForm'
+import settings from '../../../../../../settings'
 
-const ElementsClientOnly = clientOnly(Elements);
+const ElementsClientOnly = clientOnly(Elements)
 
 class SubscriptionView extends React.Component {
   static propTypes = {
@@ -17,21 +17,21 @@ class SubscriptionView extends React.Component {
     t: PropTypes.func
   };
 
-  onSubmit = subscribe => async values => {
-    const result = await subscribe(values);
-    const { t } = this.props;
+  onSubmit = (subscribe) => async (values) => {
+    const result = await subscribe(values)
+    const { t } = this.props
 
     if (result.errors) {
       let submitError = {
         _error: t('errorMsg')
-      };
-      result.errors.map(error => (submitError[error.field] = error.message));
-      throw submitError;
+      }
+      result.errors.map((error) => (submitError[error.field] = error.message))
+      throw submitError
     }
   };
 
   render() {
-    const { subscribe, t } = this.props;
+    const { subscribe, t } = this.props
 
     const renderMetaData = () => (
       <Helmet
@@ -43,20 +43,20 @@ class SubscriptionView extends React.Component {
           }
         ]}
       />
-    );
+    )
 
     return (
       <PageLayout>
         {renderMetaData()}
         <LayoutCenter>
-          <h1 className="text-center">{t('subTitle')}</h1>
+          <h1 className='text-center'>{t('subTitle')}</h1>
           <ElementsClientOnly>
             <SubscriptionCardForm onSubmit={this.onSubmit(subscribe)} action={t('action')} />
           </ElementsClientOnly>
         </LayoutCenter>
       </PageLayout>
-    );
+    )
   }
 }
 
-export default translate('subscription')(SubscriptionView);
+export default translate('subscription')(SubscriptionView)

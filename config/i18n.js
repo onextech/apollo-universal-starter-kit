@@ -4,4 +4,4 @@ export default {
   langList: ['en-US', 'ru-RU'],
   fallbackLng: 'en-US',
   cookie: 'lang'
-};
+}

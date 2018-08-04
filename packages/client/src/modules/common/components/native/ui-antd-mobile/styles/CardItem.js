@@ -6,6 +6,6 @@ const CardItemStyles = {
     paddingTop: 15,
     paddingBottom: 15
   }
-};
+}
 
-export default CardItemStyles;
+export default CardItemStyles

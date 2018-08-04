@@ -1,3 +1,3 @@
-import FacebookButton from './containers/FacebookButton';
+import FacebookButton from './containers/FacebookButton'
 
-export default FacebookButton;
+export default FacebookButton

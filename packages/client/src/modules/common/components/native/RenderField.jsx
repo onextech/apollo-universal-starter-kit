@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { InputItem } from './';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { InputItem } from './'
 
 const RenderField = ({ input, label, meta: { touched, error }, ...inputProps }) => {
   return (
@@ -16,14 +16,14 @@ const RenderField = ({ input, label, meta: { touched, error }, ...inputProps }) 
     >
       {label}
     </InputItem>
-  );
-};
+  )
+}
 
 RenderField.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   type: PropTypes.string,
   meta: PropTypes.object
-};
+}
 
-export default RenderField;
+export default RenderField

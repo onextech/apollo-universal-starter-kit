@@ -1,10 +1,10 @@
 // Helpers
-import { camelizeKeys, decamelizeKeys, decamelize } from 'humps';
-import { has } from 'lodash';
-import bcrypt from 'bcryptjs';
+import { camelizeKeys, decamelizeKeys, decamelize } from 'humps'
+import { has } from 'lodash'
+import bcrypt from 'bcryptjs'
 
-import knex from '../../sql/connector';
-import { returnId } from '../../sql/helpers';
+import knex from '../../sql/connector'
+import { returnId } from '../../sql/helpers'
 
 // Actual query fetching and transformation in DB
 class User {
@@ -34,31 +34,31 @@ class User {
       .leftJoin('auth_facebook AS fa', 'fa.user_id', 'u.id')
       .leftJoin('auth_google AS ga', 'ga.user_id', 'u.id')
       .leftJoin('auth_github AS gha', 'gha.user_id', 'u.id')
-      .leftJoin('auth_linkedin AS lna', 'lna.user_id', 'u.id');
+      .leftJoin('auth_linkedin AS lna', 'lna.user_id', 'u.id')
 
     // add order by
     if (orderBy && orderBy.column) {
-      let column = orderBy.column;
-      let order = 'asc';
+      let column = orderBy.column
+      let order = 'asc'
       if (orderBy.order) {
-        order = orderBy.order;
+        order = orderBy.order
       }
 
-      queryBuilder.orderBy(decamelize(column), order);
+      queryBuilder.orderBy(decamelize(column), order)
     }
 
     // add filter conditions
     if (filter) {
       if (has(filter, 'role') && filter.role !== '') {
         queryBuilder.where(function() {
-          this.where('u.role', filter.role);
-        });
+          this.where('u.role', filter.role)
+        })
       }
 
       if (has(filter, 'isActive') && filter.isActive !== null) {
         queryBuilder.where(function() {
-          this.where('u.is_active', filter.isActive);
-        });
+          this.where('u.is_active', filter.isActive)
+        })
       }
 
       if (has(filter, 'searchText') && filter.searchText !== '') {
@@ -66,12 +66,12 @@ class User {
           this.where('u.username', 'like', `%${filter.searchText}%`)
             .orWhere('u.email', 'like', `%${filter.searchText}%`)
             .orWhere('up.first_name', 'like', `%${filter.searchText}%`)
-            .orWhere('up.last_name', 'like', `%${filter.searchText}%`);
-        });
+            .orWhere('up.last_name', 'like', `%${filter.searchText}%`)
+        })
       }
     }
 
-    return camelizeKeys(await queryBuilder);
+    return camelizeKeys(await queryBuilder)
   }
 
   async getUser(id) {
@@ -104,7 +104,7 @@ class User {
         .leftJoin('auth_linkedin AS lna', 'lna.user_id', 'u.id')
         .where('u.id', '=', id)
         .first()
-    );
+    )
   }
 
   async getUserWithPassword(id) {
@@ -124,7 +124,7 @@ class User {
         .where('u.id', '=', id)
         .leftJoin('user_profile AS up', 'up.user_id', 'u.id')
         .first()
-    );
+    )
   }
 
   async getUserWithSerial(serial) {
@@ -136,40 +136,40 @@ class User {
         .leftJoin('user_profile AS up', 'up.user_id', 'u.id')
         .where('ca.serial', '=', serial)
         .first()
-    );
+    )
   }
 
   async register({ username, email, password, role, isActive }) {
-    const passwordHash = await bcrypt.hash(password, 12);
+    const passwordHash = await bcrypt.hash(password, 12)
 
     if (role === undefined) {
-      role = 'user';
+      role = 'user'
     }
 
-    return returnId(knex('user')).insert({ username, email, role, password_hash: passwordHash, is_active: !!isActive });
+    return returnId(knex('user')).insert({ username, email, role, password_hash: passwordHash, is_active: !!isActive })
   }
 
   createFacebookAuth({ id, displayName, userId }) {
-    return returnId(knex('auth_facebook')).insert({ fb_id: id, display_name: displayName, user_id: userId });
+    return returnId(knex('auth_facebook')).insert({ fb_id: id, display_name: displayName, user_id: userId })
   }
 
   createGithubAuth({ id, displayName, userId }) {
-    return returnId(knex('auth_github')).insert({ gh_id: id, display_name: displayName, user_id: userId });
+    return returnId(knex('auth_github')).insert({ gh_id: id, display_name: displayName, user_id: userId })
   }
 
   createGoogleOAuth({ id, displayName, userId }) {
-    return returnId(knex('auth_google')).insert({ google_id: id, display_name: displayName, user_id: userId });
+    return returnId(knex('auth_google')).insert({ google_id: id, display_name: displayName, user_id: userId })
   }
 
   createLinkedInAuth({ id, displayName, userId }) {
-    return returnId(knex('auth_linkedin')).insert({ ln_id: id, display_name: displayName, user_id: userId });
+    return returnId(knex('auth_linkedin')).insert({ ln_id: id, display_name: displayName, user_id: userId })
   }
 
   async editUser({ id, username, email, role, isActive, password }) {
-    let localAuthInput = { email };
+    let localAuthInput = { email }
     if (password) {
-      const passwordHash = await bcrypt.hash(password, 12);
-      localAuthInput = { email, password_hash: passwordHash };
+      const passwordHash = await bcrypt.hash(password, 12)
+      localAuthInput = { email, password_hash: passwordHash }
     }
 
     return knex('user')
@@ -179,7 +179,7 @@ class User {
         is_active: isActive,
         ...localAuthInput
       })
-      .where({ id });
+      .where({ id })
   }
 
   async editUserProfile({ id, profile }) {
@@ -187,14 +187,14 @@ class User {
       .select('id')
       .from('user_profile')
       .where({ user_id: id })
-      .first();
+      .first()
 
     if (userProfile) {
       return knex('user_profile')
         .update(decamelizeKeys(profile))
-        .where({ user_id: id });
+        .where({ user_id: id })
     } else {
-      return returnId(knex('user_profile')).insert({ ...decamelizeKeys(profile), user_id: id });
+      return returnId(knex('user_profile')).insert({ ...decamelizeKeys(profile), user_id: id })
     }
   }
 
@@ -208,35 +208,35 @@ class User {
       .select('id')
       .from('auth_certificate')
       .where({ user_id: id })
-      .first();
+      .first()
 
     if (userProfile) {
       return knex('auth_certificate')
         .update({ serial })
-        .where({ user_id: id });
+        .where({ user_id: id })
     } else {
-      return returnId(knex('auth_certificate')).insert({ serial, user_id: id });
+      return returnId(knex('auth_certificate')).insert({ serial, user_id: id })
     }
   }
 
   deleteUser(id) {
     return knex('user')
       .where('id', '=', id)
-      .del();
+      .del()
   }
 
   async updatePassword(id, newPassword) {
-    const passwordHash = await bcrypt.hash(newPassword, 12);
+    const passwordHash = await bcrypt.hash(newPassword, 12)
 
     return knex('user')
       .update({ password_hash: passwordHash })
-      .where({ id });
+      .where({ id })
   }
 
   updateActive(id, isActive) {
     return knex('user')
       .update({ is_active: isActive })
-      .where({ id });
+      .where({ id })
   }
 
   async getUserByEmail(email) {
@@ -256,7 +256,7 @@ class User {
         .leftJoin('user_profile AS up', 'up.user_id', 'u.id')
         .where({ email })
         .first()
-    );
+    )
   }
 
   async getUserByFbIdOrEmail(id, email) {
@@ -279,7 +279,7 @@ class User {
         .where('fa.fb_id', '=', id)
         .orWhere('u.email', '=', email)
         .first()
-    );
+    )
   }
 
   async getUserByLnInIdOrEmail(id, email) {
@@ -302,7 +302,7 @@ class User {
         .where('lna.ln_id', '=', id)
         .orWhere('u.email', '=', email)
         .first()
-    );
+    )
   }
 
   async getUserByGHIdOrEmail(id, email) {
@@ -325,7 +325,7 @@ class User {
         .where('gha.gh_id', '=', id)
         .orWhere('u.email', '=', email)
         .first()
-    );
+    )
   }
 
   async getUserByGoogleIdOrEmail(id, email) {
@@ -348,7 +348,7 @@ class User {
         .where('ga.google_id', '=', id)
         .orWhere('u.email', '=', email)
         .first()
-    );
+    )
   }
 
   async getUserByUsername(username) {
@@ -359,7 +359,7 @@ class User {
         .where('u.username', '=', username)
         .leftJoin('user_profile AS up', 'up.user_id', 'u.id')
         .first()
-    );
+    )
   }
 
   async getUserByUsernameOrEmail(usernameOrEmail) {
@@ -380,9 +380,9 @@ class User {
         .orWhere('u.email', '=', usernameOrEmail)
         .leftJoin('user_profile AS up', 'up.user_id', 'u.id')
         .first()
-    );
+    )
   }
 }
-const userDAO = new User();
+const userDAO = new User()
 
-export default userDAO;
+export default userDAO

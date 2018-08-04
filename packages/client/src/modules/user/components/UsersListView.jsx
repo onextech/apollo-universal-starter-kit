@@ -1,8 +1,8 @@
 /*eslint-disable no-unused-vars*/
-import React from 'react';
-import PropTypes from 'prop-types';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FontAwesome } from '@expo/vector-icons'
 import {
   Button,
   Card,
@@ -13,8 +13,8 @@ import {
   ListItem,
   Loading,
   primary
-} from '../../common/components/native';
-import translate from '../../../i18n';
+} from '../../common/components/native'
+import translate from '../../../i18n'
 
 const UsersListView = ({ users, loading, navigation, deleteUser, t }) => {
   return (
@@ -56,7 +56,7 @@ const UsersListView = ({ users, loading, navigation, deleteUser, t }) => {
                           </View>
                           <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.iconWrapper} onPress={() => deleteUser(id)}>
-                              <FontAwesome name="trash" size={25} style={{ color: '#de5251' }} />
+                              <FontAwesome name='trash' size={25} style={{ color: '#de5251' }} />
                             </TouchableOpacity>
                           </View>
                         </CardItem>
@@ -73,12 +73,12 @@ const UsersListView = ({ users, loading, navigation, deleteUser, t }) => {
         </ScrollView>
       )}
     </View>
-  );
-};
+  )
+}
 
 UsersListView.propTypes = {
   t: PropTypes.func
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -120,13 +120,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600'
   }
-});
+})
 
 UsersListView.propTypes = {
   users: PropTypes.array,
   navigation: PropTypes.object,
   deleteUser: PropTypes.func,
   loading: PropTypes.bool
-};
+}
 
-export default translate('user')(UsersListView);
+export default translate('user')(UsersListView)

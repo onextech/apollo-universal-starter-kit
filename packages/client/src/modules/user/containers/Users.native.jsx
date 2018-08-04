@@ -1,9 +1,9 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
-import { compose } from 'react-apollo';
-import UsersList from '../components/UsersListView';
-import UsersFilter from '../components/UsersFilterView';
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import PropTypes from 'prop-types'
+import { compose } from 'react-apollo'
+import UsersList from '../components/UsersListView'
+import UsersFilter from '../components/UsersFilterView'
 import {
   withUsersState,
   withUsers,
@@ -11,36 +11,36 @@ import {
   withOrderByUpdating,
   withFilterUpdating,
   subscribeToUsersList
-} from './UserOperations';
+} from './UserOperations'
 
 class Users extends React.Component {
   constructor(props) {
-    super(props);
-    this.subscription = null;
+    super(props)
+    this.subscription = null
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { subscribeToMore, filter, users } = this.props;
+    const { subscribeToMore, filter, users } = this.props
     if (!nextProps.loading) {
       if (this.subscription && nextProps.users.length !== users.length) {
-        this.subscription();
-        this.subscription = null;
+        this.subscription()
+        this.subscription = null
       }
 
       if (!this.subscription) {
-        this.subscription = subscribeToUsersList(subscribeToMore, filter);
+        this.subscription = subscribeToUsersList(subscribeToMore, filter)
       }
     }
   }
 
   componentWillUnmount() {
     if (this.subscription) {
-      this.subscription();
+      this.subscription()
     }
   }
 
   render() {
-    const isOpenFilter = !!this.props.navigation.getParam('isOpenFilter');
+    const isOpenFilter = !!this.props.navigation.getParam('isOpenFilter')
     return (
       <View style={styles.container}>
         {isOpenFilter && (
@@ -52,7 +52,7 @@ class Users extends React.Component {
           <UsersList {...this.props} />
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     flex: 8,
     marginTop: 15
   }
-});
+})
 
 Users.propTypes = {
   filter: PropTypes.object,
@@ -82,7 +82,7 @@ Users.propTypes = {
   users: PropTypes.array,
   subscribeToMore: PropTypes.func,
   loading: PropTypes.bool
-};
+}
 
 export default compose(
   withUsersState,
@@ -90,4 +90,4 @@ export default compose(
   withUsersDeleting,
   withOrderByUpdating,
   withFilterUpdating
-)(Users);
+)(Users)

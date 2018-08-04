@@ -11,6 +11,6 @@ const SelectStyles = {
   pickerWrapper: {
     flex: 14
   }
-};
+}
 
-export default SelectStyles;
+export default SelectStyles

@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
-import translate from '../../../i18n';
-import RegisterForm from '../components/RegisterForm';
-import { LayoutCenter } from '../../common/components';
-import { PageLayout } from '../../common/components/web';
+import translate from '../../../i18n'
+import RegisterForm from '../components/RegisterForm'
+import { LayoutCenter } from '../../common/components'
+import { PageLayout } from '../../common/components/web'
 
-import settings from '../../../../../../settings';
+import settings from '../../../../../../settings'
 
 class RegisterView extends React.PureComponent {
   static propTypes = {
@@ -15,22 +15,22 @@ class RegisterView extends React.PureComponent {
     t: PropTypes.func
   };
 
-  onSubmit = async values => {
-    const { register, t } = this.props;
-    const { errors } = await register(values);
+  onSubmit = async (values) => {
+    const { register, t } = this.props
+    const { errors } = await register(values)
 
     if (errors && errors.length) {
       throw errors.reduce(
         (res, error) => {
-          res[error.field] = error.message;
-          return res;
+          res[error.field] = error.message
+          return res
         },
         { _error: t('reg.errorMsg') }
-      );
+      )
     }
   };
 
-  renderMetaData = t => (
+  renderMetaData = (t) => (
     <Helmet
       title={`${settings.app.name} - ${t('reg.title')}`}
       meta={[
@@ -43,17 +43,17 @@ class RegisterView extends React.PureComponent {
   );
 
   render() {
-    const { t } = this.props;
+    const { t } = this.props
     return (
       <PageLayout>
         {this.renderMetaData(t)}
         <LayoutCenter>
-          <h1 className="text-center">{t('reg.form.title')}</h1>
+          <h1 className='text-center'>{t('reg.form.title')}</h1>
           <RegisterForm onSubmit={this.onSubmit} />
         </LayoutCenter>
       </PageLayout>
-    );
+    )
   }
 }
 
-export default translate('user')(RegisterView);
+export default translate('user')(RegisterView)

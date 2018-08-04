@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
-import translate from '../../../i18n';
-import { LayoutCenter } from '../../common/components';
-import { PageLayout } from '../../common/components/web';
-import ContactForm from './ContactForm';
-import settings from '../../../../../../settings';
+import translate from '../../../i18n'
+import { LayoutCenter } from '../../common/components'
+import { PageLayout } from '../../common/components/web'
+import ContactForm from './ContactForm'
+import settings from '../../../../../../settings'
 
 class ContactView extends React.Component {
   static propTypes = {
@@ -18,22 +18,22 @@ class ContactView extends React.Component {
     sent: false
   };
 
-  onSubmit = ({ contact, t }) => async values => {
-    const result = await contact(values);
+  onSubmit = ({ contact, t }) => async (values) => {
+    const result = await contact(values)
 
     if (result.errors) {
       let submitError = {
         _error: t('errorMsg')
-      };
-      result.errors.map(error => (submitError[error.field] = error.message));
-      throw submitError;
+      }
+      result.errors.map((error) => (submitError[error.field] = error.message))
+      throw submitError
     }
 
-    this.setState({ sent: result });
+    this.setState({ sent: result })
   };
 
   render() {
-    const { contact, t } = this.props;
+    const { contact, t } = this.props
 
     const renderMetaData = () => (
       <Helmet
@@ -45,18 +45,18 @@ class ContactView extends React.Component {
           }
         ]}
       />
-    );
+    )
 
     return (
       <PageLayout>
         {renderMetaData()}
         <LayoutCenter>
-          <h1 className="text-center">{t('form.title')}</h1>
+          <h1 className='text-center'>{t('form.title')}</h1>
           <ContactForm onSubmit={this.onSubmit({ contact, t })} sent={this.state.sent} />
         </LayoutCenter>
       </PageLayout>
-    );
+    )
   }
 }
 
-export default translate('contact')(ContactView);
+export default translate('contact')(ContactView)

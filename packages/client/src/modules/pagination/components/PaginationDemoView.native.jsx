@@ -1,33 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, ScrollView, FlatList, StyleSheet, Text } from 'react-native';
-import { Pagination } from '../../common/components/native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View, ScrollView, FlatList, StyleSheet, Text } from 'react-native'
+import { Pagination } from '../../common/components/native'
 
-import translate from '../../../i18n';
+import translate from '../../../i18n'
 
 const PaginationDemoView = ({ items, handlePageChange, renderItem, pagination, t }) => {
-  const renderHeader = t => {
-    return <Text style={styles.title}>{t}</Text>;
-  };
+  const renderHeader = (t) => {
+    return <Text style={styles.title}>{t}</Text>
+  }
 
   const handleScrollEvent = () => {
     if (this.allowDataLoad) {
       if (items.pageInfo.hasNextPage) {
-        this.allowDataLoad = false;
-        return handlePageChange('relay', null);
+        this.allowDataLoad = false
+        return handlePageChange('relay', null)
       }
     }
-  };
+  }
 
-  const titleTexti18n = t('list.column.title');
-  this.allowDataLoad = true;
+  const titleTexti18n = t('list.column.title')
+  this.allowDataLoad = true
   return pagination === 'standard' ? (
     <View style={styles.container}>
       <View style={styles.listContainer}>
         <FlatList
           data={items.edges}
           style={styles.list}
-          keyExtractor={item => `${item.node.id}`}
+          keyExtractor={(item) => `${item.node.id}`}
           renderItem={renderItem}
           ListHeaderComponent={renderHeader(titleTexti18n)}
         />
@@ -48,7 +48,7 @@ const PaginationDemoView = ({ items, handlePageChange, renderItem, pagination, t
         <FlatList
           data={items.edges}
           style={styles.list}
-          keyExtractor={item => `${item.node.id}`}
+          keyExtractor={(item) => `${item.node.id}`}
           renderItem={renderItem}
           ListHeaderComponent={renderHeader(titleTexti18n)}
         />
@@ -65,17 +65,17 @@ const PaginationDemoView = ({ items, handlePageChange, renderItem, pagination, t
     <View style={styles.container}>
       <FlatList
         data={items.edges}
-        ref={ref => (this.listRef = ref)}
+        ref={(ref) => (this.listRef = ref)}
         style={styles.list}
-        keyExtractor={item => `${item.node.id}`}
+        keyExtractor={(item) => `${item.node.id}`}
         renderItem={renderItem}
         ListHeaderComponent={renderHeader(titleTexti18n)}
         onEndReachedThreshold={0.5}
         onEndReached={handleScrollEvent}
       />
     </View>
-  );
-};
+  )
+}
 
 PaginationDemoView.propTypes = {
   t: PropTypes.func,
@@ -83,7 +83,7 @@ PaginationDemoView.propTypes = {
   handlePageChange: PropTypes.func,
   renderItem: PropTypes.func,
   pagination: PropTypes.string
-};
+}
 
 const styles = StyleSheet.create({
   list: {
@@ -110,6 +110,6 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1
   }
-});
+})
 
-export default translate('pagination')(PaginationDemoView);
+export default translate('pagination')(PaginationDemoView)

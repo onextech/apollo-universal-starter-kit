@@ -1,2 +1,2 @@
-export * from './web';
-export { default as clientOnly } from './clientOnly';
+export * from './web'
+export { default as clientOnly } from './clientOnly'

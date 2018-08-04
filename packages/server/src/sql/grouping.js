@@ -5,27 +5,27 @@
  * (table is optional)
  */
 export default function grouping(queryBuilder, args) {
-  let { groupBys } = args;
+  let { groupBys } = args
 
   // add group by
   if (groupBys) {
     for (let groupBy of groupBys) {
       if (!groupBy) {
-        continue;
+        continue
       }
       if (groupBy.applyWhen && !groupBy.applyWhen(args)) {
-        continue;
+        continue
       }
       if (groupBy && groupBy.column) {
-        let column = groupBy.column;
+        let column = groupBy.column
         if (groupBy.table) {
-          column = groupBy.table + '.' + column;
+          column = groupBy.table + '.' + column
         }
 
-        queryBuilder.groupBy(column);
+        queryBuilder.groupBy(column)
       }
     }
   }
 
-  return queryBuilder;
+  return queryBuilder
 }

@@ -1,10 +1,10 @@
 /*eslint-disable react/display-name*/
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FontAwesome } from '@expo/vector-icons';
-import { StyleSheet, Text, Platform, TouchableOpacity, View, FlatList } from 'react-native';
-import translate from '../../../i18n';
-import { SwipeAction, Loading } from '../../common/components/native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { FontAwesome } from '@expo/vector-icons'
+import { StyleSheet, Text, Platform, TouchableOpacity, View, FlatList } from 'react-native'
+import translate from '../../../i18n'
+import { SwipeAction, Loading } from '../../common/components/native'
 
 class PostList extends React.PureComponent {
   static propTypes = {
@@ -16,14 +16,14 @@ class PostList extends React.PureComponent {
     t: PropTypes.func
   };
 
-  keyExtractor = item => `${item.node.id}`;
+  keyExtractor = (item) => `${item.node.id}`;
 
   renderItemIOS = ({
     item: {
       node: { id, title }
     }
   }) => {
-    const { deletePost, navigation, t } = this.props;
+    const { deletePost, navigation, t } = this.props
     return (
       <SwipeAction
         onPress={() => navigation.navigate('PostEdit', { id })}
@@ -34,7 +34,7 @@ class PostList extends React.PureComponent {
       >
         {title}
       </SwipeAction>
-    );
+    )
   };
 
   renderItemAndroid = ({
@@ -42,15 +42,15 @@ class PostList extends React.PureComponent {
       node: { id, title }
     }
   }) => {
-    const { deletePost, navigation } = this.props;
+    const { deletePost, navigation } = this.props
     return (
       <TouchableOpacity style={styles.postWrapper} onPress={() => navigation.navigate('PostEdit', { id })}>
         <Text style={styles.text}>{title}</Text>
         <TouchableOpacity style={styles.iconWrapper} onPress={() => deletePost(id)}>
-          <FontAwesome name="trash" size={20} style={{ color: '#3B5998' }} />
+          <FontAwesome name='trash' size={20} style={{ color: '#3B5998' }} />
         </TouchableOpacity>
       </TouchableOpacity>
-    );
+    )
   };
 
   handleScrollEvent = () => {
@@ -59,27 +59,27 @@ class PostList extends React.PureComponent {
         pageInfo: { endCursor }
       },
       loadData
-    } = this.props;
+    } = this.props
     if (this.allowDataLoad) {
       if (this.props.posts.pageInfo.hasNextPage) {
-        this.allowDataLoad = false;
-        return loadData(endCursor + 1, 'add');
+        this.allowDataLoad = false
+        return loadData(endCursor + 1, 'add')
       }
     }
   };
 
   render() {
-    const { loading, posts, t } = this.props;
-    const renderItem = Platform.OS === 'android' ? this.renderItemAndroid : this.renderItemIOS;
+    const { loading, posts, t } = this.props
+    const renderItem = Platform.OS === 'android' ? this.renderItemAndroid : this.renderItemIOS
     if (loading) {
-      return <Loading text={t('post.loadMsg')} />;
+      return <Loading text={t('post.loadMsg')} />
     } else {
-      this.allowDataLoad = true;
+      this.allowDataLoad = true
       return (
         <View style={styles.container}>
           <FlatList
             data={posts.edges}
-            ref={ref => (this.listRef = ref)}
+            ref={(ref) => (this.listRef = ref)}
             style={styles.list}
             keyExtractor={this.keyExtractor}
             renderItem={renderItem}
@@ -87,12 +87,12 @@ class PostList extends React.PureComponent {
             onEndReached={this.handleScrollEvent}
           />
         </View>
-      );
+      )
     }
   }
 }
 
-export default translate('post')(PostList);
+export default translate('post')(PostList)
 
 const styles = StyleSheet.create({
   container: {
@@ -125,4 +125,4 @@ const styles = StyleSheet.create({
   list: {
     marginTop: 5
   }
-});
+})

@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
+import { Link } from 'react-router-dom'
 
-import translate from '../../../i18n';
-import { PageLayout } from '../../common/components/web';
-import PostForm from './PostForm';
+import translate from '../../../i18n'
+import { PageLayout } from '../../common/components/web'
+import PostForm from './PostForm'
 
-import settings from '../../../../../../settings';
+import settings from '../../../../../../settings'
 
-const onSubmit = addPost => values => {
-  addPost(values.title, values.content);
-};
+const onSubmit = (addPost) => (values) => {
+  addPost(values.title, values.content)
+}
 
 const PostAddView = ({ addPost, t }) => {
   const renderMetaData = () => (
@@ -24,11 +24,11 @@ const PostAddView = ({ addPost, t }) => {
         }
       ]}
     />
-  );
+  )
   return (
     <PageLayout>
       {renderMetaData()}
-      <Link id="back-button" to="/posts">
+      <Link id='back-button' to='/posts'>
         {t('post.btn.back')}
       </Link>
       <h2>
@@ -37,12 +37,12 @@ const PostAddView = ({ addPost, t }) => {
       <PostForm onSubmit={onSubmit(addPost)} />
       <br />
     </PageLayout>
-  );
-};
+  )
+}
 
 PostAddView.propTypes = {
   addPost: PropTypes.func.isRequired,
   t: PropTypes.func
-};
+}
 
-export default translate('post')(PostAddView);
+export default translate('post')(PostAddView)

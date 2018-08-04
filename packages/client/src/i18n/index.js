@@ -1,3 +1,3 @@
-import translate from '../modules/common/i18n';
+import translate from '../modules/common/i18n'
 
-export default translate;
+export default translate

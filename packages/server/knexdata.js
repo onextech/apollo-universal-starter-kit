@@ -1,4 +1,4 @@
-import settings from '../../settings';
+import settings from '../../settings'
 
 export const development = {
   client: settings.db.client,
@@ -11,7 +11,7 @@ export const development = {
     directory: './src/database/migrations'
   },
   useNullAsDefault: true
-};
+}
 
 export const production = {
   client: settings.db.client,
@@ -24,7 +24,7 @@ export const production = {
     directory: './src/database/migrations'
   },
   useNullAsDefault: true
-};
+}
 
 export const test = {
   client: 'sqlite3',
@@ -38,4 +38,4 @@ export const test = {
     directory: './src/database/migrations'
   },
   useNullAsDefault: true
-};
+}

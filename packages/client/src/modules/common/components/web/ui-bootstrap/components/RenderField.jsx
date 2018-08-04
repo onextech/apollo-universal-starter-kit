@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { FormGroup, Label, Input, FormFeedback } from 'reactstrap'
 
 const RenderField = ({ input, label, type, meta: { touched, error }, children, placeholder }) => {
-  let valid = true;
+  let valid = true
   if (touched && error) {
-    valid = false;
+    valid = false
   }
 
   return (
@@ -18,8 +18,8 @@ const RenderField = ({ input, label, type, meta: { touched, error }, children, p
         {touched && (error && <FormFeedback>{error}</FormFeedback>)}
       </div>
     </FormGroup>
-  );
-};
+  )
+}
 
 RenderField.propTypes = {
   input: PropTypes.object,
@@ -28,6 +28,6 @@ RenderField.propTypes = {
   meta: PropTypes.object,
   placeholder: PropTypes.string,
   children: PropTypes.array
-};
+}
 
-export default RenderField;
+export default RenderField

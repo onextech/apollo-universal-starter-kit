@@ -1,1 +1,1 @@
-export * from './AuthBase';
+export * from './AuthBase'

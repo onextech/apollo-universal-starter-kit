@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Table, Pagination } from '../../common/components/web';
-import translate from '../../../i18n';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Table, Pagination } from '../../common/components/web'
+import translate from '../../../i18n'
 
 const PaginationDemoView = ({ items, handlePageChange, pagination, t }) => {
-  const renderFunc = text => <span>{text}</span>;
+  const renderFunc = (text) => <span>{text}</span>
   const columns = [
     {
       title: t('list.column.title'),
@@ -13,7 +13,7 @@ const PaginationDemoView = ({ items, handlePageChange, pagination, t }) => {
       displayName: 'MyComponent',
       render: renderFunc
     }
-  ];
+  ]
 
   return (
     <div>
@@ -28,14 +28,14 @@ const PaginationDemoView = ({ items, handlePageChange, pagination, t }) => {
         defaultPageSize={items.limit}
       />
     </div>
-  );
-};
+  )
+}
 
 PaginationDemoView.propTypes = {
   items: PropTypes.object,
   handlePageChange: PropTypes.func,
   t: PropTypes.func,
   pagination: PropTypes.string
-};
+}
 
-export default translate('pagination')(PaginationDemoView);
+export default translate('pagination')(PaginationDemoView)

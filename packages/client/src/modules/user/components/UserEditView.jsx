@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, View } from 'react-native'
 
-import translate from '../../../i18n';
-import UserForm from './UserForm';
-import { withLoadedUser } from '../containers/Auth';
-import { Loading } from '../../common/components/native';
+import translate from '../../../i18n'
+import UserForm from './UserForm'
+import { withLoadedUser } from '../containers/Auth'
+import { Loading } from '../../common/components/native'
 
 class UserEditView extends React.PureComponent {
   static propTypes = {
@@ -18,12 +18,12 @@ class UserEditView extends React.PureComponent {
   };
 
   render() {
-    const { loading, user, t, currentUser } = this.props;
+    const { loading, user, t, currentUser } = this.props
 
     if (loading && !user) {
-      return <Loading text={t('userEdit.loadMsg')} />;
+      return <Loading text={t('userEdit.loadMsg')} />
     } else {
-      const isNotSelf = !user || (user && user.id !== currentUser.id);
+      const isNotSelf = !user || (user && user.id !== currentUser.id)
       return (
         <View style={styles.container}>
           <UserForm
@@ -33,7 +33,7 @@ class UserEditView extends React.PureComponent {
             initialValues={user || {}}
           />
         </View>
-      );
+      )
     }
   }
 }
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   }
-});
+})
 
-export default withLoadedUser(translate('user')(UserEditView));
+export default withLoadedUser(translate('user')(UserEditView))

@@ -1,2 +1,2 @@
-export * from './native';
-export { default as clientOnly } from './clientOnly';
+export * from './native'
+export { default as clientOnly } from './clientOnly'

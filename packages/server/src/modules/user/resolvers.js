@@ -1,107 +1,107 @@
 /*eslint-disable no-unused-vars*/
-import { pick } from 'lodash';
-import jwt from 'jsonwebtoken';
-import withAuth from 'graphql-auth';
-import { withFilter } from 'graphql-subscriptions';
+import { pick } from 'lodash'
+import jwt from 'jsonwebtoken'
+import withAuth from 'graphql-auth'
+import { withFilter } from 'graphql-subscriptions'
 
-import FieldError from '../../../../common/FieldError';
-import settings from '../../../../../settings';
+import FieldError from '../../../../common/FieldError'
+import settings from '../../../../../settings'
 
-const USERS_SUBSCRIPTION = 'users_subscription';
+const USERS_SUBSCRIPTION = 'users_subscription'
 
-export default pubsub => ({
+export default (pubsub) => ({
   Query: {
     users: withAuth(['user:view:all'], (obj, { orderBy, filter }, { User }) => {
-      return User.getUsers(orderBy, filter);
+      return User.getUsers(orderBy, filter)
     }),
     user: withAuth(
       () => {
-        return ['user:view:self'];
+        return ['user:view:self']
       },
       (obj, { id }, { user, User, req: { t } }) => {
         if (user.id === id || user.role === 'admin') {
           try {
-            return { user: User.getUser(id) };
+            return { user: User.getUser(id) }
           } catch (e) {
-            return { errors: e };
+            return { errors: e }
           }
         }
 
-        const e = new FieldError();
-        e.setError('user', t('user:accessDenied'));
-        return { user: null, errors: e.getErrors() };
+        const e = new FieldError()
+        e.setError('user', t('user:accessDenied'))
+        return { user: null, errors: e.getErrors() }
       }
     ),
     currentUser(obj, args, { User, user }) {
       if (user) {
-        return User.getUser(user.id);
+        return User.getUser(user.id)
       } else {
-        return null;
+        return null
       }
     }
   },
   User: {
     profile(obj) {
-      return obj;
+      return obj
     },
     auth(obj) {
-      return obj;
+      return obj
     }
   },
   UserProfile: {
     firstName(obj) {
-      return obj.firstName;
+      return obj.firstName
     },
     lastName(obj) {
-      return obj.lastName;
+      return obj.lastName
     },
     fullName(obj) {
       if (obj.firstName && obj.lastName) {
-        return `${obj.firstName} ${obj.lastName}`;
+        return `${obj.firstName} ${obj.lastName}`
       } else {
-        return null;
+        return null
       }
     }
   },
   Mutation: {
     addUser: withAuth(
       (obj, args, { User, user }) => {
-        return user.id !== args.input.id ? ['user:create'] : ['user:create:self'];
+        return user.id !== args.input.id ? ['user:create'] : ['user:create:self']
       },
       async (obj, { input }, { User, user, req: { universalCookies }, mailer, req, req: { t } }) => {
         try {
-          const e = new FieldError();
+          const e = new FieldError()
 
-          const userExists = await User.getUserByUsername(input.username);
+          const userExists = await User.getUserByUsername(input.username)
           if (userExists) {
-            e.setError('username', t('user:usernameIsExisted'));
+            e.setError('username', t('user:usernameIsExisted'))
           }
 
-          const emailExists = await User.getUserByEmail(input.email);
+          const emailExists = await User.getUserByEmail(input.email)
           if (emailExists) {
-            e.setError('email', t('user:emailIsExisted'));
+            e.setError('email', t('user:emailIsExisted'))
           }
 
           if (input.password.length < 8) {
-            e.setError('password', t('user:passwordLength'));
+            e.setError('password', t('user:passwordLength'))
           }
 
-          e.throwIf();
+          e.throwIf()
 
-          const [createdUserId] = await User.register({ ...input });
-          await User.editUserProfile({ id: createdUserId, ...input });
+          const [createdUserId] = await User.register({ ...input })
+          await User.editUserProfile({ id: createdUserId, ...input })
 
           if (settings.user.auth.certificate.enabled) {
-            await User.editAuthCertificate({ id: createdUserId, ...input });
+            await User.editAuthCertificate({ id: createdUserId, ...input })
           }
 
-          const user = await User.getUser(createdUserId);
+          const user = await User.getUser(createdUserId)
 
           if (mailer && settings.user.auth.password.sendAddNewUserEmail && !emailExists && req) {
             // async email
             jwt.sign({ user: pick(user, 'id') }, settings.user.secret, { expiresIn: '1d' }, (err, emailToken) => {
-              const encodedToken = Buffer.from(emailToken).toString('base64');
-              const url = `${__WEBSITE_URL__}/confirmation/${encodedToken}`;
+              const encodedToken = Buffer.from(emailToken).toString('base64')
+              const url = `${__WEBSITE_URL__}/confirmation/${encodedToken}`
               mailer.sendMail({
                 from: `${settings.app.name} <${process.env.EMAIL_USER}>`,
                 to: user.email,
@@ -112,8 +112,8 @@ export default pubsub => ({
                 <p>Below are your login information</p>
                 <p>Your email is: ${user.email}</p>
                 <p>Your password is: ${input.password}</p>`
-              });
-            });
+              })
+            })
           }
 
           pubsub.publish(USERS_SUBSCRIPTION, {
@@ -121,89 +121,89 @@ export default pubsub => ({
               mutation: 'CREATED',
               node: user
             }
-          });
+          })
 
-          return { user };
+          return { user }
         } catch (e) {
-          return { errors: e };
+          return { errors: e }
         }
       }
     ),
     editUser: withAuth(
       (obj, args, { User, user }) => {
-        return user.id !== args.input.id ? ['user:update'] : ['user:update:self'];
+        return user.id !== args.input.id ? ['user:update'] : ['user:update:self']
       },
       async (obj, { input }, { User, user, req: { t } }) => {
-        const isAdmin = () => user.role === 'admin';
-        const isSelf = () => user.id === input.id;
+        const isAdmin = () => user.role === 'admin'
+        const isSelf = () => user.id === input.id
         try {
-          const e = new FieldError();
-          const userExists = await User.getUserByUsername(input.username);
+          const e = new FieldError()
+          const userExists = await User.getUserByUsername(input.username)
 
           if (userExists && userExists.id !== input.id) {
-            e.setError('username', t('user:usernameIsExisted'));
+            e.setError('username', t('user:usernameIsExisted'))
           }
 
-          const emailExists = await User.getUserByEmail(input.email);
+          const emailExists = await User.getUserByEmail(input.email)
           if (emailExists && emailExists.id !== input.id) {
-            e.setError('email', t('user:emailIsExisted'));
+            e.setError('email', t('user:emailIsExisted'))
           }
 
           if (input.password && input.password.length < 8) {
-            e.setError('password', t('user:passwordLength'));
+            e.setError('password', t('user:passwordLength'))
           }
 
-          e.throwIf();
+          e.throwIf()
 
-          const userInfo = !isSelf() && isAdmin() ? input : pick(input, ['id', 'username', 'email', 'password']);
+          const userInfo = !isSelf() && isAdmin() ? input : pick(input, ['id', 'username', 'email', 'password'])
 
-          await User.editUser(userInfo);
-          await User.editUserProfile(input);
+          await User.editUser(userInfo)
+          await User.editUserProfile(input)
 
           if (settings.user.auth.certificate.enabled) {
-            await User.editAuthCertificate(input);
+            await User.editAuthCertificate(input)
           }
-          const user = await User.getUser(input.id);
+          const user = await User.getUser(input.id)
           pubsub.publish(USERS_SUBSCRIPTION, {
             usersUpdated: {
               mutation: 'UPDATED',
               node: user
             }
-          });
+          })
 
-          return { user };
+          return { user }
         } catch (e) {
-          return { errors: e };
+          return { errors: e }
         }
       }
     ),
     deleteUser: withAuth(
       (obj, args, { User, user }) => {
-        return user.id !== args.id ? ['user:delete'] : ['user:delete:self'];
+        return user.id !== args.id ? ['user:delete'] : ['user:delete:self']
       },
       async (obj, { id }, context) => {
         const {
           User,
           req: { t }
-        } = context;
-        const isAdmin = () => context.user.role === 'admin';
-        const isSelf = () => context.user.id === id;
+        } = context
+        const isAdmin = () => context.user.role === 'admin'
+        const isSelf = () => context.user.id === id
 
         try {
-          const e = new FieldError();
-          const user = await User.getUser(id);
+          const e = new FieldError()
+          const user = await User.getUser(id)
 
           if (!user) {
-            e.setError('delete', t('user:userIsNotExisted'));
-            e.throwIf();
+            e.setError('delete', t('user:userIsNotExisted'))
+            e.throwIf()
           }
 
           if (isSelf()) {
-            e.setError('delete', t('user:userCannotDeleteYourself'));
-            e.throwIf();
+            e.setError('delete', t('user:userCannotDeleteYourself'))
+            e.throwIf()
           }
 
-          const isDeleted = !isSelf() && isAdmin() ? await User.deleteUser(id) : false;
+          const isDeleted = !isSelf() && isAdmin() ? await User.deleteUser(id) : false
 
           if (isDeleted) {
             pubsub.publish(USERS_SUBSCRIPTION, {
@@ -211,14 +211,14 @@ export default pubsub => ({
                 mutation: 'DELETED',
                 node: user
               }
-            });
-            return { user };
+            })
+            return { user }
           } else {
-            e.setError('delete', t('user:userCouldNotDeleted'));
-            e.throwIf();
+            e.setError('delete', t('user:userCouldNotDeleted'))
+            e.throwIf()
           }
         } catch (e) {
-          return { errors: e };
+          return { errors: e }
         }
       }
     )
@@ -228,26 +228,26 @@ export default pubsub => ({
       subscribe: withFilter(
         () => pubsub.asyncIterator(USERS_SUBSCRIPTION),
         (payload, variables) => {
-          const { mutation, node } = payload.usersUpdated;
+          const { mutation, node } = payload.usersUpdated
           const {
             filter: { isActive, role, searchText }
-          } = variables;
+          } = variables
 
           const checkByFilter =
             !!node.isActive === isActive &&
             (!role || role === node.role) &&
-            (!searchText || node.username.includes(searchText) || node.email.includes(searchText));
+            (!searchText || node.username.includes(searchText) || node.email.includes(searchText))
 
           switch (mutation) {
             case 'DELETED':
-              return true;
+              return true
             case 'CREATED':
-              return checkByFilter;
+              return checkByFilter
             case 'UPDATED':
-              return !checkByFilter;
+              return !checkByFilter
           }
         }
       )
     }
   }
-});
+})

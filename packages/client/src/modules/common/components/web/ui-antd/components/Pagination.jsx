@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Pagination as ADPagination } from 'antd';
-import { Button } from '../components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Pagination as ADPagination } from 'antd'
+import { Button } from '../components'
 
 /**
  * @return {boolean}
@@ -23,22 +23,22 @@ const Pagination = ({
             ({itemsPerPage} / {total})
           </small>
         </div>
-        <Button id="load-more" color="primary" onClick={() => handlePageChange(pagination)}>
+        <Button id='load-more' color='primary' onClick={() => handlePageChange(pagination)}>
           {loadMoreText}
         </Button>
       </div>
-    ) : null;
+    ) : null
   } else {
     return (
       <ADPagination
         defaultCurrent={1}
         defaultPageSize={defaultPageSize}
         total={total}
-        onChange={pageNumber => handlePageChange(pagination, pageNumber)}
+        onChange={(pageNumber) => handlePageChange(pagination, pageNumber)}
       />
-    );
+    )
   }
-};
+}
 
 Pagination.propTypes = {
   itemsPerPage: PropTypes.number,
@@ -48,6 +48,6 @@ Pagination.propTypes = {
   total: PropTypes.number,
   loadMoreText: PropTypes.string,
   defaultPageSize: PropTypes.number
-};
+}
 
-export default Pagination;
+export default Pagination

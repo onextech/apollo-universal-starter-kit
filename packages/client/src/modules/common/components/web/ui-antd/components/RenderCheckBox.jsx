@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Checkbox, Form } from 'antd';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Checkbox, Form } from 'antd'
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 
 const RenderCheckBox = ({ input, label, meta: { touched, error } }) => {
-  let validateStatus = '';
+  let validateStatus = ''
   if (touched && error) {
-    validateStatus = 'error';
+    validateStatus = 'error'
   }
 
   return (
@@ -16,14 +16,14 @@ const RenderCheckBox = ({ input, label, meta: { touched, error } }) => {
         <Checkbox {...input}>{label}</Checkbox>
       </div>
     </FormItem>
-  );
-};
+  )
+}
 
 RenderCheckBox.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   type: PropTypes.string,
   meta: PropTypes.object
-};
+}
 
-export default RenderCheckBox;
+export default RenderCheckBox

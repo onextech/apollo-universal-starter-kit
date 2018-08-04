@@ -7,6 +7,6 @@ const InputItemStyles = {
     textAlign: 'center',
     margin: 3
   }
-};
+}
 
-export default InputItemStyles;
+export default InputItemStyles

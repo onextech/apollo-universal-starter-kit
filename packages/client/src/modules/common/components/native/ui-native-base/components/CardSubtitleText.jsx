@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Text, StyleSheet } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Text, StyleSheet } from 'react-native'
 
-import CardItem from './CardItem';
-import SubtitleTextStyles from '../styles/CardSubTitleText';
+import CardItem from './CardItem'
+import SubtitleTextStyles from '../styles/CardSubTitleText'
 
 const CardSubtitleText = ({ children, style, ...props }) => {
   return (
@@ -12,14 +12,14 @@ const CardSubtitleText = ({ children, style, ...props }) => {
         {children}
       </Text>
     </CardItem>
-  );
-};
+  )
+}
 
 CardSubtitleText.propTypes = {
   children: PropTypes.string,
   style: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
-};
+}
 
-const styles = StyleSheet.create(SubtitleTextStyles);
+const styles = StyleSheet.create(SubtitleTextStyles)
 
-export default CardSubtitleText;
+export default CardSubtitleText

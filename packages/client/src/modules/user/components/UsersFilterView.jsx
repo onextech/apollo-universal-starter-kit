@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { debounce } from 'lodash';
-import { FontAwesome } from '@expo/vector-icons';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { debounce } from 'lodash'
+import { FontAwesome } from '@expo/vector-icons'
 import {
   Select,
   SearchBar,
@@ -13,10 +13,10 @@ import {
   danger,
   Modal,
   Button
-} from '../../common/components/native';
-import { itemAction, itemContainer, itemTitle } from '../../common/components/native/styles';
+} from '../../common/components/native'
+import { itemAction, itemContainer, itemTitle } from '../../common/components/native/styles'
 
-import translate from '../../../i18n';
+import translate from '../../../i18n'
 
 class UsersFilterView extends React.PureComponent {
   static propTypes = {
@@ -33,48 +33,48 @@ class UsersFilterView extends React.PureComponent {
   };
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       showModal: false,
       orderBy: {
         column: '',
         order: ''
       }
-    };
-    this.onChangeTextDelayed = debounce(this.handleSearch, 500);
+    }
+    this.onChangeTextDelayed = debounce(this.handleSearch, 500)
   }
 
-  renderOrderByArrow = name => {
-    const { orderBy } = this.state;
+  renderOrderByArrow = (name) => {
+    const { orderBy } = this.state
 
     if (orderBy && orderBy.column === name) {
       if (orderBy.order === 'desc') {
-        return <FontAwesome name="long-arrow-up" size={16} style={styles.iconStyle} />;
+        return <FontAwesome name='long-arrow-up' size={16} style={styles.iconStyle} />
       } else {
-        return <FontAwesome name="long-arrow-down" size={16} style={styles.iconStyle} />;
+        return <FontAwesome name='long-arrow-down' size={16} style={styles.iconStyle} />
       }
     } else {
-      return <FontAwesome name="arrows-v" size={16} style={styles.iconStyle} />;
+      return <FontAwesome name='arrows-v' size={16} style={styles.iconStyle} />
     }
   };
 
-  orderBy = name => {
-    const { orderBy } = this.state;
+  orderBy = (name) => {
+    const { orderBy } = this.state
 
-    let order = 'asc';
+    let order = 'asc'
     if (orderBy && orderBy.column === name) {
       if (orderBy.order === 'asc') {
-        order = 'desc';
+        order = 'desc'
       } else if (orderBy.order === 'desc') {
         return this.setState({
           orderBy: {
             column: '',
             order: ''
           }
-        });
+        })
       }
     }
-    return this.setState({ orderBy: { column: name, order } });
+    return this.setState({ orderBy: { column: name, order } })
   };
 
   renderListItem = (label, value, idx) => {
@@ -87,11 +87,11 @@ class UsersFilterView extends React.PureComponent {
           <View style={styles.itemAction}>{this.renderOrderByArrow(value)}</View>
         </View>
       </ListItem>
-    );
+    )
   };
 
   renderModalChildren = () => {
-    const { orderBy, t } = this.props;
+    const { orderBy, t } = this.props
 
     const orderByParams = [
       {
@@ -110,7 +110,7 @@ class UsersFilterView extends React.PureComponent {
         label: t('users.column.active'),
         value: 'isActive'
       }
-    ];
+    ]
     return (
       <View>
         <View style={styles.listWrapper}>
@@ -127,42 +127,42 @@ class UsersFilterView extends React.PureComponent {
           </Button>
         </View>
       </View>
-    );
+    )
   };
 
   onOrderBy = () => {
-    this.props.onOrderBy(this.state.orderBy);
-    this.setState({ showModal: false });
+    this.props.onOrderBy(this.state.orderBy)
+    this.setState({ showModal: false })
   };
 
-  handleSearch = text => {
-    const { onSearchTextChange } = this.props;
-    onSearchTextChange(text);
+  handleSearch = (text) => {
+    const { onSearchTextChange } = this.props
+    onSearchTextChange(text)
   };
 
-  handleRole = value => {
-    const { onRoleChange } = this.props;
-    onRoleChange(value);
+  handleRole = (value) => {
+    const { onRoleChange } = this.props
+    onRoleChange(value)
   };
 
   handleIsActive = () => {
     const {
       onIsActiveChange,
       filter: { isActive }
-    } = this.props;
-    onIsActiveChange(!isActive);
+    } = this.props
+    onIsActiveChange(!isActive)
   };
 
   render() {
     const {
       filter: { role, isActive },
       t
-    } = this.props;
+    } = this.props
     const options = [
       { value: '', label: t('users.list.item.role.all') },
       { value: 'user', label: t('users.list.item.role.user') },
       { value: 'admin', label: t('users.list.item.role.admin') }
-    ];
+    ]
     return (
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
@@ -173,12 +173,12 @@ class UsersFilterView extends React.PureComponent {
           <View style={[styles.itemAction, styles.itemSelect]}>
             <Select
               icon
-              iconName="caret-down"
+              iconName='caret-down'
               placeholder={t('users.list.item.role.all')}
-              mode="dropdown"
+              mode='dropdown'
               data={options}
               selectedValue={role}
-              onValueChange={value => this.handleRole(value)}
+              onValueChange={(value) => this.handleRole(value)}
               okText={t('users.select.okText')}
               dismissText={t('users.select.dismissText')}
               cols={1}
@@ -195,19 +195,19 @@ class UsersFilterView extends React.PureComponent {
         <TouchableOpacity style={styles.itemContainer} onPress={() => this.setState({ showModal: true })}>
           <Text style={styles.itemTitle}>{t('users.orderByText')}</Text>
           <View style={styles.itemAction}>
-            <FontAwesome name="sort" size={25} style={styles.iconStyle} />
+            <FontAwesome name='sort' size={25} style={styles.iconStyle} />
           </View>
         </TouchableOpacity>
         <Modal
           isVisible={this.state.showModal}
           onSwipe={() => this.setState({ showModal: false })}
           onBackdropPress={() => this.setState({ showModal: false })}
-          swipeDirection="left"
+          swipeDirection='left'
         >
           {this.renderModalChildren()}
         </Modal>
       </View>
-    );
+    )
   }
 }
 
@@ -231,6 +231,6 @@ const styles = StyleSheet.create({
   listWrapper: {
     backgroundColor: '#fff'
   }
-});
+})
 
-export default translate('user')(UsersFilterView);
+export default translate('user')(UsersFilterView)

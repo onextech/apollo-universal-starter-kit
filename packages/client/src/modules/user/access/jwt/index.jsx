@@ -1,43 +1,43 @@
-import { ApolloLink, Observable } from 'apollo-link';
-import React from 'react';
-import { withApollo } from 'react-apollo';
-import PropTypes from 'prop-types';
+import { ApolloLink, Observable } from 'apollo-link'
+import React from 'react'
+import { withApollo } from 'react-apollo'
+import PropTypes from 'prop-types'
 
-import { LayoutCenter } from '../../../common/components';
-import { getItem, setItem, removeItem } from '../../../common/clientStorage';
-import Feature from '../connector';
-import settings from '../../../../../../../settings';
+import { LayoutCenter } from '../../../common/components'
+import { getItem, setItem, removeItem } from '../../../common/clientStorage'
+import Feature from '../connector'
+import settings from '../../../../../../../settings'
 
-import REFRESH_TOKENS_MUTATION from './graphql/RefreshTokens.graphql';
-import CURRENT_USER_QUERY from '../../graphql/CurrentUserQuery.graphql';
+import REFRESH_TOKENS_MUTATION from './graphql/RefreshTokens.graphql'
+import CURRENT_USER_QUERY from '../../graphql/CurrentUserQuery.graphql'
 
-const setJWTContext = async operation => {
-  const accessToken = await getItem('accessToken');
+const setJWTContext = async (operation) => {
+  const accessToken = await getItem('accessToken')
   const headers =
     ['login', 'refreshTokens'].indexOf(operation.operationName) < 0 && accessToken
       ? { Authorization: `Bearer ${accessToken}` }
-      : {};
-  operation.setContext(context => ({
+      : {}
+  operation.setContext((context) => ({
     ...context,
     headers
-  }));
-};
+  }))
+}
 
-let apolloClient;
+let apolloClient
 
 const saveTokens = async ({ accessToken, refreshToken }) => {
-  await setItem('accessToken', accessToken);
-  await setItem('refreshToken', refreshToken);
-};
+  await setItem('accessToken', accessToken)
+  await setItem('refreshToken', refreshToken)
+}
 
 const removeTokens = async () => {
-  await removeItem('accessToken');
-  await removeItem('refreshToken');
-};
+  await removeItem('accessToken')
+  await removeItem('refreshToken')
+}
 
 const JWTLink = new ApolloLink((operation, forward) => {
-  return new Observable(observer => {
-    let sub, retrySub;
+  return new Observable((observer) => {
+    let sub, retrySub
     const queue = [];
     (async () => {
       // Optimisation: imitate server response with empty user if no JWT token present in local storage
@@ -46,15 +46,15 @@ const JWTLink = new ApolloLink((operation, forward) => {
         operation.operationName === 'currentUser' &&
         !(await getItem('refreshToken'))
       ) {
-        observer.next({ data: { currentUser: null } });
-        observer.complete();
-        return;
+        observer.next({ data: { currentUser: null } })
+        observer.complete()
+        return
       }
 
-      await setJWTContext(operation);
+      await setJWTContext(operation)
       try {
         sub = forward(operation).subscribe({
-          next: result => {
+          next: (result) => {
             const promise = (async () => {
               if (operation.operationName === 'login') {
                 if (result.data.login.tokens && !result.data.login.errors) {
@@ -64,22 +64,22 @@ const JWTLink = new ApolloLink((operation, forward) => {
                         tokens: { accessToken, refreshToken }
                       }
                     }
-                  } = result;
-                  await saveTokens({ accessToken, refreshToken });
+                  } = result
+                  await saveTokens({ accessToken, refreshToken })
                 } else {
-                  await removeTokens();
+                  await removeTokens()
                 }
               }
-              observer.next(result);
-            })();
-            queue.push(promise);
+              observer.next(result)
+            })()
+            queue.push(promise)
             if (queue.length > 100) {
               Promise.all(queue).then(() => {
-                queue.length = 0;
-              });
+                queue.length = 0
+              })
             }
           },
-          error: networkError => {
+          error: (networkError) => {
             (async () => {
               if (networkError.response && networkError.response.status === 401) {
                 try {
@@ -90,56 +90,56 @@ const JWTLink = new ApolloLink((operation, forward) => {
                   } = await apolloClient.mutate({
                     mutation: REFRESH_TOKENS_MUTATION,
                     variables: { refreshToken: await getItem('refreshToken') }
-                  });
-                  await saveTokens({ accessToken, refreshToken });
+                  })
+                  await saveTokens({ accessToken, refreshToken })
                   // Retry current operation
-                  await setJWTContext(operation);
-                  retrySub = forward(operation).subscribe(observer);
+                  await setJWTContext(operation)
+                  retrySub = forward(operation).subscribe(observer)
                 } catch (e) {
                   // We have received error during refresh - drop tokens and return original request result
-                  await removeTokens();
-                  observer.error(networkError);
+                  await removeTokens()
+                  observer.error(networkError)
                 }
               } else {
-                observer.error(networkError);
+                observer.error(networkError)
               }
-            })();
+            })()
           },
           complete: () => {
             Promise.all(queue).then(() => {
-              queue.length = 0;
-              observer.complete();
-            });
+              queue.length = 0
+              observer.complete()
+            })
           }
-        });
+        })
       } catch (e) {
-        observer.error(e);
+        observer.error(e)
       }
-    })();
+    })()
 
     return () => {
-      if (sub) sub.unsubscribe();
-      if (retrySub) retrySub.unsubscribe();
-    };
-  });
-});
+      if (sub) sub.unsubscribe()
+      if (retrySub) retrySub.unsubscribe()
+    }
+  })
+})
 
 // TODO: shouldn't be needed at all when React Apollo will allow rendering
 // all queries as loading: true during SSR
 class DataRootComponent extends React.Component {
   constructor(props) {
-    super(props);
-    this.props = props;
-    apolloClient = this.props.client;
-    this.state = { ready: settings.user.auth.access.session.enabled };
+    super(props)
+    this.props = props
+    apolloClient = this.props.client
+    this.state = { ready: settings.user.auth.access.session.enabled }
   }
 
   async componentDidMount() {
     if (!this.state.ready && (await getItem('refreshToken'))) {
-      const { client } = this.props;
-      let result;
+      const { client } = this.props
+      let result
       try {
-        result = client.readQuery({ query: CURRENT_USER_QUERY });
+        result = client.readQuery({ query: CURRENT_USER_QUERY })
       } catch (e) {
         // We have no current user in the cache, we need to load it to properly draw UI
       }
@@ -154,16 +154,16 @@ class DataRootComponent extends React.Component {
         } = await client.query({
           query: CURRENT_USER_QUERY,
           fetchPolicy: 'network-only'
-        });
+        })
         if (currentUser) {
           // If we have received current user, then we had invalid Apollo Cache previously
           // and we should discard it
-          await client.cache.reset();
-          await client.writeQuery({ query: CURRENT_USER_QUERY, data: { currentUser } });
+          await client.cache.reset()
+          await client.writeQuery({ query: CURRENT_USER_QUERY, data: { currentUser } })
         }
       }
     }
-    this.setState({ ready: true });
+    this.setState({ ready: true })
   }
 
   render() {
@@ -171,16 +171,16 @@ class DataRootComponent extends React.Component {
       this.props.children
     ) : (
       <LayoutCenter>
-        <div className="text-center">App is loading...</div>
+        <div className='text-center'>App is loading...</div>
       </LayoutCenter>
-    );
+    )
   }
 }
 
 DataRootComponent.propTypes = {
   client: PropTypes.object,
   children: PropTypes.node
-};
+}
 
 export default new Feature(
   settings.user.auth.access.jwt.enabled
@@ -190,4 +190,4 @@ export default new Feature(
         logout: removeTokens
       }
     : {}
-);
+)

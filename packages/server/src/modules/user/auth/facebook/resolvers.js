@@ -1,15 +1,15 @@
 export default () => ({
   UserAuth: {
     facebook(obj) {
-      return obj;
+      return obj
     }
   },
   FacebookAuth: {
     fbId(obj) {
-      return obj.fbId;
+      return obj.fbId
     },
     displayName(obj) {
-      return obj.fbDisplayName;
+      return obj.fbDisplayName
     }
   }
-});
+})

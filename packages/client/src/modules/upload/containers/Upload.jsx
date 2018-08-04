@@ -1,14 +1,14 @@
-import React from 'react';
-import { graphql, compose } from 'react-apollo';
+import React from 'react'
+import { graphql, compose } from 'react-apollo'
 
-import UploadView from '../components/UploadView';
-import FILES_QUERY from '../graphql/FilesQuery.graphql';
-import UPLOAD_FILES from '../graphql/UploadFiles.graphql';
-import REMOVE_FILE from '../graphql/RemoveFile.graphql';
+import UploadView from '../components/UploadView'
+import FILES_QUERY from '../graphql/FilesQuery.graphql'
+import UPLOAD_FILES from '../graphql/UploadFiles.graphql'
+import REMOVE_FILE from '../graphql/RemoveFile.graphql'
 
 class Upload extends React.Component {
   render() {
-    return <UploadView {...this.props} />;
+    return <UploadView {...this.props} />
   }
 }
 
@@ -17,47 +17,47 @@ const UploadWithApollo = compose(
     options: () => {
       return {
         fetchPolicy: 'cache-and-network'
-      };
+      }
     },
     props({ data: { loading, error, files, refetch } }) {
-      if (error) throw new Error(error);
-      return { loading, files, refetch };
+      if (error) throw new Error(error)
+      return { loading, files, refetch }
     }
   }),
   graphql(UPLOAD_FILES, {
     props: ({ ownProps: { refetch }, mutate }) => ({
-      uploadFiles: async files => {
+      uploadFiles: async (files) => {
         try {
           const {
             data: { uploadFiles }
           } = await mutate({
             variables: { files }
-          });
-          refetch();
-          return uploadFiles;
+          })
+          refetch()
+          return uploadFiles
         } catch (e) {
-          return { error: e.graphQLErrors[0].message };
+          return { error: e.graphQLErrors[0].message }
         }
       }
     })
   }),
   graphql(REMOVE_FILE, {
     props: ({ ownProps: { refetch }, mutate }) => ({
-      removeFile: async id => {
+      removeFile: async (id) => {
         try {
           const {
             data: { removeFile }
           } = await mutate({
             variables: { id }
-          });
-          refetch();
-          return removeFile;
+          })
+          refetch()
+          return removeFile
         } catch (e) {
-          return { error: e.graphQLErrors[0].message };
+          return { error: e.graphQLErrors[0].message }
         }
       }
     })
   })
-)(Upload);
+)(Upload)
 
-export default UploadWithApollo;
+export default UploadWithApollo

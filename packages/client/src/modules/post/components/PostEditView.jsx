@@ -1,25 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { Loading } from '../../common/components/native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, View, ScrollView } from 'react-native'
+import { Loading } from '../../common/components/native'
 
-import translate from '../../../i18n';
-import PostForm from './PostForm';
-import PostComments from '../containers/PostComments';
+import translate from '../../../i18n'
+import PostForm from './PostForm'
+import PostComments from '../containers/PostComments'
 
-const onSubmit = (post, editPost) => values => {
-  editPost(post.id, values.title, values.content);
-};
+const onSubmit = (post, editPost) => (values) => {
+  editPost(post.id, values.title, values.content)
+}
 
 const PostEditView = ({ loading, post, navigation, subscribeToMore, editPost, t }) => {
-  let postObj = post;
+  let postObj = post
   // if new post was just added read it from router
   if (!postObj && navigation.state) {
-    postObj = navigation.state.params.post;
+    postObj = navigation.state.params.post
   }
 
   if (loading && !postObj) {
-    return <Loading text={t('post.loadMsg')} />;
+    return <Loading text={t('post.loadMsg')} />
   } else {
     return (
       <View style={styles.container}>
@@ -34,9 +34,9 @@ const PostEditView = ({ loading, post, navigation, subscribeToMore, editPost, t 
           )}
         </ScrollView>
       </View>
-    );
+    )
   }
-};
+}
 
 PostEditView.propTypes = {
   loading: PropTypes.bool.isRequired,
@@ -45,7 +45,7 @@ PostEditView.propTypes = {
   navigation: PropTypes.object.isRequired,
   subscribeToMore: PropTypes.func.isRequired,
   t: PropTypes.func
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff'
   }
-});
+})
 
-export default translate('post')(PostEditView);
+export default translate('post')(PostEditView)

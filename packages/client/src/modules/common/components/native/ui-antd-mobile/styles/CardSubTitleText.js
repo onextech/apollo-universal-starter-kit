@@ -4,6 +4,6 @@ const SubtitleTextStyles = {
     paddingHorizontal: 15,
     marginBottom: 5
   }
-};
+}
 
-export default SubtitleTextStyles;
+export default SubtitleTextStyles

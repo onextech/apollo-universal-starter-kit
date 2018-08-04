@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, View } from 'react-native'
 
-import translate from '../../../i18n';
-import UserForm from './UserForm';
-import { withLoadedUser } from '../containers/Auth';
+import translate from '../../../i18n'
+import UserForm from './UserForm'
+import { withLoadedUser } from '../containers/Auth'
 
 class UserAddView extends React.PureComponent {
   static propTypes = {
@@ -23,7 +23,7 @@ class UserAddView extends React.PureComponent {
           shouldActiveDisplay={true}
         />
       </View>
-    );
+    )
   }
 }
 
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   }
-});
+})
 
-export default withLoadedUser(translate('user')(UserAddView));
+export default withLoadedUser(translate('user')(UserAddView))

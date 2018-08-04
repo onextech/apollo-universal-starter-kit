@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
-import translate from '../../../i18n';
-import ResetPasswordForm from '../components/ResetPasswordForm';
-import { PageLayout } from '../../common/components/web';
+import translate from '../../../i18n'
+import ResetPasswordForm from '../components/ResetPasswordForm'
+import { PageLayout } from '../../common/components/web'
 
-import settings from '../../../../../../settings';
+import settings from '../../../../../../settings'
 
 class ResetPasswordView extends React.Component {
   static propTypes = {
@@ -19,26 +19,26 @@ class ResetPasswordView extends React.Component {
     }).isRequired
   };
 
-  onSubmit = resetPassword => async values => {
+  onSubmit = (resetPassword) => async (values) => {
     const { errors } = await resetPassword({
       ...values,
       token: this.props.match.params.token
-    });
-    const { t } = this.props;
+    })
+    const { t } = this.props
 
     if (errors && errors.length) {
       throw errors.reduce(
         (res, error) => {
-          res[error.field] = error.message;
-          return res;
+          res[error.field] = error.message
+          return res
         },
         { _error: t('resetPass.errorMsg') }
-      );
+      )
     }
   };
 
   render() {
-    const { resetPassword, t } = this.props;
+    const { resetPassword, t } = this.props
 
     const renderMetaData = () => (
       <Helmet
@@ -50,7 +50,7 @@ class ResetPasswordView extends React.Component {
           }
         ]}
       />
-    );
+    )
 
     return (
       <PageLayout>
@@ -58,8 +58,8 @@ class ResetPasswordView extends React.Component {
         <h1>{t('resetPass.form.title')}</h1>
         <ResetPasswordForm onSubmit={this.onSubmit(resetPassword)} />
       </PageLayout>
-    );
+    )
   }
 }
 
-export default translate('user')(ResetPasswordView);
+export default translate('user')(ResetPasswordView)

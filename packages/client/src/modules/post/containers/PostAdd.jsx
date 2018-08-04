@@ -1,19 +1,19 @@
-import React from 'react';
-import { graphql } from 'react-apollo';
+import React from 'react'
+import { graphql } from 'react-apollo'
 
-import PostAddView from '../components/PostAddView';
-import { AddPost } from './Post';
+import PostAddView from '../components/PostAddView'
+import { AddPost } from './Post'
 
-import ADD_POST from '../graphql/AddPost.graphql';
+import ADD_POST from '../graphql/AddPost.graphql'
 
 class PostAdd extends React.Component {
   constructor(props) {
-    super(props);
-    this.subscription = null;
+    super(props)
+    this.subscription = null
   }
 
   render() {
-    return <PostAddView {...this.props} />;
+    return <PostAddView {...this.props} />
   }
 }
 
@@ -41,18 +41,18 @@ export default graphql(ADD_POST, {
               }
             }
           ) => {
-            return AddPost(prev, addPost);
+            return AddPost(prev, addPost)
           }
         }
-      });
+      })
 
       if (history) {
         return history.push('/post/' + postData.data.addPost.id, {
           post: postData.data.addPost
-        });
+        })
       } else if (navigation) {
-        return navigation.navigate('PostEdit', { id: postData.data.addPost.id });
+        return navigation.navigate('PostEdit', { id: postData.data.addPost.id })
       }
     }
   })
-})(PostAdd);
+})(PostAdd)

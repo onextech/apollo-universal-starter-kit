@@ -1,23 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
+import { Link } from 'react-router-dom'
 
-import translate from '../../../i18n';
-import { PageLayout } from '../../common/components/web';
-import PostForm from './PostForm';
-import PostComments from '../containers/PostComments';
-import settings from '../../../../../../settings';
+import translate from '../../../i18n'
+import { PageLayout } from '../../common/components/web'
+import PostForm from './PostForm'
+import PostComments from '../containers/PostComments'
+import settings from '../../../../../../settings'
 
-const onSubmit = (post, editPost) => values => {
-  editPost(post.id, values.title, values.content);
-};
+const onSubmit = (post, editPost) => (values) => {
+  editPost(post.id, values.title, values.content)
+}
 
 const PostEditView = ({ loading, post, match, location, subscribeToMore, editPost, t }) => {
-  let postObj = post;
+  let postObj = post
   // if new post was just added read it from router
   if (!postObj && location.state) {
-    postObj = location.state.post;
+    postObj = location.state.post
   }
 
   const renderMetaData = () => (
@@ -30,20 +30,20 @@ const PostEditView = ({ loading, post, match, location, subscribeToMore, editPos
         }
       ]}
     />
-  );
+  )
 
   if (loading && !postObj) {
     return (
       <PageLayout>
         {renderMetaData()}
-        <div className="text-center">{t('post.loadMsg')}</div>
+        <div className='text-center'>{t('post.loadMsg')}</div>
       </PageLayout>
-    );
+    )
   } else {
     return (
       <PageLayout>
         {renderMetaData()}
-        <Link id="back-button" to="/posts">
+        <Link id='back-button' to='/posts'>
           {t('post.btn.back')}
         </Link>
         <h2>
@@ -59,9 +59,9 @@ const PostEditView = ({ loading, post, match, location, subscribeToMore, editPos
           />
         )}
       </PageLayout>
-    );
+    )
   }
-};
+}
 
 PostEditView.propTypes = {
   loading: PropTypes.bool.isRequired,
@@ -71,6 +71,6 @@ PostEditView.propTypes = {
   location: PropTypes.object.isRequired,
   subscribeToMore: PropTypes.func.isRequired,
   t: PropTypes.func
-};
+}
 
-export default translate('post')(PostEditView);
+export default translate('post')(PostEditView)

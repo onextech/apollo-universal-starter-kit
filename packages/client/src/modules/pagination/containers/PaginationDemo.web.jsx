@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
-import PaginationDemoView from '../components/PaginationDemoView.web';
-import withDataProvider from '../containers/DataProvider';
-import { PageLayout, Select, Option } from '../../common/components/web';
-import translate from '../../../i18n';
-import settings from '../../../../../../settings';
+import PaginationDemoView from '../components/PaginationDemoView.web'
+import withDataProvider from '../containers/DataProvider'
+import { PageLayout, Select, Option } from '../../common/components/web'
+import translate from '../../../i18n'
+import settings from '../../../../../../settings'
 
 @translate('pagination')
 class PaginationDemo extends React.Component {
@@ -19,7 +19,7 @@ class PaginationDemo extends React.Component {
   state = { pagination: 'standard' };
 
   renderMetaData = () => {
-    const { t } = this.props;
+    const { t } = this.props
     return (
       <Helmet
         title={`${settings.app.name} - ${t('title')}`}
@@ -30,40 +30,40 @@ class PaginationDemo extends React.Component {
           }
         ]}
       />
-    );
+    )
   };
 
   handlePageChange = (pagination, pageNumber) => {
-    const { loadData, items } = this.props;
+    const { loadData, items } = this.props
     if (pagination === 'relay') {
-      loadData(items.pageInfo.endCursor, 'add');
+      loadData(items.pageInfo.endCursor, 'add')
     } else {
-      loadData((pageNumber - 1) * items.limit, 'replace');
+      loadData((pageNumber - 1) * items.limit, 'replace')
     }
   };
 
-  onPaginationTypeChange = e => {
-    const { loadData, items } = this.props;
-    const paginationType = e.target.value;
-    this.setState({ pagination: paginationType }, loadData(0, items.limit));
+  onPaginationTypeChange = (e) => {
+    const { loadData, items } = this.props
+    const paginationType = e.target.value
+    this.setState({ pagination: paginationType }, loadData(0, items.limit))
   };
 
   render() {
-    const { t, items } = this.props;
-    const { pagination } = this.state;
+    const { t, items } = this.props
+    const { pagination } = this.state
     return (
       <PageLayout>
         {this.renderMetaData()}
-        <Select onChange={this.onPaginationTypeChange} className="pagination-select">
-          <Option value="standard">{t('list.title.standard')}</Option>
-          <Option value="relay">{t('list.title.relay')}</Option>
+        <Select onChange={this.onPaginationTypeChange} className='pagination-select'>
+          <Option value='standard'>{t('list.title.standard')}</Option>
+          <Option value='relay'>{t('list.title.relay')}</Option>
         </Select>
         {items && <PaginationDemoView items={items} handlePageChange={this.handlePageChange} pagination={pagination} />}
       </PageLayout>
-    );
+    )
   }
 }
 
-const PaginationDemoWithData = withDataProvider(PaginationDemo);
+const PaginationDemoWithData = withDataProvider(PaginationDemo)
 
-export default PaginationDemoWithData;
+export default PaginationDemoWithData

@@ -1,9 +1,9 @@
-import { returnId, truncateTables } from '../../sql/helpers';
+import { returnId, truncateTables } from '../../sql/helpers'
 
-const initialAmount = 5;
+const initialAmount = 5
 
 export async function seed(knex) {
-  await truncateTables(knex, Promise, ['counter']);
+  await truncateTables(knex, Promise, ['counter'])
 
-  return returnId(knex('counter')).insert({ amount: initialAmount });
+  return returnId(knex('counter')).insert({ amount: initialAmount })
 }

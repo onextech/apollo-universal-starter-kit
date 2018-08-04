@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
-import { PageLayout } from '../../common/components/web';
-import settings from '../../../../../../settings';
-import translate from '../../../i18n';
-import { ClientCounter } from '../clientCounter';
-import { ServerCounter } from '../serverCounter';
-import { ReduxCounter } from '../reduxCounter';
+import { PageLayout } from '../../common/components/web'
+import settings from '../../../../../../settings'
+import translate from '../../../i18n'
+import { ClientCounter } from '../clientCounter'
+import { ServerCounter } from '../serverCounter'
+import { ReduxCounter } from '../reduxCounter'
 
 class Counter extends React.Component {
   static propTypes = {
@@ -15,12 +15,12 @@ class Counter extends React.Component {
   };
 
   constructor(props) {
-    super();
-    this.props = props;
+    super()
+    this.props = props
   }
 
   render() {
-    const { t } = this.props;
+    const { t } = this.props
 
     return (
       <PageLayout>
@@ -37,8 +37,8 @@ class Counter extends React.Component {
         <ReduxCounter />
         <ClientCounter />
       </PageLayout>
-    );
+    )
   }
 }
 
-export default translate('counter')(Counter);
+export default translate('counter')(Counter)

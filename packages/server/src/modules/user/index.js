@@ -1,13 +1,13 @@
-import access from './access';
-import auth from './auth';
-import confirmMiddleware from './confirm';
-import schema from './schema.graphql';
-import resolvers from './resolvers';
-import scopes from './scopes';
-import settings from '../../../../../settings';
-import User from './sql';
-import Feature from '../connector';
-import resources from './locales';
+import access from './access'
+import auth from './auth'
+import confirmMiddleware from './confirm'
+import schema from './schema.graphql'
+import resolvers from './resolvers'
+import scopes from './scopes'
+import settings from '../../../../../settings'
+import User from './sql'
+import Feature from '../connector'
+import resources from './locales'
 
 const createContextFunc = async ({ context: { user } }) => ({
   User,
@@ -16,16 +16,16 @@ const createContextFunc = async ({ context: { user } }) => ({
     isAuthenticated: !!user,
     scope: user ? scopes[user.role] : null
   }
-});
+})
 
 export default new Feature(access, auth, {
   schema,
   createResolversFunc: resolvers,
   createContextFunc,
-  middleware: app => {
+  middleware: (app) => {
     if (settings.user.auth.password.sendConfirmationEmail) {
-      app.get('/confirmation/:token', confirmMiddleware);
+      app.get('/confirmation/:token', confirmMiddleware)
     }
   },
   localization: { ns: 'user', resources }
-});
+})

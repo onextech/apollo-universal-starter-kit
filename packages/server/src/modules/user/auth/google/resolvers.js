@@ -1,15 +1,15 @@
 export default () => ({
   UserAuth: {
     google(obj) {
-      return obj;
+      return obj
     }
   },
   GoogleAuth: {
     googleId(obj) {
-      return obj.googleId;
+      return obj.googleId
     },
     displayName(obj) {
-      return obj.googleDisplayName;
+      return obj.googleDisplayName
     }
   }
-});
+})

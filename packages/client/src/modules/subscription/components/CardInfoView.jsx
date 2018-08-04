@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, StyleSheet } from 'react-native';
-import translate from '../../../i18n';
-import { CardItem, CardText, CardSubtitleText, CardLabel, Button, primary } from '../../common/components/native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View, StyleSheet } from 'react-native'
+import translate from '../../../i18n'
+import { CardItem, CardText, CardSubtitleText, CardLabel, Button, primary } from '../../common/components/native'
 
 const renderCardItem = (title, value) => (
   <CardItem>
     <CardLabel>{title}</CardLabel>
     <CardText>{value}</CardText>
   </CardItem>
-);
+)
 
 const CardInfoView = ({ loading, expiryMonth, expiryYear, last4, brand, t }) => {
   return (
@@ -31,8 +31,8 @@ const CardInfoView = ({ loading, expiryMonth, expiryYear, last4, brand, t }) => 
           </View>
         )}
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     paddingHorizontal: 10
   }
-});
+})
 
 CardInfoView.propTypes = {
   loading: PropTypes.bool.isRequired,
@@ -50,6 +50,6 @@ CardInfoView.propTypes = {
   last4: PropTypes.string,
   brand: PropTypes.string,
   t: PropTypes.func
-};
+}
 
-export default translate('subscription')(CardInfoView);
+export default translate('subscription')(CardInfoView)

@@ -1,4 +1,4 @@
-import { itemAction, itemTitle } from '../../styles';
+import { itemAction, itemTitle } from '../../styles'
 
 const RenderSelectStyles = {
   itemContainer: {
@@ -13,6 +13,6 @@ const RenderSelectStyles = {
     flex: 2,
     alignItems: 'flex-end'
   }
-};
+}
 
-export default RenderSelectStyles;
+export default RenderSelectStyles

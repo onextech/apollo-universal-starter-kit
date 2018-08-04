@@ -2,4 +2,4 @@
 export const submit = {
   paddingTop: 30,
   paddingBottom: 15
-};
+}

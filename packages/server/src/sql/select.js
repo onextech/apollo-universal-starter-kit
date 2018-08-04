@@ -1,11 +1,11 @@
-import knex from './connector';
-import log from '../../../common/log';
+import knex from './connector'
+import log from '../../../common/log'
 
-import paging from './paging';
-import ordering from './ordering';
-import grouping from './grouping';
-import joinBuilder from './joins';
-import filterBuilder from './filters';
+import paging from './paging'
+import ordering from './ordering'
+import grouping from './grouping'
+import joinBuilder from './joins'
+import filterBuilder from './filters'
 
 /*eslint-disable no-unused-vars*/
 
@@ -27,7 +27,7 @@ export default function selectAdapter(options) {
     countDistinct: options.countDistinct,
     onlyCount: options.onlyCount,
     withCount: options.withCount
-  };
+  }
 
   return async function(args, trx) {
     try {
@@ -38,98 +38,98 @@ export default function selectAdapter(options) {
           postfiltersBool: args.mergeBool || 'and',
           postfilters: opts.filters
         }
-      ];
-      args.joins = opts.joins ? opts.joins.concat(args.joins) : args.joins;
-      args.orderBys = opts.orderBys ? opts.orderBys.concat(args.orderBys) : args.orderBys;
-      args.groupBys = opts.groupBys ? opts.groupBys.concat(args.groupBys) : args.groupBys;
+      ]
+      args.joins = opts.joins ? opts.joins.concat(args.joins) : args.joins
+      args.orderBys = opts.orderBys ? opts.orderBys.concat(args.orderBys) : args.orderBys
+      args.groupBys = opts.groupBys ? opts.groupBys.concat(args.groupBys) : args.groupBys
 
       // supply default paging options
-      args.offset = args.offset ? args.offset : opts.offset;
-      args.limit = args.limit ? args.limit : opts.limit;
+      args.offset = args.offset ? args.offset : opts.offset
+      args.limit = args.limit ? args.limit : opts.limit
 
       // merge extra
-      args.printSQL = args.printSQL ? args.printSQL : opts.printSQL;
-      args.count = args.count ? args.count : opts.count;
-      args.countDistinct = args.countDistinct ? args.countDistinct : opts.countDistinct;
-      args.onlyCount = args.onlyCount ? args.onlyCount : opts.onlyCount;
-      args.withCount = args.withCount ? args.withCount : opts.withCount;
+      args.printSQL = args.printSQL ? args.printSQL : opts.printSQL
+      args.count = args.count ? args.count : opts.count
+      args.countDistinct = args.countDistinct ? args.countDistinct : opts.countDistinct
+      args.onlyCount = args.onlyCount ? args.onlyCount : opts.onlyCount
+      args.withCount = args.withCount ? args.withCount : opts.withCount
 
       // local function
       const makeBuilder = function(args, trx) {
-        let localBuilder = knex.select(...(args.selectOverride || opts.selects)).from(opts.table);
+        let localBuilder = knex.select(...(args.selectOverride || opts.selects)).from(opts.table)
 
         // add join conditions
-        localBuilder = joinBuilder(localBuilder, args);
+        localBuilder = joinBuilder(localBuilder, args)
 
         // add filter conditions
-        localBuilder = filterBuilder(localBuilder, args);
+        localBuilder = filterBuilder(localBuilder, args)
 
         // grouping, ordering
-        localBuilder = grouping(localBuilder, args);
-        localBuilder = ordering(localBuilder, args);
+        localBuilder = grouping(localBuilder, args)
+        localBuilder = ordering(localBuilder, args)
 
         if (trx) {
-          localBuilder.transacting(trx);
+          localBuilder.transacting(trx)
         }
 
-        return localBuilder;
-      }; // End of makcBuilder(...) def
+        return localBuilder
+      } // End of makcBuilder(...) def
 
-      let count = null;
+      let count = null
       if (args.count) {
         // are we printing SQL?
         if (args.printSQL) {
-          const sql = await makeBuilder(args, trx).toString();
-          console.log(`${opts.name} - SQL`, sql);
+          const sql = await makeBuilder(args, trx).toString()
+          console.log(`${opts.name} - SQL`, sql)
         }
 
-        let outerBuilderA = makeBuilder(args, trx).count(args.count);
+        let outerBuilderA = makeBuilder(args, trx).count(args.count)
 
-        const countRes = await outerBuilderA;
-        const cnt = countRes[0]['count(`' + opts.idField + '`)'];
+        const countRes = await outerBuilderA
+        const cnt = countRes[0]['count(`' + opts.idField + '`)']
         if (args.onlyCount) {
-          return cnt;
+          return cnt
         }
-        count = cnt;
+        count = cnt
       }
       if (args.countDistinct) {
         // are we printing SQL?
         if (args.printSQL) {
-          const sql = await makeBuilder(args, trx).toString();
-          console.log(`${opts.name} - SQL`, sql);
+          const sql = await makeBuilder(args, trx).toString()
+          console.log(`${opts.name} - SQL`, sql)
         }
 
-        let outerBuilderB = makeBuilder(args, trx).countDistinct(args.countDistinct);
+        let outerBuilderB = makeBuilder(args, trx).countDistinct(args.countDistinct)
 
-        const countRes = await outerBuilderB;
-        const cnt = countRes[0]['count(`' + opts.idField + '`)'];
+        const countRes = await outerBuilderB
+        const cnt = countRes[0]['count(`' + opts.idField + '`)']
         if (args.onlyCount) {
-          return cnt;
+          return cnt
         }
-        count = cnt;
+        count = cnt
       }
 
       // are we printing SQL?
       if (args.printSQL) {
-        let outerBuilderC = makeBuilder(args, trx);
+        let outerBuilderC = makeBuilder(args, trx)
         // paging
-        outerBuilderC = paging(outerBuilderC, args);
-        const sql = await outerBuilderC.toString();
-        console.log(`${opts.name} - SQL`, sql);
+        outerBuilderC = paging(outerBuilderC, args)
+        const sql = await outerBuilderC.toString()
+        console.log(`${opts.name} - SQL`, sql)
       }
 
-      let finalBuilder = makeBuilder(args, trx);
+      let finalBuilder = makeBuilder(args, trx)
       // paging
-      finalBuilder = paging(finalBuilder, args);
+      finalBuilder = paging(finalBuilder, args)
 
-      const rows = await finalBuilder;
+      const rows = await finalBuilder
       if (args.withCount) {
-        return { rows, count };
+        return { rows, count }
       }
-      return rows;
+      return rows
     } catch (e) {
-      log.error(`Error in ${opts.name}.selectAdapter()`, e);
-      throw e;
+      log.error(`Error in ${opts.name}.selectAdapter()`, e)
+      throw e
     }
-  };
+  }
 }

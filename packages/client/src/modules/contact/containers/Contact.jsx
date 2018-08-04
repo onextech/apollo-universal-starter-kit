@@ -1,13 +1,13 @@
-import React from 'react';
-import { graphql, compose } from 'react-apollo';
+import React from 'react'
+import { graphql, compose } from 'react-apollo'
 
-import ContactView from '../components/ContactView';
+import ContactView from '../components/ContactView'
 
-import CONTACT from '../graphql/Contact.graphql';
+import CONTACT from '../graphql/Contact.graphql'
 
 class Contact extends React.Component {
   render() {
-    return <ContactView {...this.props} />;
+    return <ContactView {...this.props} />
   }
 }
 
@@ -20,19 +20,19 @@ const ContactWithApollo = compose(
             data: { contact }
           } = await mutate({
             variables: { input: { name, email, content } }
-          });
+          })
 
           if (contact.errors) {
-            return { errors: contact.errors };
+            return { errors: contact.errors }
           }
 
-          return contact;
+          return contact
         } catch (e) {
-          console.log(e.graphQLErrors);
+          console.log(e.graphQLErrors)
         }
       }
     })
   })
-)(Contact);
+)(Contact)
 
-export default ContactWithApollo;
+export default ContactWithApollo

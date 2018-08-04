@@ -1,29 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withFormik } from 'formik';
-import { View, StyleSheet } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import Field from '../../../utils/FieldAdapter';
-import { RenderField, Button, RenderSelect, RenderSwitch, FormView, primary } from '../../common/components/native';
-import { placeholderColor, submit } from '../../common/components/native/styles';
-import { email, minLength, required, match, validateForm } from '../../../../../common/validation';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withFormik } from 'formik'
+import { View, StyleSheet } from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
+import Field from '../../../utils/FieldAdapter'
+import { RenderField, Button, RenderSelect, RenderSwitch, FormView, primary } from '../../common/components/native'
+import { placeholderColor, submit } from '../../common/components/native/styles'
+import { email, minLength, required, match, validateForm } from '../../../../../common/validation'
 
-import settings from '../../../../../../settings';
-import translate from '../../../i18n';
+import settings from '../../../../../../settings'
+import translate from '../../../i18n'
 
 const userFormSchema = {
   username: [required, minLength(3)],
   email: [required, email],
   password: [required, minLength(8)],
   passwordConfirmation: [match('password'), required, minLength(8)]
-};
+}
 
 const handleRoleChange = (type, value, setFieldValue) => {
-  const preparedValue = Array.isArray(value) ? value[0] : value;
-  setFieldValue(type, preparedValue);
-};
+  const preparedValue = Array.isArray(value) ? value[0] : value
+  setFieldValue(type, preparedValue)
+}
 
-const validate = values => validateForm(values, userFormSchema);
+const validate = (values) => validateForm(values, userFormSchema)
 
 const UserForm = ({ values, handleSubmit, setFieldValue, t, shouldRoleDisplay, shouldActiveDisplay }) => {
   const options = [
@@ -35,45 +35,45 @@ const UserForm = ({ values, handleSubmit, setFieldValue, t, shouldRoleDisplay, s
       value: 'admin',
       label: t('userEdit.form.field.role.admin')
     }
-  ];
+  ]
 
-  const { username, email, role, isActive, profile, auth, password, passwordConfirmation } = values;
+  const { username, email, role, isActive, profile, auth, password, passwordConfirmation } = values
   return (
     <FormView contentContainerStyle={{ flexGrow: 1 }} style={styles.formView}>
       <View style={styles.formContainer}>
         <Field
           placeholder={t('userEdit.form.field.name')}
-          name="username"
+          name='username'
           component={RenderField}
-          type="text"
+          type='text'
           value={username}
           placeholderTextColor={placeholderColor}
         />
         <Field
-          name="email"
+          name='email'
           component={RenderField}
           placeholder={t('userEdit.form.field.email')}
           value={email}
-          keyboardType="email-address"
+          keyboardType='email-address'
           placeholderTextColor={placeholderColor}
         />
         {shouldRoleDisplay && (
           <Field
-            name="role"
+            name='role'
             component={RenderSelect}
             label={t('userEdit.form.field.role.label')}
             okText={t('userEdit.select.okText')}
             dismissText={t('userEdit.select.dismissText')}
             placeholderTextColor={placeholderColor}
             selectedValue={role}
-            onValueChange={value => handleRoleChange('role', value, setFieldValue)}
+            onValueChange={(value) => handleRoleChange('role', value, setFieldValue)}
             cols={1}
             data={options}
           />
         )}
         {shouldActiveDisplay && (
           <Field
-            name="isActive"
+            name='isActive'
             label={t('userEdit.form.field.active')}
             onValueChange={() => setFieldValue('isActive', !isActive)}
             component={RenderSwitch}
@@ -83,47 +83,47 @@ const UserForm = ({ values, handleSubmit, setFieldValue, t, shouldRoleDisplay, s
           />
         )}
         <Field
-          name="firstName"
+          name='firstName'
           component={RenderField}
           placeholder={t('userEdit.form.field.firstName')}
           placeholderTextColor={placeholderColor}
           value={profile.firstName}
-          onChange={value => setFieldValue('profile', { ...profile, firstName: value })}
+          onChange={(value) => setFieldValue('profile', { ...profile, firstName: value })}
         />
         <Field
-          name="lastName"
+          name='lastName'
           component={RenderField}
           placeholder={t('userEdit.form.field.lastName')}
           placeholderTextColor={placeholderColor}
           value={profile.lastName}
-          onChange={value => setFieldValue('profile', { ...profile, lastName: value })}
+          onChange={(value) => setFieldValue('profile', { ...profile, lastName: value })}
         />
         {settings.user.auth.certificate.enabled && (
           <Field
-            name="serial"
+            name='serial'
             component={RenderField}
             placeholder={t('userEdit.form.field.serial')}
             placeholderTextColor={placeholderColor}
             value={auth && auth.certificate && auth.certificate.serial}
-            onChange={value => setFieldValue('auth', { ...auth, certificate: { ...auth.certificate, serial: value } })}
+            onChange={(value) => setFieldValue('auth', { ...auth, certificate: { ...auth.certificate, serial: value } })}
           />
         )}
         <Field
-          name="password"
+          name='password'
           secureTextEntry={true}
           component={RenderField}
-          type="password"
+          type='password'
           placeholder={t('userEdit.form.field.pass')}
           placeholderTextColor={placeholderColor}
           value={password}
         />
         <Field
-          name="passwordConfirmation"
+          name='passwordConfirmation'
           component={RenderField}
           placeholder={t('userEdit.form.field.passConf')}
           placeholderTextColor={placeholderColor}
           value={passwordConfirmation}
-          type="password"
+          type='password'
           secureTextEntry={true}
         />
         <View style={styles.submit}>
@@ -134,8 +134,8 @@ const UserForm = ({ values, handleSubmit, setFieldValue, t, shouldRoleDisplay, s
       </View>
       <KeyboardSpacer />
     </FormView>
-  );
-};
+  )
+}
 
 UserForm.propTypes = {
   handleSubmit: PropTypes.func,
@@ -152,11 +152,11 @@ UserForm.propTypes = {
   errors: PropTypes.object,
   initialValues: PropTypes.object.isRequired,
   touched: PropTypes.object
-};
+}
 
 const UserFormWithFormik = withFormik({
-  mapPropsToValues: values => {
-    const { username, email, role, isActive, profile } = values.initialValues;
+  mapPropsToValues: (values) => {
+    const { username, email, role, isActive, profile } = values.initialValues
     return {
       username: username,
       email: email,
@@ -171,7 +171,7 @@ const UserFormWithFormik = withFormik({
       auth: {
         ...values.initialValues.auth
       }
-    };
+    }
   },
   handleSubmit(
     values,
@@ -180,11 +180,11 @@ const UserFormWithFormik = withFormik({
       props: { onSubmit }
     }
   ) {
-    onSubmit(values).catch(e => setErrors(e));
+    onSubmit(values).catch((e) => setErrors(e))
   },
   displayName: 'SignUpForm ', // helps with React DevTools
-  validate: values => validate(values)
-});
+  validate: (values) => validate(values)
+})
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -197,6 +197,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch'
   }
-});
+})
 
-export default translate('user')(UserFormWithFormik(UserForm));
+export default translate('user')(UserFormWithFormik(UserForm))
