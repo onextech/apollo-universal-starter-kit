@@ -1,3 +1,3 @@
 // eslint-disable-next-line import/prefer-default-export
-export { default as semanticStyles } from './styles/styles.scss'
-// export * from './components';
+export { default as styles } from './styles/styles.scss'
+export * from './components'

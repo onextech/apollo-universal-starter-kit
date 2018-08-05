@@ -1,9 +1,14 @@
 @import 'bootstrap';
+@import '~semantic-ui-css/semantic.min.css';
 
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+html {
+  font-size: 16px;
 }
 
 .active {

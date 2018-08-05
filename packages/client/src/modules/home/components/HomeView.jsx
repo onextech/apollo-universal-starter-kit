@@ -1,7 +1,9 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { Block } from '@onextech/react-semantic-booster'
+import { Container } from 'reactstrap'
 import { PageLayout } from '../../common/components/web'
+import settings from '../../../../../../settings'
 
 const renderMetaData = () => {
   return (
@@ -19,14 +21,15 @@ const renderMetaData = () => {
 
 const HomeView = () => {
   return (
-    <PageLayout container>
+    <PageLayout>
       {renderMetaData()}
-      <div className='text-center mt-4 mb-4'>
-        <p>Hello Home!</p>
-
-      </div>
       <Block spacer={3} secondary textAlign='center'>
-        <p>Hello Home 2!</p>
+        <h1>{settings.app.name}</h1>
+      </Block>
+      <Block inverted>
+        <Container>
+          B boostrap Container = 720px
+        </Container>
       </Block>
     </PageLayout>
   )
