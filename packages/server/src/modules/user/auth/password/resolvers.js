@@ -16,11 +16,6 @@ const validateUserPassword = async (user, password, t) => {
     e.throwIf()
   }
 
-  if (settings.user.auth.password.confirm && !user.isActive) {
-    e.setError('usernameOrEmail', t('user:auth.password.emailConfirmation'))
-    e.throwIf()
-  }
-
   const valid = await bcrypt.compare(password, user.passwordHash)
   if (!valid) {
     // bad password
