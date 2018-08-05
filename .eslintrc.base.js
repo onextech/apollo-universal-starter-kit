@@ -16,6 +16,7 @@ module.exports = {
   "rules": {
     "import/extensions": [".js", ".jsx", ".json", ".ts", ".tsx"],
     "import/no-extraneous-dependencies": ["error", { "optionalDependencies": true }],
+    "import/prefer-default-export": 0,
     "no-use-before-define": 0,
     "arrow-body-style": 0,
     "dot-notation": 0,

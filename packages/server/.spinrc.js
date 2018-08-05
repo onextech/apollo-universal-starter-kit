@@ -42,6 +42,8 @@ const config = {
           packages,
           client: path.resolve(packages, 'client'),
           server: path.resolve(packages, 'server'),
+          // 'styled-components': path.resolve(root, 'node_modules/styled-components'),
+          'styled-components': require.resolve('styled-components'),
         },
       },
     },
