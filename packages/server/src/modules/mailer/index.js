@@ -1,6 +1,7 @@
-import mailer from './mailer'
+import mailer from './nodemailer'
+import Mail from './Mail'
 import Feature from '../connector'
 
 export default new Feature({
-  createContextFunc: () => ({ mailer }),
+  createContextFunc: () => ({ mailer, Mail }),
 })

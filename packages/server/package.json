@@ -75,6 +75,7 @@
     "lerna": "^2.5.1",
     "lint-staged": "^7.0.4",
     "lodash": "^4.17.4",
+    "mailgen": "^2.0.5",
     "minilog": "^3.1.0",
     "mysql2": "^1.5.1",
     "nodemailer": "^4.4.1",
@@ -115,6 +116,7 @@
   },
   "devDependencies": {
     "@alienfast/i18next-loader": "^1.0.15",
+    "@types/mailgen": "^2.0.1",
     "@types/react-dom": "^16.0.5",
     "@types/webpack-env": "^1.13.5",
     "apollo-utilities": "^1.0.3",

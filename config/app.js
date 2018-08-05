@@ -1,5 +1,6 @@
 export default {
   name: 'Apollo Starter Kit',
+  url: process.env.NODE_ENV === 'production' ? 'https://dev.onextech.com' : 'http://localhost:3000',
   logging: {
     level: ['production'].indexOf(process.env.NODE_ENV) < 0 ? 'debug' : 'info',
     debugSQL: false,

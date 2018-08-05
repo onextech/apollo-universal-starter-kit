@@ -1,7 +1,7 @@
 import Stripe from 'stripe'
 
 import SubscriptionDAO from './sql'
-import mailer from '../mailer/mailer'
+import mailer from '../mailer/nodemailer'
 import User from '../user/sql'
 import settings from '../../../../../settings'
 

@@ -1,11 +1,11 @@
 import bcrypt from 'bcryptjs'
 import { pick } from 'lodash'
 import jwt from 'jsonwebtoken'
-
-import access from '../../access'
-import User from '../../sql'
 import FieldError from '../../../../../../common/FieldError'
 import settings from '../../../../../../../settings'
+import access from '../../access'
+import email from '../../email'
+import User from '../../sql'
 
 const validateUserPassword = async (user, password, t) => {
   const e = new FieldError()
@@ -15,6 +15,7 @@ const validateUserPassword = async (user, password, t) => {
     e.setError('usernameOrEmail', t('user:auth.password.validPasswordEmail'))
     e.throwIf()
   }
+
   if (settings.user.auth.password.confirm && !user.isActive) {
     e.setError('usernameOrEmail', t('user:auth.password.emailConfirmation'))
     e.throwIf()
@@ -30,16 +31,7 @@ const validateUserPassword = async (user, password, t) => {
 
 export default () => ({
   Mutation: {
-    async login(
-      obj,
-      {
-        input: { usernameOrEmail, password },
-      },
-      {
-        req,
-        req: { t },
-      }
-    ) {
+    async login(obj, { input: { usernameOrEmail, password } }, { req, req: { t } } ) {
       try {
         const user = await User.getUserByUsernameOrEmail(usernameOrEmail)
 
@@ -119,37 +111,12 @@ export default () => ({
       try {
         const localAuth = pick(input, 'email')
         const user = await context.User.getUserByEmail(localAuth.email)
-
-        if (user && context.mailer) {
-          // async email
-          jwt.sign(
-            { email: user.email, password: user.passwordHash },
-            settings.user.secret,
-            { expiresIn: '1d' },
-            (err, emailToken) => {
-              // encoded token since react router does not match dots in params
-              const encodedToken = Buffer.from(emailToken).toString('base64')
-              const url = `${__WEBSITE_URL__}/reset-password/${encodedToken}`
-              context.mailer.sendMail({
-                from: `${settings.app.name} <${process.env.EMAIL_USER}>`,
-                to: user.email,
-                subject: 'Reset Password',
-                html: `Please click this link to reset your password: <a href="${url}">${url}</a>`,
-              })
-            }
-          )
-        }
+        await email.sendForgotPasswordEmail(user, context)
       } catch (e) {
         // don't throw error so you can't discover users this way
       }
     },
-    async resetPassword(
-      obj,
-      {
-        input,
-        req: { t },
-      }
-    ) {
+    async resetPassword(obj, { input }, { User, req: { t } } ) {
       try {
         const e = new FieldError()
         const reset = pick(input, ['password', 'passwordConfirmation', 'token'])
@@ -164,14 +131,14 @@ export default () => ({
 
         const token = Buffer.from(reset.token, 'base64').toString()
         const { email, password } = jwt.verify(token, settings.user.secret)
-        const user = await context.User.getUserByEmail(email)
+        const user = await User.getUserByEmail(email)
         if (user.passwordHash !== password) {
           e.setError('token', t('user:auth.password.invalidToken'))
           e.throwIf()
         }
 
         if (user) {
-          await context.User.updatePassword(user.id, reset.password)
+          await User.updatePassword(user.id, reset.password)
         }
         return { errors: null }
       } catch (e) {
