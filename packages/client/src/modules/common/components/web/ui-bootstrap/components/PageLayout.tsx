@@ -8,7 +8,7 @@ const footerHeight = '40px'
 
 const Footer = styled.footer`
   margin-top: 10px;
-  line-height: ${footerHeight};
+  line-height: 1;
   height: ${footerHeight};
 `
 
@@ -27,7 +27,7 @@ const PageLayout: React.SFC<PageLayoutProps> = ({ children, navBar, container })
         <Body id="content">{children}</Body>
       </div>
       <Footer className="d-flex flex-shrink-0 justify-content-center">
-        <span>&copy; 2018. {settings.app.name}.</span>
+        <span>&copy; 2018 {settings.app.name}</span>
       </Footer>
     </div>
   )
