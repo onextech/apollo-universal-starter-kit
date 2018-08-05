@@ -1,4 +1,3 @@
-import nodemailer from 'nodemailer'
-import settings from '../../../../../settings'
+import transports from './transports'
 
-export default nodemailer.createTransport(settings.mailer)
+export default transports.ses

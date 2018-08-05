@@ -7,22 +7,6 @@
     "node": ">= 6.11.1",
     "yarn": ">= 1.0.0"
   },
-  "scripts": {
-    "build": "cross-env NODE_ENV=production spin build",
-    "clean": "rimraf build .tmp",
-    "start": "node --harmony build",
-    "tests": "cross-env NODE_ENV=test PORT=7070 spin test -t 10000 --full-trace --exit \"src/**/*.spec.js\"",
-    "tests:watch": "cross-env NODE_ENV=test PORT=7070 spin test -t 10000 --full-trace --watch \"src/**/*.spec.js\"",
-    "test": "yarn tests && yarn lint",
-    "lint": "eslint --fix --ext js --ext jsx --ext json src config",
-    "seed": "yarn migrate && knex seed:run",
-    "migrate": "knex migrate:latest",
-    "rollback": "knex migrate:rollback",
-    "watch": "spin watch",
-    "heroku-postbuild": "yarn build && yarn seed",
-    "cli": "node ../../tools/cli",
-    "stripe:setup": "node src/server/modules/subscription/cli/stripeSetup"
-  },
   "lint-staged": {
     "*.{js,jsx,json}": [
       "eslint --fix",
@@ -64,6 +48,7 @@
     "apollo-logger": "^0.3.0",
     "apollo-server-express": "^1.3.1",
     "apollo-upload-server": "^5.0.0",
+    "aws-sdk": "^2.286.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
@@ -206,5 +191,21 @@
   },
   "peerDependencies": {
     "spinjs": "^0.4.0"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production spin build",
+    "clean": "rimraf build .tmp",
+    "start": "node --harmony build",
+    "tests": "cross-env NODE_ENV=test PORT=7070 spin test -t 10000 --full-trace --exit \"src/**/*.spec.js\"",
+    "tests:watch": "cross-env NODE_ENV=test PORT=7070 spin test -t 10000 --full-trace --watch \"src/**/*.spec.js\"",
+    "test": "yarn tests && yarn lint",
+    "lint": "eslint --fix --ext js --ext jsx --ext json src config",
+    "seed": "yarn migrate && knex seed:run",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "watch": "spin watch",
+    "heroku-postbuild": "yarn build && yarn seed",
+    "cli": "node ../../tools/cli",
+    "stripe:setup": "node src/server/modules/subscription/cli/stripeSetup"
   }
 }
