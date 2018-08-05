@@ -1,7 +1,7 @@
 const path = require('path')
 
-// Root is at ./packages
-const root = path.join(__dirname, '..')
+const root = path.join(__dirname, '../..')
+const packages = path.join(__dirname, '..')
 
 const config = {
   builders: {
@@ -38,8 +38,10 @@ const config = {
     webpackConfig: {
       resolve: {
         alias: {
-          client: path.resolve(root, 'client'),
-          server: path.resolve(root, 'server'),
+          root,
+          packages,
+          client: path.resolve(packages, 'client'),
+          server: path.resolve(packages, 'server'),
         },
       },
     },
