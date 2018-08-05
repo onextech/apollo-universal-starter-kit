@@ -47,7 +47,7 @@ class UserAddView extends React.PureComponent {
     const { t } = this.props
 
     return (
-      <PageLayout>
+      <PageLayout container>
         {this.renderMetaData(t)}
         <Link id='back-button' to='/users'>
           Back

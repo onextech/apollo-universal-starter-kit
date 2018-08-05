@@ -9,6 +9,6 @@ import Feature from '../connector'
 import resources from './locales'
 
 export default new Feature(clientCounter, reduxCounter, serverCounter, {
-  route: <Route exact path='/' component={Counter} />,
+  route: <Route exact path='/counter' component={Counter} />,
   localization: { ns: 'counter', resources },
 })

@@ -14,6 +14,7 @@ module.exports = {
     "json"
   ],
   "rules": {
+    "import/extensions": [".js", ".jsx", ".json", ".ts", ".tsx"],
     "import/no-extraneous-dependencies": ["error", { "optionalDependencies": true }],
     "no-use-before-define": 0,
     "arrow-body-style": 0,

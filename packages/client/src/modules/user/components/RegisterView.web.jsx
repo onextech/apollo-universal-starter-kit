@@ -45,7 +45,7 @@ class RegisterView extends React.PureComponent {
   render() {
     const { t } = this.props
     return (
-      <PageLayout>
+      <PageLayout container>
         {this.renderMetaData(t)}
         <LayoutCenter>
           <h1 className='text-center'>{t('reg.form.title')}</h1>

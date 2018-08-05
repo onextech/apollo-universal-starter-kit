@@ -52,7 +52,7 @@ class PaginationDemo extends React.Component {
     const { t, items } = this.props
     const { pagination } = this.state
     return (
-      <PageLayout>
+      <PageLayout container>
         {this.renderMetaData()}
         <Select onChange={this.onPaginationTypeChange} className='pagination-select'>
           <Option value='standard'>{t('list.title.standard')}</Option>

@@ -46,7 +46,7 @@ class UserEditView extends React.PureComponent {
 
     if (loading && !user) {
       return (
-        <PageLayout>
+        <PageLayout container>
           {this.renderMetaData(t)}
           <div className='text-center'>{t('userEdit.loadMsg')}</div>
         </PageLayout>
@@ -54,7 +54,7 @@ class UserEditView extends React.PureComponent {
     } else {
       const isNotSelf = !user || (user && user.id !== currentUser.id)
       return (
-        <PageLayout>
+        <PageLayout container>
           {this.renderMetaData(t)}
           <Link id='back-button' to={user && user.role === 'admin' ? '/users' : '/profile'}>
             Back

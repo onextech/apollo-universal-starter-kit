@@ -82,7 +82,7 @@ class UploadView extends React.PureComponent {
     ]
 
     return (
-      <PageLayout>
+      <PageLayout container>
         {this.renderMetaData()}
         <div className='text-center'>
           <Row>

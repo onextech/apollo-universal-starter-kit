@@ -45,7 +45,7 @@ class UpdateCardView extends React.Component {
     )
 
     return (
-      <PageLayout>
+      <PageLayout container>
         {renderMetaData()}
         <LayoutCenter>
           <h1 className='text-center'>{t('update.subTitle')}</h1>

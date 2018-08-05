@@ -50,7 +50,7 @@ class ForgotPasswordView extends React.Component {
     )
 
     return (
-      <PageLayout>
+      <PageLayout container>
         {renderMetaData()}
         <LayoutCenter>
           <h1 className='text-center'>{t('forgotPass.form.title')}</h1>

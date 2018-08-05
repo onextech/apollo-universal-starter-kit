@@ -24,7 +24,7 @@ const Users = ({ t }) => {
   )
 
   return (
-    <PageLayout>
+    <PageLayout container>
       {renderMetaData()}
       <h2>{t('users.list.title')}</h2>
       <Link to='/users/new'>

@@ -1,31 +1,30 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import Helmet from 'react-helmet'
+import { PageLayout } from '../../common/components/web'
 
-const $Module$View = () => {
+const renderMetaData = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.element}>
-        <Text style={styles.box}>Hello $Module$!</Text>
-      </View>
-    </View>
+    <Helmet
+      title="$Module$"
+      meta={[
+        {
+          name: 'description',
+          content: '$Module$ page'
+        }
+      ]}
+    />
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  element: {
-    paddingTop: 30
-  },
-  box: {
-    textAlign: 'center',
-    marginLeft: 15,
-    marginRight: 15
-  }
-})
+const $Module$View = () => {
+  return (
+    <PageLayout container>
+      {renderMetaData()}
+      <div className="text-center mt-4 mb-4">
+        <p>Hello $Module$!</p>
+      </div>
+    </PageLayout>
+  )
+}
 
 export default $Module$View

@@ -15,7 +15,7 @@ const Section = styled.section`
 const PageNotFound = ({ staticContext = {}, t }) => {
   staticContext.pageNotFound = true
   return (
-    <PageLayout>
+    <PageLayout container>
       <Section>
         <Helmet
           title={`${settings.app.name} - ${t('title')}`}

@@ -56,7 +56,7 @@ class PostList extends React.PureComponent {
     const { loading, posts, t } = this.props
     if (loading && !posts) {
       return (
-        <PageLayout>
+        <PageLayout container>
           {this.renderMetaData()}
           <div className='text-center'>{t('post.loadMsg')}</div>
         </PageLayout>
@@ -90,7 +90,7 @@ class PostList extends React.PureComponent {
         },
       ]
       return (
-        <PageLayout>
+        <PageLayout container>
           {this.renderMetaData()}
           <h2>{t('list.subTitle')}</h2>
           <Link to='/post/new'>

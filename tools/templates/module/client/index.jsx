@@ -1,21 +1,19 @@
-import { Ionicons } from '@expo/vector-icons'
-import { createTabBarIconWrapper } from '../common/components/native'
+import React from 'react'
+import { Route, NavLink } from 'react-router-dom'
+import { MenuItem } from '../../modules/common/components/web'
 import $Module$ from './containers/$Module$'
 import reducers from './reducers'
 
 import Feature from '../connector'
 
 export default new Feature({
-  tabItem: {
-    $Module$: {
-      screen: $Module$,
-      navigationOptions: {
-        tabBarIcon: createTabBarIconWrapper(Ionicons, {
-          name: 'ios-browsers-outline',
-          size: 30
-        })
-      }
-    }
-  },
+  route: <Route exact path='/$module$' component={$Module$} />,
+  navItem: (
+    <MenuItem key='$module$'>
+      <NavLink to='/$module$' className='nav-link' activeClassName='active'>
+        $Module$
+      </NavLink>
+    </MenuItem>
+  ),
   reducer: { $module$: reducers }
 })

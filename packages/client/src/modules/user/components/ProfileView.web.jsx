@@ -27,14 +27,14 @@ const renderMetaData = (t) => {
 const ProfileView = ({ currentUserLoading, currentUser, t }) => {
   if (currentUserLoading && !currentUser) {
     return (
-      <PageLayout>
+      <PageLayout container>
         {renderMetaData(t)}
         <div className='text-center'>{t('profile.loadMsg')}</div>
       </PageLayout>
     )
   } else if (currentUser) {
     return (
-      <PageLayout>
+      <PageLayout container>
         {renderMetaData(t)}
         <LayoutCenter>
           <h1 className='text-center'>{t('profile.card.title')}</h1>
@@ -71,7 +71,7 @@ const ProfileView = ({ currentUserLoading, currentUser, t }) => {
     )
   } else {
     return (
-      <PageLayout>
+      <PageLayout container>
         {renderMetaData(t)}
         <h2>{t('profile.errorMsg')}</h2>
       </PageLayout>

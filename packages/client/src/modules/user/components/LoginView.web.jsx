@@ -48,7 +48,7 @@ class LoginView extends React.PureComponent {
     )
 
     return (
-      <PageLayout>
+      <PageLayout container>
         {renderMetaData()}
         <LayoutCenter>
           <h1 className='text-center'>{t('login.form.title')}</h1>

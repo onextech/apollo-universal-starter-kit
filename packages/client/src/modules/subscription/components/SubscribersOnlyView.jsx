@@ -6,7 +6,7 @@ import { PageLayout } from '../../common/components/web'
 
 const SubscribersOnlyView = ({ loading, number, t }) => {
   return (
-    <PageLayout>
+    <PageLayout container>
       <h1>{t('subOnly.title')}</h1>
       <p>
         {t('subOnly.msg')} {loading ? t('subOnly.load') : number}.

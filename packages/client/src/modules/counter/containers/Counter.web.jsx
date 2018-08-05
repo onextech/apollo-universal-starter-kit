@@ -23,7 +23,7 @@ class Counter extends React.Component {
     const { t } = this.props
 
     return (
-      <PageLayout>
+      <PageLayout container>
         <Helmet
           title={`${settings.app.name} - ${t('title')}`}
           meta={[

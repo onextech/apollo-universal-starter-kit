@@ -34,14 +34,14 @@ const PostEditView = ({ loading, post, match, location, subscribeToMore, editPos
 
   if (loading && !postObj) {
     return (
-      <PageLayout>
+      <PageLayout container>
         {renderMetaData()}
         <div className='text-center'>{t('post.loadMsg')}</div>
       </PageLayout>
     )
   } else {
     return (
-      <PageLayout>
+      <PageLayout container>
         {renderMetaData()}
         <Link id='back-button' to='/posts'>
           {t('post.btn.back')}

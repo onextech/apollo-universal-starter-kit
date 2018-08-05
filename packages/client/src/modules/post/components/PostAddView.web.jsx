@@ -26,7 +26,7 @@ const PostAddView = ({ addPost, t }) => {
     />
   )
   return (
-    <PageLayout>
+    <PageLayout container>
       {renderMetaData()}
       <Link id='back-button' to='/posts'>
         {t('post.btn.back')}
