@@ -5445,11 +5445,19 @@ dom-serializer@0, dom-serializer@~0.1.0:
     domelementtype "~1.1.1"
     entities "~1.1.1"
 
-dom-testing-library@^2.3.0, dom-testing-library@^2.3.1:
+dom-testing-library@^2.3.0:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-2.9.1.tgz#813eff283b2fd97649b1382817636547329b2409"
   dependencies:
     jest-dom "^1.0.0"
+    mutationobserver-shim "^0.3.2"
+    pretty-format "^22.4.3"
+    wait-for-expect "^0.4.0"
+
+dom-testing-library@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-3.0.2.tgz#fe1a857205a02132b978d0e15f208ea40cadc07f"
+  dependencies:
     mutationobserver-shim "^0.3.2"
     pretty-format "^22.4.3"
     wait-for-expect "^0.4.0"
@@ -12949,12 +12957,12 @@ react-test-renderer@^16.2.0:
     prop-types "^15.6.0"
     react-is "^16.4.1"
 
-react-testing-library@^3.0.2:
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-3.1.7.tgz#c5ce14483ef91c1ad611f074ff646b29952dd1ba"
+react-testing-library@^4.1.6:
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-4.1.6.tgz#10e15eb18d2dacfd6d7bbba772c782ab47f4d07f"
   dependencies:
-    dom-testing-library "^2.3.1"
-    wait-for-expect "^0.5.0"
+    dom-testing-library "^3.0.1"
+    wait-for-expect "^1.0.0"
 
 react-timer-mixin@^0.13.2:
   version "0.13.3"
@@ -15565,9 +15573,9 @@ wait-for-expect@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/wait-for-expect/-/wait-for-expect-0.4.0.tgz#341c96ab89d6102a0169a9be6cd0de354de92c17"
 
-wait-for-expect@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/wait-for-expect/-/wait-for-expect-0.5.0.tgz#cc935a94c6039967bd7760c9e9cc557f4674887a"
+wait-for-expect@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/wait-for-expect/-/wait-for-expect-1.0.0.tgz#edf2d5790c36dc67c4e21ac6ccedd7d4b79dc6ac"
 
 wait-on@^2.0.2:
   version "2.1.0"

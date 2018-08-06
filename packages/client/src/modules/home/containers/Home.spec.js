@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { step } from 'mocha-steps'
 import Renderer from '../../../../src/testHelpers/Renderer'
-import Routes from '../../../../src/app/Routes'
+import { updateContent } from '../../../testHelpers/testUtils'
 
 describe('Home UI works', () => {
   const renderer = new Renderer({})
@@ -9,9 +9,9 @@ describe('Home UI works', () => {
   let content
 
   step('Home page renders on mount', () => {
-    app = renderer.mount(Routes)
-    renderer.history.push('/home')
-    content = app.find('#content')
+    app = renderer.mount()
+    renderer.history.push('/')
+    content = updateContent(app.container)
     expect(content).to.not.be.empty
   })
 })

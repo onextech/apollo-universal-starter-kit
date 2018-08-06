@@ -3,7 +3,16 @@ import { step } from 'mocha-steps'
 import _ from 'lodash'
 
 import Renderer from '../../../testHelpers/Renderer'
-import { wait, find, findAll, updateContent, click, change, submit } from '../../../testHelpers/testUtils'
+import {
+  wait,
+  find,
+  findAll,
+  updateContent,
+  click,
+  change,
+  submit,
+  waitForElementRender,
+} from '../../../testHelpers/testUtils'
 import POSTS_SUBSCRIPTION from '../graphql/PostsSubscription.graphql'
 import POST_SUBSCRIPTION from '../graphql/PostSubscription.graphql'
 import COMMENT_SUBSCRIPTION from '../graphql/CommentSubscription.graphql'
@@ -55,6 +64,18 @@ const mocks = {
     post(obj, { id }) {
       return createNode(id)
     },
+    currentUser() {
+      return {
+        id: 1,
+        username: 'admin',
+        role: 'admin',
+        isActive: true,
+        email: 'admin@example.com',
+        profile: null,
+        auth: null,
+        __typename: 'User',
+      }
+    },
   }),
   Mutation: () => ({
     deletePost: (obj, { id }) => createNode(id),
@@ -78,11 +99,11 @@ describe('Posts and comments example UI works', () => {
     }
   })
 
-  step('Posts page renders without data', () => {
+  step('Posts page renders without data', async () => {
     app = renderer.mount()
-    container = app.container
+    await waitForElementRender(app.container, 'a[href="/posts"]')
     renderer.history.push('/posts')
-    content = updateContent(container)
+    content = updateContent(app.container)
     content.textContent.should.equal('Loading...')
   })
 

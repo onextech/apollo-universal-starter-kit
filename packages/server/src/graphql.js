@@ -26,5 +26,6 @@ export default () => {
         }
       : false,
     playground: false,
+    debug: false,
   })
 }

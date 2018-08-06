@@ -14,8 +14,13 @@ interface ButtonProps {
   counter: any
 }
 
+interface ServerCounter {
+  amount: number
+}
+
 const IncreaseButton = ({ counterAmount, t, counter }: ButtonProps) => {
-  const updateServerCounterCache = (cache, { data: { addServerCounter } }) => {
+  const updateServerCounterCache = (cache: any, data: any) => {
+    const { addServerCounter }: { addServerCounter: ServerCounter } = data.data
     /**
      * Fix issue "Can't find field <field> on object (ROOT_QUERY)"
      * @link https://github.com/apollographql/apollo-client/issues/1701#issuecomment-380213533
@@ -27,21 +32,20 @@ const IncreaseButton = ({ counterAmount, t, counter }: ButtonProps) => {
       cache.writeQuery({ query, data: nextData })
     }
   }
-  return (
-    <Mutation mutation={ADD_COUNTER} update={updateServerCounterCache}>
-      {(addServerCounter: any) => {
 
+  const optimisticResponse = {
+    __typename: 'Mutation',
+    addServerCounter: {
+      __typename: 'Counter',
+      amount: counter.amount + 1,
+    },
+  }
+
+  return (
+    <Mutation mutation={ADD_COUNTER} update={updateServerCounterCache} optimisticResponse={optimisticResponse}>
+      {(addServerCounter: any) => {
         const handleAddServerCounter = (amount: number) => () => {
-          addServerCounter({
-            variables: { amount },
-            optimisticResponse: {
-              __typename: 'Mutation',
-              addServerCounter: {
-                __typename: 'Counter',
-                amount: counter.amount + 1,
-              },
-            },
-          })
+          addServerCounter({ variables: { amount } })
         }
 
         const onClickHandler = () => handleAddServerCounter(counterAmount)
