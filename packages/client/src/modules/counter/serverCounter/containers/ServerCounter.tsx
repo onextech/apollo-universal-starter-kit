@@ -14,37 +14,43 @@ interface ButtonProps {
   counter: any
 }
 
-const IncreaseButton = ({ counterAmount, t, counter }: ButtonProps) => (
-  <Mutation mutation={ADD_COUNTER}>
-    {(mutate: any) => {
-      const addServerCounter = (amount: number) => () =>
-        mutate({
-          variables: { amount },
-          updateQueries: {
-            serverCounterQuery: (prev: any, { mutationResult }: any) => {
-              const newAmount = mutationResult.data.addServerCounter.amount
-              return update(prev, {
-                serverCounter: {
-                  amount: { $set: newAmount },
-                },
-              })
-            },
-          },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            addServerCounter: {
-              __typename: 'Counter',
-              amount: counter.amount + 1,
-            },
-          },
-        })
+const IncreaseButton = ({ counterAmount, t, counter }: ButtonProps) => {
+  const updateServerCounterCache = (cache, { data: { addServerCounter } }) => {
+    /**
+     * Fix issue "Can't find field <field> on object (ROOT_QUERY)"
+     * @link https://github.com/apollographql/apollo-client/issues/1701#issuecomment-380213533
+     */
+    if (cache.data.data.ROOT_QUERY.serverCounter) {
+      const query = COUNTER_QUERY
+      const prevData = cache.readQuery({ query })
+      const nextData = update(prevData, { serverCounter: { amount: { $set: addServerCounter.amount } } })
+      cache.writeQuery({ query, data: nextData })
+    }
+  }
+  return (
+    <Mutation mutation={ADD_COUNTER} update={updateServerCounterCache}>
+      {(addServerCounter: any) => {
 
-      const onClickHandler = () => addServerCounter(counterAmount)
+        const handleAddServerCounter = (amount: number) => () => {
+          addServerCounter({
+            variables: { amount },
+            optimisticResponse: {
+              __typename: 'Mutation',
+              addServerCounter: {
+                __typename: 'Counter',
+                amount: counter.amount + 1,
+              },
+            },
+          })
+        }
 
-      return <ServerCounterButton text={t('btnLabel')} onClick={onClickHandler()} />
-    }}
-  </Mutation>
-)
+        const onClickHandler = () => handleAddServerCounter(counterAmount)
+
+        return <ServerCounterButton text={t('btnLabel')} onClick={onClickHandler()} />
+      }}
+    </Mutation>
+  )
+}
 
 interface CounterProps {
   t: TranslateFunction
