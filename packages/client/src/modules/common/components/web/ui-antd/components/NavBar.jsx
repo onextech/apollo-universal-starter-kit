@@ -48,7 +48,7 @@ class NavBar extends React.Component {
             {modules.navItemsRight}
             {__DEV__ && (
               <MenuItem>
-                <a href='/gplayground'>GPlayground</a>
+                <a href='/gplayground' target='_blank'>GPlayground</a>
               </MenuItem>
             )}
           </Menu>
