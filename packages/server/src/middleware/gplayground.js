@@ -16,7 +16,7 @@ export default (req) => {
     tabs: [
       {
         endpoint: '/graphql',
-        query: '{\n' + '  serverCounter {\n' + '    amount\n' + '  }\n' + '}',
+        query: '{\n' + '  currentUser {\n' + '    id\n' + '  }\n' + '}',
       },
     ],
   })
