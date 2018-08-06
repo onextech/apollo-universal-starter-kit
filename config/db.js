@@ -6,10 +6,20 @@ let connectionDevelopment = {
   socketPath: process.env.DB_SOCKET_PATH,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  ssl: process.env.DB_SSL,
   multipleStatements: true,
   charset: 'utf8',
 }
+
+/**
+ * By default if ssl key is present in connection options,
+ * it will already trigger ssl connection.
+ * Fixes the "Error: The server does not support SSL connections"
+ * @link https://github.com/brianc/node-postgres/issues/1391
+ */
+if (process.env.DB_SSL === 'true') {
+  connectionDevelopment.ssl = process.env.DB_SSL
+}
+
 let connectionProduction = connectionDevelopment
 let pool = {}
 if (DB_TYPE === 'mysql') {
