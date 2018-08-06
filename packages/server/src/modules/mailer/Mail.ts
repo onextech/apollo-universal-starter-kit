@@ -4,7 +4,7 @@ import sendMail from './sendMail'
 const Mail = () => {
   return {
     send: sendMail,
-    generate: mailgen.generate.bind(mailgen)
+    generate: mailgen.generate.bind(mailgen),
   }
 }
 

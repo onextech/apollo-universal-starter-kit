@@ -11,7 +11,7 @@ export interface FeatureShape {
 }
 
 const combine = <F>(features: F[], extractor: (x: F) => any): any[] =>
-  without(union(...map(features, res => castArray(extractor(res)))), undefined)
+  without(union(...map(features, (res) => castArray(extractor(res)))), undefined)
 
 export default class {
   public localization: any[]
@@ -24,22 +24,22 @@ export default class {
 
   constructor(...features: FeatureShape[]) {
     // Localization
-    this.localization = combine(features, arg => arg.localization)
+    this.localization = combine(features, (arg) => arg.localization)
 
     // GraphQL API
-    this.schema = combine(features, arg => arg.schema)
-    this.createResolversFunc = combine(features, arg => arg.createResolversFunc)
-    this.createContextFunc = combine(features, arg => arg.createContextFunc)
+    this.schema = combine(features, (arg) => arg.schema)
+    this.createResolversFunc = combine(features, (arg) => arg.createResolversFunc)
+    this.createContextFunc = combine(features, (arg) => arg.createContextFunc)
 
     // Middleware
-    this.beforeware = combine(features, arg => arg.beforeware)
-    this.middleware = combine(features, arg => arg.middleware)
+    this.beforeware = combine(features, (arg) => arg.beforeware)
+    this.middleware = combine(features, (arg) => arg.middleware)
 
     // Shared modules data
     const empty: FeatureShape = {}
-    this.data = combine([empty].concat(Array.from(features)), arg => arg.data).reduce(
+    this.data = combine([empty].concat(Array.from(features)), (arg) => arg.data).reduce(
       (acc, el) => [{ ...acc[0], ...el }],
-      [{}]
+      [{}],
     )
   }
 
@@ -56,7 +56,7 @@ export default class {
   }
 
   public createResolvers(pubsub: any) {
-    return merge({}, ...this.createResolversFunc.map(createResolvers => createResolvers(pubsub)))
+    return merge({}, ...this.createResolversFunc.map((createResolvers) => createResolvers(pubsub)))
   }
 
   get beforewares() {

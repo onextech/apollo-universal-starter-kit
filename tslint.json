@@ -1,8 +1,6 @@
 {
   "extends": [
-    "tslint:latest",
-    "tslint-plugin-prettier",
-    "tslint-config-prettier"
+    "tslint:latest"
   ],
   "cliOptions": {
     "exclude": [
@@ -15,11 +13,6 @@
     "exclude": ["**/*.js", "**/*.jsx", "**/*.d.ts"]
   },
   "rules": {
-    "prettier": [true, {
-      "printWidth": 120,
-      "singleQuote": true,
-      "semi": false
-    }],
     "max-classes-per-file": false,
     "ban": false,
     "class-name": true,
@@ -86,6 +79,9 @@
       "allow-leading-underscore",
       "allow-pascal-case",
       "ban-keywords"
-    ]
+    ],
+    "quotemark": [true, "single", "jsx-single"],
+    "semicolon": [true, "never"],
+    "max-line-length": [true, {"limit": 120, "ignore-pattern": "^import |^export {(.*?)}"}]
   }
 }

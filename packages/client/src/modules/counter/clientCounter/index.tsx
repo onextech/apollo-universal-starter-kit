@@ -5,7 +5,7 @@ import ClientCounter from './containers/ClientCounter'
 
 export default new Feature({
   resolver: resolvers,
-  localization: { ns: 'clientCounter', resources }
+  localization: { ns: 'clientCounter', resources },
 })
 
 export { ClientCounter }

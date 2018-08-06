@@ -6,7 +6,6 @@ import { getServer, getApollo } from '../../../testHelpers/integrationSetup'
 import COUNTER_QUERY from '../../../../../client/src/modules/counter/serverCounter/graphql/CounterQuery.graphql'
 import ADD_COUNTER from '../../../../../client/src/modules/counter/serverCounter/graphql/AddCounter.graphql'
 import COUNTER_SUBSCRIPTION from '../../../../../client/src/modules/counter/serverCounter/graphql/CounterSubscription.graphql'
-import { ISuiteCallbackContext } from 'mocha'
 
 describe('Counter example API works', () => {
   let server: any
@@ -21,7 +20,7 @@ describe('Counter example API works', () => {
     return chai
       .request(server)
       .get('/gplayground')
-      .then(res => {
+      .then((res) => {
         res.should.have.status(200)
         res.body.should.be.eql({})
       })
@@ -31,36 +30,36 @@ describe('Counter example API works', () => {
     const result = await apollo.query({ query: COUNTER_QUERY })
 
     result.data.should.deep.equal({
-      serverCounter: { amount: 5, __typename: 'Counter' }
+      serverCounter: { amount: 5, __typename: 'Counter' },
     })
   })
 
   step('Increments counter on GraphQL mutation', async () => {
     const result = await apollo.mutate({
       mutation: ADD_COUNTER,
-      variables: { amount: 2 }
+      variables: { amount: 2 },
     })
 
     result.should.deep.equal({
-      data: { addServerCounter: { amount: 7, __typename: 'Counter' } }
+      data: { addServerCounter: { amount: 7, __typename: 'Counter' } },
     })
   })
 
-  step('Triggers subscription on GraphQL mutation', done => {
+  step('Triggers subscription on GraphQL mutation', (done) => {
     apollo.mutate({ mutation: ADD_COUNTER, variables: { amount: 1 } })
 
     apollo
       .subscribe({
         query: COUNTER_SUBSCRIPTION,
-        variables: {}
+        variables: {},
       })
       .subscribe({
         next(data: any) {
           data.should.deep.equal({
-            data: { counterUpdated: { amount: 8, __typename: 'Counter' } }
+            data: { counterUpdated: { amount: 8, __typename: 'Counter' } },
           })
           done()
-        }
+        },
       })
   })
 })

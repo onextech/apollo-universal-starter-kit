@@ -21,12 +21,12 @@ interface PageLayoutProps {
 const PageLayout: React.SFC<PageLayoutProps> = ({ children, navBar, container }) => {
   const Body = container ? Container : (props: any) => <div {...props} />
   return (
-    <div className="d-flex flex-column flex-grow-1">
-      <div className="d-flex flex-column flex-grow-1 flex-shrink-0">
-        <header className="d-flex flex-column">{navBar !== false && <NavBar />}</header>
-        <Body id="content">{children}</Body>
+    <div className='d-flex flex-column flex-grow-1'>
+      <div className='d-flex flex-column flex-grow-1 flex-shrink-0'>
+        <header className='d-flex flex-column'>{navBar !== false && <NavBar />}</header>
+        <Body id='content'>{children}</Body>
       </div>
-      <Footer className="d-flex flex-shrink-0 justify-content-center">
+      <Footer className='d-flex flex-shrink-0 justify-content-center'>
         <span>&copy; 2018 {settings.app.name}</span>
       </Footer>
     </div>

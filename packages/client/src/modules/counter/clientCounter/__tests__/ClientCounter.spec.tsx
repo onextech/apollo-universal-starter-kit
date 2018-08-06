@@ -16,31 +16,31 @@ const mockedCache = {
   data: {
     clientCounter: {
       amount: COUNTER_APOLLO_LINK_VALUE,
-      __typename: 'ClientCounter'
-    }
-  }
+      __typename: 'ClientCounter',
+    },
+  },
 }
 
 const resolvers = {
   defaults: {
-    clientCounter: { amount: COUNTER_APOLLO_LINK_VALUE, __typename: 'ClientCounter' }
+    clientCounter: { amount: COUNTER_APOLLO_LINK_VALUE, __typename: 'ClientCounter' },
   },
   resolvers: {
     Query: {
-      clientCounter: () => mockedCache.data.clientCounter
+      clientCounter: () => mockedCache.data.clientCounter,
     },
     Mutation: {
       addClientCounter: (): any => {
         mockedCache.data = {
           clientCounter: {
             amount: mockedCache.data.clientCounter.amount + INCREMENT,
-            __typename: 'ClientCounter'
-          }
+            __typename: 'ClientCounter',
+          },
         }
         return null
-      }
-    }
-  }
+      },
+    },
+  },
 }
 
 describe('Client counter example UI works', () => {

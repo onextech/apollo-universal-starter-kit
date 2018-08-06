@@ -19,8 +19,8 @@ const Counter = ({ t }: CounterProps) => (
       meta={[
         {
           name: 'description',
-          content: `${settings.app.name} - ${t('meta')}`
-        }
+          content: `${settings.app.name} - ${t('meta')}`,
+        },
       ]}
     />
     <ServerCounter />

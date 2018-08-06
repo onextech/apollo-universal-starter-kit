@@ -13,7 +13,7 @@ export default class extends BaseConnector {
     super(...features)
 
     // Navigation
-    this.drawerItem = combine(features, arg => arg.drawerItem)
+    this.drawerItem = combine(features, (arg) => arg.drawerItem)
   }
 
   get drawerItems() {
@@ -22,7 +22,7 @@ export default class extends BaseConnector {
 
   public getSkippedDrawerItems() {
     const items = this.drawerItems
-    return Object.keys(items).filter(itemName => {
+    return Object.keys(items).filter((itemName) => {
       return items[itemName].skip
     })
   }

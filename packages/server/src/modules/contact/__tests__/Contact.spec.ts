@@ -16,7 +16,7 @@ describe('Contact API works', () => {
     return chai
       .request(server)
       .get('/gplayground')
-      .then(res => {
+      .then((res) => {
         res.should.have.status(200)
         res.body.should.be.eql({})
       })

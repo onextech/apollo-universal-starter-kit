@@ -13,7 +13,7 @@ interface ButtonProps {
 
 const IncreaseButton = ({ counterAmount, t }: ButtonProps): any => (
   <Mutation mutation={ADD_COUNTER_CLIENT}>
-    {mutate => {
+    {(mutate) => {
       const addClientCounter = (amount: any) => () => {
         const { value }: any = mutate({ variables: { amount } })
         return value
@@ -33,8 +33,8 @@ const ClientCounter = ({ t }: CounterProps) => (
   <Query query={COUNTER_QUERY_CLIENT}>
     {({
       data: {
-        clientCounter: { amount }
-      }
+        clientCounter: { amount },
+      },
     }) => {
       return (
         <ClientCounterView text={t('text', { amount })}>

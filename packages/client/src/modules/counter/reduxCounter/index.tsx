@@ -5,7 +5,7 @@ import ReduxCounter from './containers/ReduxCounter'
 
 export default new Feature({
   reducer: { counter: reducers },
-  localization: { ns: 'reduxCounter', resources }
+  localization: { ns: 'reduxCounter', resources },
 })
 
 export { ReduxCounter }

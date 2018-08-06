@@ -20,7 +20,7 @@ export const ServerCounterView = ({ t, children, counter, loading }: ViewProps) 
   if (loading) {
     return (
       <Section>
-        <div className="text-center">{t('loading')}</div>
+        <div className='text-center'>{t('loading')}</div>
       </Section>
     )
   } else {
@@ -39,7 +39,7 @@ interface ButtonProps {
 }
 
 export const ServerCounterButton = ({ onClick, text }: ButtonProps) => (
-  <Button id="graphql-button" color="primary" onClick={onClick}>
+  <Button id='graphql-button' color='primary' onClick={onClick}>
     {text}
   </Button>
 )

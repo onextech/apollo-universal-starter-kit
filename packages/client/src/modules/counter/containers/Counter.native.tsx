@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'center',
-    paddingHorizontal: 15
-  }
+    paddingHorizontal: 15,
+  },
 })
 
 export default translate('counter')(Counter)

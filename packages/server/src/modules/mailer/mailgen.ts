@@ -3,7 +3,7 @@ import settings from '../../../../../settings'
 
 export const FormatMail = {
   bold: (str: string) => `<b style='color: black;'>${str}</b>`,
-  link: (title: string, href: string) => `<a href='${href}'>${title}</a>`
+  link: (title: string, href: string) => `<a href='${href}'>${title}</a>`,
 }
 
 /**

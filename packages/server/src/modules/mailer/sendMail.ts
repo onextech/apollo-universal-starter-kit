@@ -7,7 +7,7 @@ const sendMail = (subject: string, to: string, html: string, options?: object) =
     from: `${settings.app.name} <${process.env.EMAIL_USER}>`,
     subject,
     html,
-    ...options
+    ...options,
   })
 }
 

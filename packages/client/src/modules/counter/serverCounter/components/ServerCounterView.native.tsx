@@ -28,12 +28,12 @@ export const ServerCounterView = ({ t, children, counter, loading }: ViewProps) 
 
 const styles = StyleSheet.create({
   element: {
-    paddingTop: 30
+    paddingTop: 30,
   },
   box: {
     textAlign: 'center',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 })
 
 interface ButtonProps {

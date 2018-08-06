@@ -23,8 +23,8 @@ export default connect(
       return () =>
         dispatch({
           type: 'COUNTER_INCREMENT',
-          value: Number(value)
+          value: Number(value),
         })
-    }
-  })
+    },
+  }),
 )(translate('reduxCounter')(ReduxCounter))

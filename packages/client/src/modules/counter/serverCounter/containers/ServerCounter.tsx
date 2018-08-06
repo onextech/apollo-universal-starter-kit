@@ -25,20 +25,18 @@ const IncreaseButton = ({ counterAmount, t, counter }: ButtonProps) => (
               const newAmount = mutationResult.data.addServerCounter.amount
               return update(prev, {
                 serverCounter: {
-                  amount: {
-                    $set: newAmount
-                  }
-                }
+                  amount: { $set: newAmount },
+                },
               })
-            }
+            },
           },
           optimisticResponse: {
             __typename: 'Mutation',
             addServerCounter: {
               __typename: 'Counter',
-              amount: counter.amount + 1
-            }
-          }
+              amount: counter.amount + 1,
+            },
+          },
         })
 
       const onClickHandler = () => addServerCounter(counterAmount)
@@ -92,24 +90,17 @@ class ServerCounter extends React.Component<CounterProps> {
     this.subscription = this.props.subscribeToMore({
       document: COUNTER_SUBSCRIPTION,
       variables: {},
-      updateQuery: (
-        prev: any,
-        {
+      updateQuery: (prev: any, {
           subscriptionData: {
-            data: {
-              counterUpdated: { amount }
-            }
-          }
-        }: any
-      ) => {
+            data: { counterUpdated: { amount } },
+          },
+        }: any) => {
         return update(prev, {
           serverCounter: {
-            amount: {
-              $set: amount
-            }
-          }
+            amount: { $set: amount },
+          },
         })
-      }
+      },
     })
   }
 
@@ -126,9 +117,7 @@ class ServerCounter extends React.Component<CounterProps> {
 const ServerCounterWithQuery = (props: any) => (
   <Query query={COUNTER_QUERY}>
     {({ loading, error, data: { serverCounter }, subscribeToMore }) => {
-      if (error) {
-        throw new Error(String(error))
-      }
+      if (error) { throw new Error(String(error)) }
       return <ServerCounter {...props} loading={loading} subscribeToMore={subscribeToMore} counter={serverCounter} />
     }}
   </Query>

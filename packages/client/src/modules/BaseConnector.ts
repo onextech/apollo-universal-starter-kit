@@ -16,7 +16,7 @@ export interface BaseFeature {
 }
 
 export const combine = <F>(features: F[], extractor: (x: F) => any): any[] =>
-  without(union(...map(features, res => castArray(extractor(res)))), undefined)
+  without(union(...map(features, (res) => castArray(extractor(res)))), undefined)
 
 export default class {
   public localization: any[]
@@ -32,33 +32,33 @@ export default class {
 
   constructor(...features: BaseFeature[]) {
     // Localization
-    this.localization = combine(features, arg => arg.localization)
+    this.localization = combine(features, (arg) => arg.localization)
 
     // Connectivity
-    this.link = combine(features, arg => arg.link)
-    this.createNetLink = combine(features, arg => arg.createNetLink)
+    this.link = combine(features, (arg) => arg.link)
+    this.createNetLink = combine(features, (arg) => arg.createNetLink)
       .slice(-1)
       .pop()
-    this.connectionParam = combine(features, arg => arg.connectionParam)
+    this.connectionParam = combine(features, (arg) => arg.connectionParam)
 
     // State management
-    this.reducer = combine(features, arg => arg.reducer)
-    this.resolver = combine(features, arg => arg.resolver)
+    this.reducer = combine(features, (arg) => arg.reducer)
+    this.resolver = combine(features, (arg) => arg.resolver)
 
     // Navigation
-    this.routerFactory = combine(features, arg => arg.routerFactory)
+    this.routerFactory = combine(features, (arg) => arg.routerFactory)
       .slice(-1)
       .pop()
 
     // UI provider-components
-    this.rootComponentFactory = combine(features, arg => arg.rootComponentFactory)
-    this.dataRootComponent = combine(features, arg => arg.dataRootComponent)
+    this.rootComponentFactory = combine(features, (arg) => arg.rootComponentFactory)
+    this.dataRootComponent = combine(features, (arg) => arg.dataRootComponent)
 
     // Shared modules data
     const empty: BaseFeature = {}
-    this.data = combine([empty].concat(Array.from(features)), arg => arg.data).reduce(
+    this.data = combine([empty].concat(Array.from(features)), (arg) => arg.data).reduce(
       (acc, el) => [{ ...acc[0], ...el }],
-      [{}]
+      [{}],
     )
   }
 

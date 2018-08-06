@@ -19,18 +19,18 @@ export default new Feature(clientCounter, reduxCounter, serverCounter, {
         Counter: {
           screen: Counter,
           navigationOptions: ({ navigation }: any) => ({
-            headerTitle: <HeaderTitleWithI18n i18nKey="title" style="subTitle" />,
+            headerTitle: <HeaderTitleWithI18n i18nKey='title' style='subTitle' />,
             headerLeft: (
-              <IconButton iconName="menu" iconSize={32} iconColor="#0275d8" onPress={() => navigation.openDrawer()} />
+              <IconButton iconName='menu' iconSize={32} iconColor='#0275d8' onPress={() => navigation.openDrawer()} />
             ),
-            headerStyle: { backgroundColor: '#fff' }
-          })
-        }
+            headerStyle: { backgroundColor: '#fff' },
+          }),
+        },
       }),
       navigationOptions: {
-        drawerLabel: <HeaderTitleWithI18n i18nKey="title" />
-      }
-    }
+        drawerLabel: <HeaderTitleWithI18n i18nKey='title' />,
+      },
+    },
   },
-  localization: { ns: 'counter', resources }
+  localization: { ns: 'counter', resources },
 })
