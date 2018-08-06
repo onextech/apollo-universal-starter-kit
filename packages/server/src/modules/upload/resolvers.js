@@ -1,5 +1,4 @@
 /*eslint-disable no-unused-vars*/
-import { GraphQLUpload } from 'apollo-upload-server'
 import shell from 'shelljs'
 import fs from 'fs'
 import mkdirp from 'mkdirp'
@@ -68,5 +67,4 @@ export default (pubsub) => ({
     },
   },
   Subscription: {},
-  Upload: GraphQLUpload,
 })

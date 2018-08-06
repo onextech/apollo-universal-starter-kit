@@ -5,30 +5,28 @@ import { Container, Navbar, Nav, NavItem } from 'reactstrap'
 import modules from '../../../../../../modules'
 import settings from '../../../../../../../../../settings'
 
-const NavBar = () => {
-  return (
-    <Navbar color='faded' light>
-      <Container>
-        <Nav>
-          <NavLink to='/' className='navbar-brand'>
-            {settings.app.name}
-          </NavLink>
-          {modules.navItems}
-        </Nav>
+const NavBar = () => (
+  <Navbar color='faded' light>
+    <Container>
+      <Nav>
+        <NavLink to='/' className='navbar-brand'>
+          {settings.app.name}
+        </NavLink>
+        {modules.navItems}
+      </Nav>
 
-        <Nav className='justify-content-end'>
-          {modules.navItemsRight}
-          {__DEV__ && (
-            <NavItem>
-              <a href='/graphiql' className='nav-link' target='_blank'>
-                GraphiQL
-              </a>
-            </NavItem>
-          )}
-        </Nav>
-      </Container>
-    </Navbar>
-  )
-}
+      <Nav className='justify-content-end'>
+        {modules.navItemsRight}
+        {__DEV__ && (
+          <NavItem>
+            <a href='/gplayground' className='nav-link'>
+              GPlayground
+            </a>
+          </NavItem>
+        )}
+      </Nav>
+    </Container>
+  </Navbar>
+)
 
 export default NavBar

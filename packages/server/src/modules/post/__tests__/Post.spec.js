@@ -20,7 +20,6 @@ describe('Post and comments example API works', () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
-      fetchPolicy: 'network-only',
     })
 
     expect(result.data).to.deep.equal({
@@ -117,7 +116,6 @@ describe('Post and comments example API works', () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
-      fetchPolicy: 'network-only',
     })
     expect(result.data.posts).to.have.property('totalCount', 21)
     expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'New post 1')
@@ -169,7 +167,6 @@ describe('Post and comments example API works', () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
-      fetchPolicy: 'network-only',
     })
     expect(result.data.posts).to.have.property('totalCount', 21)
     expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'New post 2')
@@ -215,7 +212,6 @@ describe('Post and comments example API works', () => {
     let result = await apollo.query({
       query: POSTS_QUERY,
       variables: { limit: 2, after: 0 },
-      fetchPolicy: 'network-only',
     })
     expect(result.data.posts).to.have.property('totalCount', 20)
     expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'Post title 20')
