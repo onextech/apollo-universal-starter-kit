@@ -60,6 +60,7 @@ class FieldAdapter extends Component {
     let { value, checked } = this.props
     value = value || ''
     checked = checked || false
+
     const meta = {
       touched: formik.touched[name],
       error: formik.errors[name],
