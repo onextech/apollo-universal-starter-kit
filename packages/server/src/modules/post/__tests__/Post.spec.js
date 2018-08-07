@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { step } from 'mocha-steps'
 
+import Post from '../model'
 import { getApollo } from '../../../testHelpers/integrationSetup'
 import POSTS_QUERY from '../../../../../client/src/modules/post/graphql/PostsQuery.graphql'
 import POST_QUERY from '../../../../../client/src/modules/post/graphql/PostQuery.graphql'
@@ -216,5 +217,39 @@ describe('Post and comments example API works', () => {
     expect(result.data.posts).to.have.property('totalCount', 20)
     expect(result.data.posts).to.have.nested.property('edges[0].node.title', 'Post title 20')
     expect(result.data.posts).to.have.nested.property('edges[0].node.content', 'Post content 20')
+  })
+})
+
+describe('Post ORM should work', () => {
+  let post
+
+  step('Should have tableName', () => {
+    expect(Post.tableName).to.equal('post')
+  })
+
+  step('Should create', async () => {
+    const onCreatePost = await Post.query().insert({ title: 'Testy', content: 'McTesterson' })
+    post = await Post.query().findById(onCreatePost.id)
+    expect(onCreatePost).to.have.property('title', 'Testy')
+  })
+
+  step('Should read', async () => {
+    const fetchedPost = await Post.query().findById(post.id)
+    expect(fetchedPost).to.have.property('title', 'Testy')
+  })
+
+  step('Should update', async () => {
+    const onUpdatePost = await Post.query().patchAndFetchById(post.id, { title: 'Testy 2' })
+    expect(onUpdatePost).to.have.property('title', 'Testy 2')
+  })
+
+  step('Should delete Post', async () => {
+    const onDeletePost = await Post.query().deleteById(post.id)
+    expect(onDeletePost).to.be.equal(1)
+  })
+
+  step('should count', async () => {
+    const total = await Post.getTotal()
+    expect(total).to.be.equal(20)
   })
 })
