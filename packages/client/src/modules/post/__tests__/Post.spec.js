@@ -231,16 +231,10 @@ describe('Posts and comments example UI works', () => {
     const postForm = find(container, 'form[name="post"]')
     const contentField = find(postForm, '[name="content"]')
     const titleField = find(postForm, '[name="title"]')
-    const submitBtn = find(postForm, 'button[type="submit"]')
 
     // 2. Change values
     change(titleField, { target: { name: 'title', value: 'Post title 33' } })
     change(contentField, { target: { name: 'content', value: 'Post content 33' } })
-
-    // 3. Check values out
-    console.log('titleField.value', titleField.value) // 'Post title 33' - OK
-    console.log('contentField.value', contentField.value) // 'Post content 33' - OK
-    console.log('submitBtn', submitBtn) // HTMLButtonElement { FiberNode: { ... } } - OK
 
     // 4. Trigger submit
     submit(postForm) // Error: Uncaught [ReferenceError: HTMLButtonElement is not defined]
