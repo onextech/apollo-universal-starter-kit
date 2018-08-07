@@ -9,6 +9,8 @@ import ADD_POST from '../../../../../client/src/modules/post/graphql/AddPost.gra
 import EDIT_POST from '../../../../../client/src/modules/post/graphql/EditPost.graphql'
 import DELETE_POST from '../../../../../client/src/modules/post/graphql/DeletePost.graphql'
 import POSTS_SUBSCRIPTION from '../../../../../client/src/modules/post/graphql/PostsSubscription.graphql'
+import ADD_COMMENT from '../../../../../client/src/modules/post/graphql/AddComment.graphql'
+import COMMENT_SUBSCRIPTION from '../../../../../client/src/modules/post/graphql/CommentSubscription.graphql'
 
 describe('Post and comments example API works', () => {
   let apollo
@@ -22,7 +24,6 @@ describe('Post and comments example API works', () => {
       query: POSTS_QUERY,
       variables: { limit: 1, after: 0 },
     })
-
     expect(result.data).to.deep.equal({
       posts: {
         totalCount: 20,
@@ -50,7 +51,6 @@ describe('Post and comments example API works', () => {
 
   step('Query single post with comments works', async () => {
     let result = await apollo.query({ query: POST_QUERY, variables: { id: 1 } })
-
     expect(result.data).to.deep.equal({
       post: {
         id: 1,
@@ -174,6 +174,48 @@ describe('Post and comments example API works', () => {
     expect(result.data.posts).to.have.nested.property('edges[0].node.content', 'New post content 2')
   })
 
+  step('Publishes comment on add', (done) => {
+    apollo.mutate({
+      mutation: ADD_COMMENT,
+      variables: {
+        input: {
+          postId: 21,
+          content: 'New comment 1',
+        },
+      },
+    })
+
+    let subscription
+
+    subscription = apollo
+      .subscribe({
+        query: COMMENT_SUBSCRIPTION,
+        variables: { postId: 21, endCursor: 10 },
+      })
+      .subscribe({
+        next(data) {
+          console.log('data', data)
+          expect(data).to.deep.equal({
+            data: {
+              commentUpdated: {
+                id: 41,
+                postId: 21,
+                node: {
+                  id: 41,
+                  content: 'New comment 1',
+                  __typename: 'Comment',
+                },
+                mutation: 'CREATED',
+                __typename: 'UpdateCommentPayload',
+              },
+            },
+          })
+          subscription.unsubscribe()
+          done()
+        },
+      })
+  })
+
   step('Publishes post on removal', (done) => {
     apollo.mutate({
       mutation: DELETE_POST,
@@ -254,7 +296,7 @@ describe('Post ORM works', () => {
   })
 })
 
-describe('Comments works', () => {
+describe('Comments ORM works', () => {
   let post
   let comments
 

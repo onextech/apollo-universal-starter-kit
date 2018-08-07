@@ -1,6 +1,6 @@
 import { Model } from 'objection'
 
-export interface CommentInterface {
+export interface CommentInterface extends Model {
   id: number
   postId: number
   content: string

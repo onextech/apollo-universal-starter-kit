@@ -18,7 +18,7 @@ export default (pubsub) => ({
         })
       })
       const endCursor = edgesArray.length > 0 ? edgesArray[edgesArray.length - 1].cursor : 0
-      const total = (await context.Post.getTotal()).count
+      const total = await context.Post.getTotal()
       const hasNextPage = total > after + limit
       return {
         totalCount: total,
@@ -40,7 +40,7 @@ export default (pubsub) => ({
   },
   Mutation: {
     async addPost(obj, { input }, context) {
-      const [id] = await context.Post.addPost(input)
+      const { id } = await context.Post.addPost(input)
       const post = await context.Post.post(id)
       // publish for post list
       pubsub.publish(POSTS_SUBSCRIPTION, {
@@ -99,7 +99,7 @@ export default (pubsub) => ({
       return post
     },
     async addComment(obj, { input }, context) {
-      const [id] = await context.Post.addComment(input)
+      const { id } = await context.Post.addComment(input)
       const comment = await context.Post.getComment(id)
       // publish for edit post page
       pubsub.publish(COMMENT_SUBSCRIPTION, {

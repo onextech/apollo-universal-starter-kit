@@ -5,11 +5,11 @@ import { withFormik } from 'formik'
 import translate from '../../../i18n'
 import Field from '../../../utils/FieldAdapter'
 import { Form, RenderField, Button } from '../../common/components/web'
-import { required, validateForm } from '../../../../../common/validation'
+import { minLength, required, validateForm } from '../../../../../common/validation'
 
 const postFormSchema = {
   title: [required],
-  content: [required],
+  content: [required, minLength(10)],
 }
 
 const validate = (values) => validateForm(values, postFormSchema)

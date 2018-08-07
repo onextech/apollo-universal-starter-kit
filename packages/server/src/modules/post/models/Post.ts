@@ -1,13 +1,13 @@
 import { Model } from 'objection'
 import knex from '../../../sql/connector'
-import { returnId, orderedFor } from '../../../sql/helpers'
+import { orderedFor } from '../../../sql/helpers'
 import Comment, { CommentInterface } from './Comment'
 
-export interface PostInterface {
+export interface PostInterface extends Model {
   id: number
   title: string
   content: string
-  comments: CommentInterface[]
+  comments: CommentInterface[] | CommentInterface
 }
 
 class Post extends Model implements PostInterface {
@@ -67,9 +67,9 @@ class Post extends Model implements PostInterface {
       .first()
   }
 
-  public static async addPost(post: PostInterface): Promise<object> {
+  public static async addPost(post: PostInterface): Promise<PostInterface> {
     const { title, content } = post
-    return returnId(this.query()).insert({ title, content })
+    return this.query().insert({ title, content })
   }
 
   public static async deletePost(id: number): Promise<number> {
@@ -85,9 +85,10 @@ class Post extends Model implements PostInterface {
       .update({ title, content })
   }
 
-  public static async addComment(comment: CommentInterface): Promise<number> {
+  public static async addComment(comment: CommentInterface): Promise<CommentInterface[] | CommentInterface> {
     const { content, postId } = comment
-    return returnId(knex('comment')).insert({ content, post_id: postId })
+    const post: PostInterface = await this.query().findById(postId)
+    return post.$relatedQuery('comments').insert({ content })
   }
 
   public static async getComment(id: number): Promise<object> {
