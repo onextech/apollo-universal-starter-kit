@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { step } from 'mocha-steps'
 
-import Post from '../model'
+import { Post } from '../models'
 import { getApollo } from '../../../testHelpers/integrationSetup'
 import POSTS_QUERY from '../../../../../client/src/modules/post/graphql/PostsQuery.graphql'
 import POST_QUERY from '../../../../../client/src/modules/post/graphql/PostQuery.graphql'
@@ -220,7 +220,7 @@ describe('Post and comments example API works', () => {
   })
 })
 
-describe('Post ORM should work', () => {
+describe('Post ORM works', () => {
   let post
 
   step('Should have tableName', () => {
@@ -234,8 +234,8 @@ describe('Post ORM should work', () => {
   })
 
   step('Should read', async () => {
-    const fetchedPost = await Post.query().findById(post.id)
-    expect(fetchedPost).to.have.property('title', 'Testy')
+    const onFetchPost = await Post.query().findById(post.id)
+    expect(onFetchPost).to.have.property('title', 'Testy')
   })
 
   step('Should update', async () => {
@@ -243,13 +243,60 @@ describe('Post ORM should work', () => {
     expect(onUpdatePost).to.have.property('title', 'Testy 2')
   })
 
-  step('Should delete Post', async () => {
+  step('Should delete', async () => {
     const onDeletePost = await Post.query().deleteById(post.id)
     expect(onDeletePost).to.be.equal(1)
   })
 
-  step('should count', async () => {
+  step('Should count', async () => {
     const total = await Post.getTotal()
     expect(total).to.be.equal(20)
+  })
+})
+
+describe('Comments works', () => {
+  let post
+  let comments
+
+  step('Should create', async () => {
+    const onCreatePostWithComments = await Post.query()
+      .insertGraphAndFetch({
+        title: 'Testy',
+        content: 'McTesterson',
+        comments: [{
+          content: 'This is quite a funny name',
+        }],
+      })
+    post = onCreatePostWithComments
+    comments = onCreatePostWithComments.comments
+    expect(onCreatePostWithComments).to.have.property('comments')
+  })
+
+  step('Should read', async () => {
+    const onFetchPostWithComments = await Post.query().findById(post.id).eager('comments')
+    expect(onFetchPostWithComments.comments).to.deep.equal(comments)
+  })
+
+  step('Should update', async () => {
+    const onUpdatePostWithComments = await Post.query()
+      .upsertGraphAndFetch({
+        id: post.id,
+        comments: [
+          { id: comments[0].id }, // Update comment
+          { content: 'This is my second comment' }, // Create comment
+        ],
+      })
+    post = onUpdatePostWithComments
+    comments = onUpdatePostWithComments.comments
+    expect(onUpdatePostWithComments.comments.length).to.equal(2)
+  })
+
+  step('Should delete', async () => {
+    const onDeletePostWithComments = await Post.query()
+      .upsertGraphAndFetch({
+        id: post.id,
+        comments: [comments[0]], // Leave the other comment out to delete it
+      })
+    expect(onDeletePostWithComments.comments.length).to.equal(1)
   })
 })
