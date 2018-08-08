@@ -1,3 +1,4 @@
+import product from './product'
 import home from './home'
 import defaultRouter from './defaultRouter'
 import i18n from './i18n'
@@ -14,6 +15,7 @@ import './favicon'
 import Feature from './connector'
 
 export default new Feature(
+  product,
   home,
   defaultRouter,
   counter,

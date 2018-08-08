@@ -52,7 +52,7 @@ function copyFiles(logger, templatePath, module, location) {
 
     try {
       // prepend import module
-      indexContent = `import ${module} from './${module}';\n` + fs.readFileSync(indexPath)
+      indexContent = `import ${module} from './${module}'\n` + fs.readFileSync(indexPath)
     } catch (e) {
       logger.error(`Failed to read ${indexPath} file`)
       process.exit()
@@ -107,7 +107,7 @@ function deleteFiles(logger, templatePath, module, location) {
       // replace features modules on features without deleted module
       .replace(featureRegExp, `Feature(${featureModulesWithoutDeleted.toString().trim()})`)
       // remove import module
-      .replace(RegExp(`import ${module} from './${module}';\n`, 'g'), '')
+      .replace(RegExp(`import ${module} from './${module}'\n`, 'g'), '')
 
     fs.writeFileSync(indexPath, contentWithoutDeletedModule)
 

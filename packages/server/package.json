@@ -207,6 +207,7 @@
     "watch": "spin watch",
     "heroku-postbuild": "yarn build && yarn seed",
     "cli": "node ../../tools/cli",
-    "stripe:setup": "node src/server/modules/subscription/cli/stripeSetup"
+    "stripe:setup": "node src/server/modules/subscription/cli/stripeSetup",
+    "knex": "knex $*"
   }
 }

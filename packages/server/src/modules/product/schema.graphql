@@ -1,0 +1,25 @@
+extend type Query {
+  product(id: Int!): Product
+}
+
+extend type Mutation {
+  updateProduct(input: UpdateProductInput!): Product
+}
+
+extend type Subscription {
+  productUpdated(id: Int!): ProductUpdatedResponse
+}
+
+type Product {
+  id: Int!
+}
+
+input UpdateProductInput {
+  id: Int!
+}
+
+type ProductUpdatedResponse {
+  id: Int!
+  mutation: String!
+  node: Product
+}

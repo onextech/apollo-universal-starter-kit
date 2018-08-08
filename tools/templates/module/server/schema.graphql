@@ -1,5 +1,25 @@
-extend type Query {}
+extend type Query {
+  $module$(id: Int!): $Module$
+}
 
-extend type Mutation {}
+extend type Mutation {
+  update$Module$(input: Update$Module$Input!): $Module$
+}
 
-extend type Subscription {}
+extend type Subscription {
+  $module$Updated(id: Int!): $Module$UpdatedResponse
+}
+
+type $Module$ {
+  id: Int!
+}
+
+input Update$Module$Input {
+  id: Int!
+}
+
+type $Module$UpdatedResponse {
+  id: Int!
+  mutation: String!
+  node: $Module$
+}

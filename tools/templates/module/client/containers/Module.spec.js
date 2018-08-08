@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { step } from 'mocha-steps'
 import Renderer from '../../../../client/testHelpers/Renderer'
-import { updateContent } from "../../../../../packages/client/src/testHelpers/testUtils";
+import { updateContent } from '../../../../packages/client/src/testHelpers/testUtils'
 
 describe('$Module$ UI works', () => {
   const renderer = new Renderer({})

@@ -1,3 +1,4 @@
+import product from './product'
 import cookies from './cookies'
 import i18n from './i18n'
 import counter from './counter'
@@ -12,4 +13,16 @@ import './debug'
 
 import Feature from './connector'
 
-export default new Feature(cookies, i18n, counter, post, upload, user, subscription, contact, mailer, graphqlTypes)
+export default new Feature(
+  product,
+  cookies,
+  i18n,
+  counter,
+  post,
+  upload,
+  user,
+  subscription,
+  contact,
+  mailer,
+  graphqlTypes,
+)
