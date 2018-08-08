@@ -9,10 +9,6 @@ import PostForm from './PostForm'
 
 import settings from '../../../../../../settings'
 
-const onSubmit = (addPost) => (values) => {
-  addPost(values.title, values.content)
-}
-
 const PostAddView = ({ addPost, t }) => {
   const renderMetaData = () => (
     <Helmet
@@ -34,7 +30,7 @@ const PostAddView = ({ addPost, t }) => {
       <h2>
         {t(`post.label.create`)} {t('post.label.post')}
       </h2>
-      <PostForm onSubmit={onSubmit(addPost)} />
+      <PostForm onSubmit={(values) => addPost(values)} />
       <br />
     </PageLayout>
   )

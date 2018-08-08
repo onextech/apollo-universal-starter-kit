@@ -9,10 +9,6 @@ import PostForm from './PostForm'
 import PostComments from '../containers/PostComments'
 import settings from '../../../../../../settings'
 
-const onSubmit = (post, editPost) => (values) => {
-  editPost(post.id, values.title, values.content)
-}
-
 const PostEditView = ({ loading, post, match, location, subscribeToMore, editPost, t }) => {
   let postObj = post
   // if new post was just added read it from router
@@ -49,7 +45,7 @@ const PostEditView = ({ loading, post, match, location, subscribeToMore, editPos
         <h2>
           {t(`post.label.edit`)} {t('post.label.post')}
         </h2>
-        <PostForm onSubmit={onSubmit(postObj, editPost)} post={post} />
+        <PostForm onSubmit={(values) => editPost({ ...postObj, ...values })} post={post} />
         <br />
         {postObj && (
           <PostComments

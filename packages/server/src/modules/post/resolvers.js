@@ -30,7 +30,7 @@ export default (pubsub) => ({
       }
     },
     post(obj, { id }, context) {
-      return context.Post.post(id)
+      return context.Post.query().findById(id)
     },
   },
   Post: {
@@ -78,8 +78,7 @@ export default (pubsub) => ({
       }
     },
     async editPost(obj, { input }, context) {
-      await context.Post.editPost(input)
-      const post = await context.Post.post(input.id)
+      const post = await context.Post.query().patchAndFetchById(input.id, input)
       // publish for post list
       pubsub.publish(POSTS_SUBSCRIPTION, {
         postsUpdated: {

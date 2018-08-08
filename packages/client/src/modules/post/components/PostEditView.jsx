@@ -7,10 +7,6 @@ import translate from '../../../i18n'
 import PostForm from './PostForm'
 import PostComments from '../containers/PostComments'
 
-const onSubmit = (post, editPost) => (values) => {
-  editPost(post.id, values.title, values.content)
-}
-
 const PostEditView = ({ loading, post, navigation, subscribeToMore, editPost, t }) => {
   let postObj = post
   // if new post was just added read it from router
@@ -24,7 +20,7 @@ const PostEditView = ({ loading, post, navigation, subscribeToMore, editPost, t 
     return (
       <View style={styles.container}>
         <ScrollView>
-          <PostForm onSubmit={onSubmit(postObj, editPost)} post={post} />
+          <PostForm onSubmit={(values) => editPost({ ...postObj, ...values })} post={post} />
           {postObj && (
             <PostComments
               postId={navigation.state.params.id}

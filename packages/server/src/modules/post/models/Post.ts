@@ -7,7 +7,8 @@ export interface PostInterface extends Model {
   id: number
   title: string
   content: string
-  comments: CommentInterface[] | CommentInterface
+  image?: string
+  comments?: CommentInterface[] | CommentInterface
 }
 
 class Post extends Model implements PostInterface {
@@ -15,11 +16,12 @@ class Post extends Model implements PostInterface {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['title'],
+    required: ['title', 'content'],
     properties: {
       id: { type: 'integer' },
       title: { type: 'string', minLength: 1, maxLength: 255 },
       content: { type: 'string', minLength: 10 },
+      image: { type: 'string' },
     },
   }
 
@@ -43,8 +45,6 @@ class Post extends Model implements PostInterface {
 
   public static async postsPagination(limit: number, after: number): Promise<object> {
     return this.query()
-      .select('id', 'title', 'content')
-      .from('post')
       .orderBy('id', 'desc')
       .limit(limit)
       .offset(after)
@@ -59,10 +59,8 @@ class Post extends Model implements PostInterface {
     return orderedFor(res, postIds, 'postId', false)
   }
 
-  public static async post(id: number): Promise<object> {
+  public static async post(id: number): Promise<PostInterface> {
     return this.query()
-      .select('id', 'title', 'content')
-      .from('post')
       .where('id', '=', id)
       .first()
   }
@@ -76,13 +74,6 @@ class Post extends Model implements PostInterface {
     return this.query()
       .where('id', '=', id)
       .del()
-  }
-
-  public static async editPost(post: PostInterface): Promise<number> {
-    const { id, title, content } = post
-    return this.query()
-      .where('id', '=', id)
-      .update({ title, content })
   }
 
   public static async addComment(comment: CommentInterface): Promise<CommentInterface[] | CommentInterface> {

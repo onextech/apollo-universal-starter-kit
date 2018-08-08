@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { compose, graphql } from 'react-apollo'
-
 import PostEditView from '../components/PostEditView'
-
 import POST_QUERY from '../graphql/PostQuery.graphql'
 import EDIT_POST from '../graphql/EditPost.graphql'
 import POST_SUBSCRIPTION from '../graphql/PostSubscription.graphql'
@@ -60,16 +58,7 @@ class PostEdit extends React.Component {
     this.subscription = subscribeToMore({
       document: POST_SUBSCRIPTION,
       variables: { id: postId },
-      updateQuery: (
-        prev,
-        {
-          subscriptionData: {
-            data: {
-              postUpdated: { mutation },
-            },
-          },
-        }
-      ) => {
+      updateQuery: (prev, { subscriptionData: { data: { postUpdated: { mutation } } } }) => {
         if (mutation === 'DELETED') {
           if (history) {
             return history.push('/posts')
@@ -108,9 +97,10 @@ export default compose(
   }),
   graphql(EDIT_POST, {
     props: ({ ownProps: { history, navigation }, mutate }) => ({
-      editPost: async (id, title, content) => {
+      editPost: async (post) => {
+        const { id, title, content, image } = post
         await mutate({
-          variables: { input: { id, title: title.trim(), content: content.trim() } },
+          variables: { input: { id, title, content, image } },
         })
         if (history) {
           return history.push('/posts')

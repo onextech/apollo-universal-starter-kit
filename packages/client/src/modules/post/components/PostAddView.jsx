@@ -5,15 +5,11 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import translate from '../../../i18n'
 import PostForm from './PostForm'
 
-const onSubmit = (addPost) => (values) => {
-  addPost(values.title, values.content)
-}
-
 const PostAddView = ({ addPost }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <PostForm onSubmit={onSubmit(addPost)} />
+        <PostForm onSubmit={(values) => addPost(values)} />
       </ScrollView>
     </View>
   )

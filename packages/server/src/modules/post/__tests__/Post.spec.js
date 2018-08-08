@@ -34,6 +34,7 @@ describe('Post and comments example API works', () => {
               id: 20,
               title: 'Post title 20',
               content: 'Post content 20',
+              image: null,
               __typename: 'Post',
             },
             __typename: 'PostEdges',
@@ -56,6 +57,7 @@ describe('Post and comments example API works', () => {
         id: 1,
         title: 'Post title 1',
         content: 'Post content 1',
+        image: null,
         __typename: 'Post',
         comments: [
           {
@@ -101,6 +103,7 @@ describe('Post and comments example API works', () => {
                   id: 21,
                   title: 'New post 1',
                   content: 'New post content 1',
+                  image: null,
                   __typename: 'Post',
                 },
                 __typename: 'UpdatePostPayload',
@@ -152,6 +155,7 @@ describe('Post and comments example API works', () => {
                   id: 21,
                   title: 'New post 2',
                   content: 'New post content 2',
+                  image: null,
                   __typename: 'Post',
                 },
                 __typename: 'UpdatePostPayload',
@@ -194,7 +198,6 @@ describe('Post and comments example API works', () => {
       })
       .subscribe({
         next(data) {
-          console.log('data', data)
           expect(data).to.deep.equal({
             data: {
               commentUpdated: {
@@ -239,6 +242,7 @@ describe('Post and comments example API works', () => {
                   id: 21,
                   title: 'New post 2',
                   content: 'New post content 2',
+                  image: null,
                   __typename: 'Post',
                 },
                 __typename: 'UpdatePostPayload',

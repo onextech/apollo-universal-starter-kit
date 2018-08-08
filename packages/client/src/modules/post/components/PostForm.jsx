@@ -52,6 +52,7 @@ const PostFormWithFormik = withFormik({
   mapPropsToValues: (props) => ({
     title: props.post && props.post.title,
     content: props.post && props.post.content,
+    image: props.post && props.post.image,
   }),
   validate: (values) => validate(values),
   handleSubmit: (values, { props: { onSubmit } }) => onSubmit(values),
