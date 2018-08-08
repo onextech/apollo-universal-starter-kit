@@ -46,8 +46,24 @@ export default (pubsub) => ({
   },
   Mutation: {
     uploadFiles: async (obj, { files }, { Upload }) => {
-      const results = await Promise.all(files.map(processUpload))
-      return Upload.saveFiles(results)
+      const uploadedFiles = await Promise.all(files.map(processUpload))
+      // console.log('result at uploadFiles', results)
+      // const results = [
+      //   {
+      //     name: 'mojave.jpg',
+      //     type: 'image/jpeg',
+      //     path: 'public/SJh2WXOHm-mojave.jpg',
+      //     size: 275058,
+      //   },
+      // ]
+      // TODO: Move save action to downstream-consuming module
+      const mapPathToSrc = (file) => {
+        const { path } = file
+        return { ...file, src: `${__WEBSITE_URL__}/${path}` }
+      }
+      const result = uploadedFiles.map(mapPathToSrc)
+      return { files: result }
+      // return Upload.saveFiles(files)
     },
     removeFile: async (obj, { id }, { Upload }) => {
       const file = await Upload.file(id)

@@ -6,13 +6,18 @@ type File {
   type: String!
   size: Int!
   path: String!
+  src: String!
 }
 
 extend type Query {
   files: [File]
 }
 
+type FilePayload {
+  files: [File]
+}
+
 extend type Mutation {
-  uploadFiles(files: [FileUpload!]!): Boolean!
+  uploadFiles(files: [FileUpload!]!): FilePayload!
   removeFile(id: Int!): Boolean!
 }
