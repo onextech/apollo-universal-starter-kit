@@ -55,7 +55,7 @@ const RenderUpload = (props: RenderUploadProps) => {
               const { data: { uploadFiles: { files: uploadedFiles } } } = result
               const uploadedFile = uploadedFiles[0]
               const { src } = uploadedFile
-              setFieldValue(name, src)
+              return setFieldValue(name, src)
             }
           } catch (e) {
             return { error: e.graphQLErrors[0].message }

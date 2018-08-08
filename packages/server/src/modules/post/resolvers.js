@@ -40,13 +40,12 @@ export default (pubsub) => ({
   },
   Mutation: {
     async addPost(obj, { input }, context) {
-      const { id } = await context.Post.addPost(input)
-      const post = await context.Post.post(id)
+      const post = await context.Post.query().insert(input)
       // publish for post list
       pubsub.publish(POSTS_SUBSCRIPTION, {
         postsUpdated: {
           mutation: 'CREATED',
-          id,
+          id: post.id,
           node: post,
         },
       })

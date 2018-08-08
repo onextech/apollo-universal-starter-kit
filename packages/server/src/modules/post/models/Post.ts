@@ -65,11 +65,6 @@ class Post extends Model implements PostInterface {
       .first()
   }
 
-  public static async addPost(post: PostInterface): Promise<PostInterface> {
-    const { title, content } = post
-    return this.query().insert({ title, content })
-  }
-
   public static async deletePost(id: number): Promise<number> {
     return this.query()
       .where('id', '=', id)
