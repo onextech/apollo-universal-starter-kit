@@ -1,5 +1,20 @@
 {
   "title": "Product",
   "meta": "product",
-  "navLink": "Products"
+  "navLink": "Products",
+  "loadMsg": "Loading ...",
+  "list": {
+    "title": "Products",
+    "subTitle": "Product List",
+    "meta": "List of all products",
+    "column": {
+      "title": "Title",
+      "actions": "Actions"
+    },
+    "btn": {
+      "add": "Add Product",
+      "del": "Delete",
+      "more": "Load more ..."
+    }
+  }
 }

@@ -1,12 +1,11 @@
 import { expect } from 'chai'
 import { getServer, getApollo } from '../../../testHelpers/integrationSetup'
 import { Product } from '../models'
-
-import GET_PRODUCTS from '../../../../../client/src/modules/product/graphql/ProductsQuery.graphql'
+import PRODUCTS_QUERY from '../../../../../client/src/modules/product/graphql/ProductsQuery.graphql'
+import PRODUCTS_SUBSCRIPTION from '../../../../../client/src/modules/product/graphql/ProductsSubscription.graphql'
 import CREATE_PRODUCT from '../../../../../client/src/modules/product/graphql/CreateProduct.graphql'
 import UPDATE_PRODUCT from '../../../../../client/src/modules/product/graphql/UpdateProduct.graphql'
 import DELETE_PRODUCT from '../../../../../client/src/modules/product/graphql/DeleteProduct.graphql'
-import PRODUCTS_UPDATED from '../../../../../client/src/modules/product/graphql/ProductsSubscription.graphql'
 
 const mockProduct = {
   title: 'My Product 1',
@@ -69,7 +68,7 @@ describe('Product API works', () => {
 
   it('Should list', async () => {
     const onQuery = await apollo.query({
-      query: GET_PRODUCTS,
+      query: PRODUCTS_QUERY,
       variables: { limit: 10, after: 0 },
     })
     const { data: { products: { edges } } } = onQuery
@@ -105,7 +104,7 @@ describe('Product API works', () => {
 
     subscription = apollo
       .subscribe({
-        query: PRODUCTS_UPDATED,
+        query: PRODUCTS_SUBSCRIPTION,
         variables: { endCursor: 1 },
       })
       .subscribe({

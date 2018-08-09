@@ -5,26 +5,40 @@ import reducers from './reducers'
 import Feature from '../connector'
 import translate from '../../i18n'
 import resources from './locales'
-import { AuthRoute, IfLoggedIn } from '../user/containers/Auth'
-import AdminProducts from './containers/AdminProducts'
+import { IfLoggedIn, AdminRoute } from '../user/containers/Auth'
+import { AdminProducts, AdminProduct, CreateAdminProduct } from './containers'
+
+const meta = {
+  name: 'Product',
+  singular: 'product',
+  plural: 'products',
+}
+
+const components = {
+  list: AdminProducts,
+  detail: AdminProduct,
+  new: CreateAdminProduct,
+}
 
 const NavLinkWithI18n = translate('product')(({ t }) => (
-  <NavLink to='/admin/products' className='nav-link' activeClassName='active'>
+  <NavLink to={`/admin/${meta.plural}`} className='nav-link' activeClassName='active'>
     {t('navLink')}
   </NavLink>
 ))
 
 export default new Feature({
   route: [
-    <AuthRoute exact path='/admin/products' redirect='/' role='admin' component={AdminProducts} />,
+    <AdminRoute exact path={`/admin/${meta.plural}`} component={components.list} />,
+    <AdminRoute exact path={`/admin/${meta.plural}/new`} component={components.new} />,
+    <AdminRoute path={`/admin/${meta.plural}/:id`} component={components.detail} />,
   ],
   navItem: (
-    <IfLoggedIn key='products' role='admin'>
+    <IfLoggedIn key={meta.plural} role='admin'>
       <MenuItem>
         <NavLinkWithI18n />
       </MenuItem>
     </IfLoggedIn>
   ),
-  reducer: { product: reducers },
-  localization: { ns: 'product', resources },
+  reducer: { [meta.singular]: reducers },
+  localization: { ns: meta.singular, resources },
 })

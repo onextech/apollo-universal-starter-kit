@@ -1,8 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
-
 import { withLoadedUser } from './AuthBase'
+
+const isRoleMatch = (role, currentUser) => {
+  if (!role) {
+    return true
+  }
+  return currentUser && (Array.isArray(role) ? role : [role]).includes(currentUser.role)
+}
 
 const AuthRoute = withLoadedUser(
   ({ currentUser, role, redirect = '/login', redirectOnLoggedIn, component: Component, ...rest }) => {
@@ -29,12 +35,11 @@ AuthRoute.propTypes = {
   redirectOnLoggedIn: PropTypes.bool,
 }
 
-const isRoleMatch = (role, currentUser) => {
-  if (!role) {
-    return true
-  }
-  return currentUser && (Array.isArray(role) ? role : [role]).includes(currentUser.role)
+const AdminRoute = (props) => {
+  return (
+    <AuthRoute role='admin' {...props} />
+  )
 }
 
 export * from './AuthBase'
-export { AuthRoute }
+export { AuthRoute, AdminRoute }
