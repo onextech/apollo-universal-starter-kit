@@ -3,4 +3,6 @@ fragment Product on Product {
   createdAt
   updatedAt
   title
+  description
+  image
 }
