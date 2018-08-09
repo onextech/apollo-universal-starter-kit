@@ -5,7 +5,7 @@ import reducers from './reducers'
 import Feature from '../connector'
 import translate from '../../packages/client/src/i18n'
 import resources from './locales'
-import { AuthRoute } from '../user/containers/Auth'
+import { AuthRoute, IfLoggedIn } from '../user/containers/Auth'
 import Admin$Module$s from './containers/Admin$Module$s'
 
 const NavLinkWithI18n = translate('product')(({ t }) => (
@@ -15,11 +15,15 @@ const NavLinkWithI18n = translate('product')(({ t }) => (
 ))
 
 export default new Feature({
-  route: <AuthRoute exact path='/admin/$module$s' redirect='/' component={Admin$Module$s} />,
+  route: [
+    <AuthRoute exact path='/admin/$module$s' redirect='/' component={Admin$Module$s} />,
+  ],
   navItem: (
-    <MenuItem key='$module$'>
-      <NavLinkWithI18n />
-    </MenuItem>
+    <IfLoggedIn key='$module$s' role='admin'>
+      <MenuItem key='$module$'>
+        <NavLinkWithI18n />
+      </MenuItem>
+    </IfLoggedIn>
   ),
   reducer: { $module$: reducers },
   localization: { ns: '$module$', resources },
