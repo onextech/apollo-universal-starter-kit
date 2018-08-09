@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { Link } from 'react-router-dom'
-import { PageLayout, Table, Pagination } from '../../../common/components/web/'
+import { PageLayout, Pagination, CardGrid } from '../../../common/components/web'
 import translate from '../../../../i18n/index'
 import settings from '../../../../../../../settings'
 import paginationConfig from '../../../../../../../config/pagination'
@@ -53,22 +52,12 @@ class Products extends React.PureComponent {
         </PageLayout>
       )
     } else {
-      const columns = [
-        {
-          title: t('list.column.title'),
-          dataIndex: 'title',
-          key: 'title',
-          render: (text, record) => (
-            <Link className='product-link' to={`/products/${record.id}`}>{text}</Link>
-          ),
-        },
-      ]
       return (
         <PageLayout container>
           {this.renderMetaData()}
           <h1>{t('list.title')}</h1>
           <p>{t('list.subtitle')}</p>
-          <Table dataSource={products.edges.map(({ node }) => node)} columns={columns} />
+          <CardGrid dataSource={products.edges.map(({ node }) => node)} />
           <Pagination
             itemsPerPage={products.edges.length}
             handlePageChange={this.handlePageChange}
