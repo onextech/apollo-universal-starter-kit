@@ -1,0 +1,7 @@
+#import "./Product.graphql"
+
+query product($id: Int!) {
+    product(id: $id) {
+        ...Product
+    }
+}

@@ -336,11 +336,10 @@ Check [subscription module documentation](packages/client/src/modules/subscripti
 
   If you would like to use a different styling than [Twitter Bootstrap], UI components are structured in a way to make
   it easy to use something else. We already prepared [Ant Design] integation. To switch the UI all you need to do is
-  rename the import in `packages/client/src/modules/common/components/web/index.jsx`.
+  rename the import in `packages/client/src/modules/common/components/web/Productsx`.
 
   [NativeBase] for mobile styling, with an option to use [Ant Design Mobile]. To switch, just change the export in
-  `packages/client/src/modules/common/components/native/index.jsx`.
-
+  `packages/client/src/modules/common/components/native/Products.jsx
 * [Babel] for ES2017 transpiling
 
 * [ESLint] to enforce proper code style

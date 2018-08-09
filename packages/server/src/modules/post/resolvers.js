@@ -110,13 +110,7 @@ export default (pubsub) => ({
       })
       return comment
     },
-    async deleteComment(
-      obj,
-      {
-        input: { id, postId },
-      },
-      context
-    ) {
+    async deleteComment(obj, { input: { id, postId } }, context) {
       await context.Post.deleteComment(id)
       // publish for edit post page
       pubsub.publish(COMMENT_SUBSCRIPTION, {

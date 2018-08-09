@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
 import update from 'immutability-helper'
-import ProductList from '../components/ProductList'
-import PRODUCTS_QUERY from '../graphql/ProductsQuery.graphql'
-import PRODUCTS_SUBSCRIPTION from '../graphql/ProductsSubscription.graphql'
-import DELETE_PRODUCT from '../graphql/DeleteProduct.graphql'
-import paginationConfig from '../../../../../../config/pagination'
-import { PLATFORM } from '../../../../../common/utils'
+import ProductList from '../components/Products'
+import PRODUCTS_QUERY from '../../graphql/ProductsQuery.graphql'
+import PRODUCTS_SUBSCRIPTION from '../../graphql/ProductsSubscription.graphql'
+import DELETE_PRODUCT from '../../graphql/DeleteProduct.graphql'
+import paginationConfig from '../../../../../../../config/pagination'
+import { PLATFORM } from '../../../../../../common/utils'
 
 const limit =
   PLATFORM === 'web' || PLATFORM === 'server' ? paginationConfig.web.itemsNumber : paginationConfig.mobile.itemsNumber

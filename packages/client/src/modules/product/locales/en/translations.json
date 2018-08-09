@@ -16,5 +16,26 @@
       "del": "Delete",
       "more": "Load more ..."
     }
+  },
+  "product": {
+    "title": "Edit product",
+    "meta": "Edit product example page",
+    "loadMsg": "Loading...",
+    "btn": {
+      "edit": "Edit",
+      "submit": "Save",
+      "del": "Delete",
+      "back": "Back"
+    },
+    "label": {
+      "edit": "Edit",
+      "create": "Create",
+      "product": "Product"
+    },
+    "field": {
+      "title": "Title",
+      "description": "Description",
+      "image": "Image"
+    }
   }
 }

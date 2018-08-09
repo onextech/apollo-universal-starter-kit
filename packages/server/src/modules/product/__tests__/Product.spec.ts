@@ -1,7 +1,9 @@
 import { expect } from 'chai'
 import { getServer, getApollo } from '../../../testHelpers/integrationSetup'
 import { Product } from '../models'
+import PRODUCT_QUERY from '../../../../../client/src/modules/product/graphql/ProductQuery.graphql'
 import PRODUCTS_QUERY from '../../../../../client/src/modules/product/graphql/ProductsQuery.graphql'
+import PRODUCT_SUBSCRIPTION from '../../../../../client/src/modules/product/graphql/ProductSubscription.graphql'
 import PRODUCTS_SUBSCRIPTION from '../../../../../client/src/modules/product/graphql/ProductsSubscription.graphql'
 import CREATE_PRODUCT from '../../../../../client/src/modules/product/graphql/CreateProduct.graphql'
 import UPDATE_PRODUCT from '../../../../../client/src/modules/product/graphql/UpdateProduct.graphql'
@@ -66,6 +68,15 @@ describe('Product API works', () => {
     expect(product).to.have.property('createdAt')
   })
 
+  it('Should get', async () => {
+    const onQuery = await apollo.query({
+      query: PRODUCT_QUERY,
+      variables: { id: product.id },
+    })
+    const { data: { product: fetchedProduct } } = onQuery
+    expect(fetchedProduct).to.deep.equal(product)
+  })
+
   it('Should list', async () => {
     const onQuery = await apollo.query({
       query: PRODUCTS_QUERY,
@@ -96,10 +107,10 @@ describe('Product API works', () => {
     expect(deleteProduct.id).to.equal(product.id)
   })
 
-  it('Should publish on create', (done) => {
+  it('Should pubsub on create', (done) => {
     apollo.mutate({
       mutation: CREATE_PRODUCT,
-      variables: { input: mockProduct2 },
+      variables: { input: mockProduct },
     })
 
     subscription = apollo
@@ -111,7 +122,65 @@ describe('Product API works', () => {
         next: (data: any) => {
           const { data: { productsUpdated } } = data
           expect(productsUpdated.mutation).to.equal('CREATED')
-          expect(productsUpdated.node.title).to.equal(mockProduct2.title)
+          expect(productsUpdated.node.title).to.equal(mockProduct.title)
+          product = productsUpdated.node
+          subscription.unsubscribe()
+          expect(subscription).to.have.property('_state', 'closed')
+          done()
+        },
+      })
+
+    expect(subscription).to.have.property('_state', 'ready')
+    expect(subscription._observer).to.have.property('next')
+  })
+
+  it('Should pubsub on update', (done) => {
+    const { id } = product
+
+    apollo.mutate({
+      mutation: UPDATE_PRODUCT,
+      variables: { input: { id, ...mockProduct2 } },
+    })
+
+    subscription = apollo
+      .subscribe({
+        query: PRODUCT_SUBSCRIPTION,
+        variables: { id },
+      })
+      .subscribe({
+        next: (data: any) => {
+          const { data: { productUpdated } } = data
+          expect(productUpdated.mutation).to.equal('UPDATED')
+          expect(productUpdated.node.title).to.equal(mockProduct2.title)
+          product = productUpdated.node
+          subscription.unsubscribe()
+          expect(subscription).to.have.property('_state', 'closed')
+          done()
+        },
+      })
+
+    expect(subscription).to.have.property('_state', 'ready')
+    expect(subscription._observer).to.have.property('next')
+  })
+
+  it('Should pubsub on delete', (done) => {
+    const { id } = product
+
+    apollo.mutate({
+      mutation: DELETE_PRODUCT,
+      variables: { input: { id } },
+    })
+
+    subscription = apollo
+      .subscribe({
+        query: PRODUCTS_SUBSCRIPTION,
+        variables: { endCursor: 1 },
+      })
+      .subscribe({
+        next: (data: any) => {
+          const { data: { productsUpdated } } = data
+          expect(productsUpdated.mutation).to.equal('DELETED')
+          expect(productsUpdated.node.id).to.equal(id)
           subscription.unsubscribe()
           expect(subscription).to.have.property('_state', 'closed')
           done()

@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router-dom'
-import { PageLayout, Table, Button, Pagination } from '../../../common/components/web'
-import translate from '../../../../i18n'
+import { PageLayout, Table, Button, Pagination } from '../../../common/components/web/index'
+import translate from '../../../../i18n/index'
 import settings from '../../../../../../../settings'
 import paginationConfig from '../../../../../../../config/pagination'
 
 const { itemsNumber, type } = paginationConfig.web
 
-class ProductList extends React.PureComponent {
+class Products extends React.PureComponent {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
     products: PropTypes.object,
@@ -113,4 +113,4 @@ class ProductList extends React.PureComponent {
   }
 }
 
-export default translate('product')(ProductList)
+export default translate('product')(Products)

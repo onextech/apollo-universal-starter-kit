@@ -1,0 +1,11 @@
+#import "./Product.graphql"
+
+subscription ProductUpdated($id: Int!) {
+    productUpdated(id: $id) {
+        id
+        mutation
+        node {
+            ...Product
+        }
+    }
+}

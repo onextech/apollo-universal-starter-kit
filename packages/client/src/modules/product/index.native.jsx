@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons'
 import { createTabBarIconWrapper } from '../common/components/native'
-import AdminProducts from './containers/AdminProducts'
+import AdminProducts from './admin/containers/Products'
 import reducers from './reducers'
 
 import Feature from '../connector'

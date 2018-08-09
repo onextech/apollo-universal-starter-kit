@@ -6,7 +6,7 @@ import Feature from '../connector'
 import translate from '../../i18n'
 import resources from './locales'
 import { IfLoggedIn, AdminRoute } from '../user/containers/Auth'
-import { AdminProducts, AdminProduct, CreateAdminProduct } from './containers'
+import { AdminProducts, AdminProduct, CreateAdminProduct } from './admin/containers'
 
 const meta = {
   name: 'Product',
