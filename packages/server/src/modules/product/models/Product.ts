@@ -1,13 +1,12 @@
 import Model from '../../model'
 
 export interface ProductInterface extends Model {
-  id: number
   title: string
-  slug: string
-  description: string
-  image: string
-  price: number
-  quantity: number
+  slug?: string
+  description?: string
+  image?: string
+  price?: number
+  quantity?: number
 }
 
 class Product extends Model implements ProductInterface {
@@ -18,22 +17,23 @@ class Product extends Model implements ProductInterface {
     required: ['title'],
     properties: {
       id: { type: 'integer' },
-      title: { type: 'string' },
+      createdAt: { type: 'timestamp' },
+      updatedAt: { type: 'timestamp' },
+      title: { type: 'string', minLength: 1, maxLength: 255 },
       slug: { type: 'string' },
-      description: { type: 'string' },
+      description: { type: 'string', minLength: 10 },
       image: { type: 'string' },
-      price: { type: 'decimal' },
-      quantity: { type: 'integer' },
+      price: { type: 'decimal', min: 0 },
+      quantity: { type: 'integer', min: 0 },
     },
   }
 
-  public id: number
   public title: string
-  public slug: string
-  public description: string
-  public image: string
-  public price: number
-  public quantity: number
+  public slug?: string
+  public description?: string
+  public image?: string
+  public price?: number
+  public quantity?: number
 }
 
 export default Product

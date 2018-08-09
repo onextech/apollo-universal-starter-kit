@@ -30,7 +30,7 @@ describe('$Module$ CRUD works', () => {
     expect(onFetch.id).to.be.equal($module$.id)
   })
 
-  it('should update', async () => {
+  it('Should update', async () => {
     const onUpdate = await $Module$.query().patchAndFetchById($module$.id, mock$Module$2)
     expect(onUpdate.updatedAt).to.not.be.equal($module$.updatedAt)
   })

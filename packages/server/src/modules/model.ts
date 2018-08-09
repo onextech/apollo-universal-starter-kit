@@ -1,8 +1,9 @@
 import { Model as ObjectionModel, snakeCaseMappers } from 'objection'
 
 export interface ModelInterface {
-  createdAt: string
-  updatedAt: string
+  id: number
+  createdAt?: string
+  updatedAt?: string
 }
 
 class Model extends ObjectionModel implements ModelInterface {
@@ -12,8 +13,9 @@ class Model extends ObjectionModel implements ModelInterface {
    */
   public static columnNameMappers = snakeCaseMappers()
 
-  public createdAt: string
-  public updatedAt: string
+  public id: number
+  public createdAt?: string
+  public updatedAt?: string
 
   public $beforeInsert() {
     this.createdAt = new Date().toISOString()

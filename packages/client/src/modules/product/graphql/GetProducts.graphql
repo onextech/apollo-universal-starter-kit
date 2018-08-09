@@ -1,0 +1,18 @@
+#import "./Product.graphql"
+
+query products {
+  products {
+    ...Product
+#    totalCount
+#    edges {
+#      cursor
+#      node {
+#        ...Product
+#      }
+#    }
+#    pageInfo {
+#      endCursor
+#      hasNextPage
+#    }
+  }
+}

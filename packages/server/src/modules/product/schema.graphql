@@ -1,9 +1,12 @@
 extend type Query {
   product(id: Int!): Product
+  products: [Product]
 }
 
 extend type Mutation {
   updateProduct(input: UpdateProductInput!): Product
+  createProduct(input: CreateProductInput!): Product
+  deleteProduct(input: DeleteProductInput!): ProductDeletedResponse
 }
 
 extend type Subscription {
@@ -12,9 +15,21 @@ extend type Subscription {
 
 type Product {
   id: Int!
+  createdAt: String!
+  updatedAt: String!
+  title: String!
+}
+
+input CreateProductInput {
+  title: String!
 }
 
 input UpdateProductInput {
+  id: Int!
+  title: String!
+}
+
+input DeleteProductInput {
   id: Int!
 }
 
@@ -22,4 +37,8 @@ type ProductUpdatedResponse {
   id: Int!
   mutation: String!
   node: Product
+}
+
+type ProductDeletedResponse {
+  id: Int!
 }
