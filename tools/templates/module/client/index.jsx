@@ -5,6 +5,7 @@ import $Module$ from './containers/$Module$'
 import reducers from './reducers'
 import Feature from '../connector'
 import translate from '../../packages/client/src/i18n'
+import resources from './locales'
 
 const NavLinkWithI18n = translate('product')(({ t }) => (
   <NavLink to='/$module$' className='nav-link' activeClassName='active'>
@@ -19,5 +20,6 @@ export default new Feature({
       <NavLinkWithI18n />
     </MenuItem>
   ),
-  reducer: { $module$: reducers }
+  reducer: { $module$: reducers },
+  localization: { ns: '$module$', resources },
 })
