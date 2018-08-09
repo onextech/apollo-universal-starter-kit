@@ -7,7 +7,7 @@ import translate from '../../../../i18n'
 import { PageLayout } from '../../../common/components/web'
 import ProductForm from './ProductForm'
 
-const Product = ({ loading, product, location, editProduct, t }) => {
+const Product = ({ loading, product, location, updateProduct, t }) => {
   let productObj = product
   // if new product was just added read it from router
   if (!productObj && location.state) {
@@ -39,7 +39,7 @@ const Product = ({ loading, product, location, editProduct, t }) => {
         {renderMetaData()}
         <Link id='back-button' to='/admin/products'>{t('product.btn.back')}</Link>
         <h2>{t(`product.label.edit`)} {t('product.label.product')}</h2>
-        <ProductForm onSubmit={(values) => editProduct({ ...productObj, ...values })} product={product} />
+        <ProductForm onSubmit={(values) => updateProduct({ ...productObj, ...values })} product={product} />
       </PageLayout>
     )
   }
@@ -48,7 +48,7 @@ const Product = ({ loading, product, location, editProduct, t }) => {
 Product.propTypes = {
   loading: PropTypes.bool.isRequired,
   product: PropTypes.object,
-  editProduct: PropTypes.func.isRequired,
+  updateProduct: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   subscribeToMore: PropTypes.func.isRequired,

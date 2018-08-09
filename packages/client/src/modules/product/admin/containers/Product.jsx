@@ -40,6 +40,7 @@ class ProductContainer extends React.Component {
 
   componentWillUnmount() {
     if (this.subscription) {
+
       // unsubscribe
       this.subscription()
       this.subscription = null
