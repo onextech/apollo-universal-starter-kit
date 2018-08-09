@@ -373,7 +373,7 @@ aims to represent generally accepted guidelines and patterns for building scalab
 │   │       │                  # (components, containers, GraphQL queries, redux reducers)
 │   │       ├── styles         # Application-wide styles
 │   │       ├── testHelpers    # Test helper for front-end integration tests
-│   │       └── index.tsx      # Entry point to web front-end with hot code reload
+│   │       └── index.jsx      # Entry point to web front-end with hot code reload
 │   ├── common                 # Yarn package with Common code, redux store and logging
 │   ├── mobile                 # Mobile front-end Yarn package
 │   |   └── src

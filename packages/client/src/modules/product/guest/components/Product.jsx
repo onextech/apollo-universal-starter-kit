@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom'
 import settings from '../../../../../../../settings'
 import translate from '../../../../i18n'
 import { PageLayout } from '../../../common/components/web'
-import ProductForm from './ProductForm'
 
-const Product = ({ loading, product, location, updateProduct, t }) => {
+const Product = ({ loading, product, location, t }) => {
   let productObj = product
   // if new product was just added read it from router
   if (!productObj && location.state) {
@@ -36,9 +35,9 @@ const Product = ({ loading, product, location, updateProduct, t }) => {
     return (
       <PageLayout container>
         {renderMetaData()}
-        <Link id='back-button' to='/admin/products'>{t('product.btn.back')}</Link>
-        <h2>{t(`product.label.edit`)} {t('product.label.product')}</h2>
-        <ProductForm onSubmit={(values) => updateProduct({ ...productObj, ...values })} product={product} />
+        <Link id='back-button' to='/products'>{t('product.btn.back')}</Link>
+        <h2>{t('product.label.product')}</h2>
+        <p>{JSON.stringify(product)}</p>
       </PageLayout>
     )
   }
@@ -47,7 +46,6 @@ const Product = ({ loading, product, location, updateProduct, t }) => {
 Product.propTypes = {
   loading: PropTypes.bool.isRequired,
   product: PropTypes.object,
-  updateProduct: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   t: PropTypes.func,
 }

@@ -1,4 +1,4 @@
-import product from './product'
+import product from './product/index'
 import home from './home'
 import defaultRouter from './defaultRouter'
 import i18n from './i18n'

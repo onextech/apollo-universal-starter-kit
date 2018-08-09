@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router-dom'
-import { PageLayout, Table, Button, Pagination } from '../../../common/components/web'
-import translate from '../../../../i18n'
+import { PageLayout, Table, Pagination } from '../../../common/components/web/'
+import translate from '../../../../i18n/index'
 import settings from '../../../../../../../settings'
 import paginationConfig from '../../../../../../../config/pagination'
 
@@ -13,14 +13,8 @@ class Products extends React.PureComponent {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
     products: PropTypes.object,
-    deleteProduct: PropTypes.func.isRequired,
     loadData: PropTypes.func,
     t: PropTypes.func,
-  };
-
-  handleDeleteProduct = (id) => {
-    const { deleteProduct } = this.props
-    deleteProduct(id)
   };
 
   renderMetaData = () => {
@@ -29,10 +23,7 @@ class Products extends React.PureComponent {
       <Helmet
         title={`${settings.app.name} - ${t('list.title')}`}
         meta={[
-          {
-            name: 'description',
-            content: `${settings.app.name} - ${t('list.meta')}`,
-          },
+          { name: 'description', content: `${settings.app.name} - ${t('list.meta')}` },
         ]}
       />
     )
@@ -68,35 +59,15 @@ class Products extends React.PureComponent {
           dataIndex: 'title',
           key: 'title',
           render: (text, record) => (
-            <Link className='product-link' to={`/admin/products/${record.id}`}>
-              {text}
-            </Link>
-          ),
-        },
-        {
-          title: t('list.column.actions'),
-          key: 'actions',
-          width: 50,
-          render: (text, record) => (
-            <Button
-              color='primary'
-              size='sm'
-              className='delete-button'
-              onClick={() => this.handleDeleteProduct(record.id)}
-            >
-              {t('list.btn.del')}
-            </Button>
+            <Link className='product-link' to={`/products/${record.id}`}>{text}</Link>
           ),
         },
       ]
       return (
         <PageLayout container>
           {this.renderMetaData()}
-          <h2>{t('list.title')}</h2>
+          <h1>{t('list.title')}</h1>
           <p>{t('list.subtitle')}</p>
-          <Link to='/admin/products/new'>
-            <Button color='primary'>{t('list.btn.add')}</Button>
-          </Link>
           <Table dataSource={products.edges.map(({ node }) => node)} columns={columns} />
           <Pagination
             itemsPerPage={products.edges.length}

@@ -5,7 +5,6 @@ import update from 'immutability-helper'
 import Products from '../components/Products'
 import PRODUCTS_QUERY from '../../graphql/ProductsQuery.graphql'
 import PRODUCTS_SUBSCRIPTION from '../../graphql/ProductsSubscription.graphql'
-import DELETE_PRODUCT from '../../graphql/DeleteProduct.graphql'
 import paginationConfig from '../../../../../../../config/pagination'
 import { PLATFORM } from '../../../../../../common/utils'
 
@@ -95,20 +94,16 @@ class ProductsContainer extends React.Component {
 
   subscribeToProductList = (endCursor) => {
     const { subscribeToMore } = this.props
-
     this.subscription = subscribeToMore({
       document: PRODUCTS_SUBSCRIPTION,
       variables: { endCursor },
-      updateQuery: (
-        prev,
-        {
-          subscriptionData: {
-            data: {
-              productsUpdated: { mutation, node },
-            },
+      updateQuery: (prev, {
+        subscriptionData: {
+          data: {
+            productsUpdated: { mutation, node },
           },
-        }
-      ) => {
+        },
+      }) => {
         let newResult = prev
 
         if (mutation === 'CREATED') {
@@ -165,32 +160,4 @@ export default compose(
       return { loading, products, subscribeToMore, loadData }
     },
   }),
-  graphql(DELETE_PRODUCT, {
-    props: ({ mutate }) => ({
-      deleteProduct: (id) => {
-        mutate({
-          variables: { input: { id } },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            deleteProduct: {
-              id: id,
-              __typename: 'Product',
-            },
-          },
-          updateQueries: {
-            products: (
-              prev,
-              {
-                mutationResult: {
-                  data: { deleteProduct },
-                },
-              }
-            ) => {
-              return DeleteProduct(prev, deleteProduct.id)
-            },
-          },
-        })
-      },
-    }),
-  })
 )(ProductsContainer)

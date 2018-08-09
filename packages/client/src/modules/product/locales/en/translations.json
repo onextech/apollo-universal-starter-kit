@@ -4,8 +4,8 @@
   "navLink": "Products",
   "loadMsg": "Loading ...",
   "list": {
-    "title": "Products",
-    "subTitle": "Product List",
+    "title": "Product List",
+    "subtitle": "List of all products",
     "meta": "List of all products",
     "column": {
       "title": "Title",
