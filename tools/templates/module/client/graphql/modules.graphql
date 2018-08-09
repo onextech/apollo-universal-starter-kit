@@ -1,7 +1,0 @@
-#import "./$Module$.graphql"
-
-{
-  $modules$ {
-    ...$Module$
-  }
-}

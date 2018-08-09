@@ -36,7 +36,7 @@ class Post extends Model implements PostInterface {
   public id: number
   public title: string
   public content: string
-  public comments: CommentInterface[]
+  public comments: CommentInterface[] | CommentInterface
 
   public static async getTotal(): Promise<number> {
     const query: any = await this.query().count('id as count').first()

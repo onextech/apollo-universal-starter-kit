@@ -1,3 +1,9 @@
 fragment Product on Product {
   id
+  title
+  slug
+  description
+  image
+  price
+  quantity
 }

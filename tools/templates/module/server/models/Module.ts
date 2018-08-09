@@ -1,5 +1,5 @@
 /* tslint:disable:no-implicit-dependencies */
-import { Model } from 'objection'
+import Model from '../../model'
 
 export interface $Module$Interface extends Model {
   id: number

@@ -1,4 +1,4 @@
-import $Module$ from './models'
+import { $Module$ } from './models'
 import schema from './schema.graphql'
 import createResolvers from './resolvers'
 import Feature from '../connector'
