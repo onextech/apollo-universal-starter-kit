@@ -2,11 +2,11 @@ import { expect } from 'chai'
 import { getServer, getApollo } from '../../../testHelpers/integrationSetup'
 import { Product } from '../models'
 
-import GET_PRODUCTS from '../../../../../client/src/modules/product/graphql/GetProducts.graphql'
+import GET_PRODUCTS from '../../../../../client/src/modules/product/graphql/ProductsQuery.graphql'
 import CREATE_PRODUCT from '../../../../../client/src/modules/product/graphql/CreateProduct.graphql'
 import UPDATE_PRODUCT from '../../../../../client/src/modules/product/graphql/UpdateProduct.graphql'
 import DELETE_PRODUCT from '../../../../../client/src/modules/product/graphql/DeleteProduct.graphql'
-import PRODUCTS_UPDATED from '../../../../../client/src/modules/product/graphql/ProductsUpdated.graphql'
+import PRODUCTS_UPDATED from '../../../../../client/src/modules/product/graphql/ProductsSubscription.graphql'
 
 const mockProduct = {
   title: 'My Product 1',

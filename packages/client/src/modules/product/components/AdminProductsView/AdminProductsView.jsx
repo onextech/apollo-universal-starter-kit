@@ -1,30 +1,27 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import { PageLayout } from '../../common/components/web'
+import { PageLayout } from '../../../common/components/web/index'
 
 const renderMetaData = () => {
   return (
     <Helmet
-      title='Product'
+      title='Admin Products'
       meta={[
-        {
-          name: 'description',
-          content: 'Product page',
-        },
+        { name: 'description', content: 'Admin Products page' },
       ]}
     />
   )
 }
 
-const ProductView = () => {
+const AdminProductsView = () => {
   return (
     <PageLayout container>
       {renderMetaData()}
       <div className='text-center mt-4 mb-4'>
-        <p>Hello Product!</p>
+        <p>Welcome to Admin Products!</p>
       </div>
     </PageLayout>
   )
 }
 
-export default ProductView
+export default AdminProductsView

@@ -1,6 +1,6 @@
 #import "./Product.graphql"
 
-subscription onProductsUpdated($endCursor: Int!) {
+subscription productsUpdated($endCursor: Int!) {
   productsUpdated(endCursor: $endCursor) {
     id
     mutation
