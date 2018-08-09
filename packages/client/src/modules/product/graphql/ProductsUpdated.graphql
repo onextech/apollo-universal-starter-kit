@@ -1,0 +1,11 @@
+#import "./Product.graphql"
+
+subscription onProductsUpdated($endCursor: Int!) {
+  productsUpdated(endCursor: $endCursor) {
+    id
+    mutation
+    node {
+      ...Product
+    }
+  }
+}

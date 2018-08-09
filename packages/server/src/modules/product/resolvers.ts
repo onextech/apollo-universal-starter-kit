@@ -1,5 +1,8 @@
 /*eslint-disable no-unused-vars*/
 import { Product } from './models'
+import { withFilter } from 'graphql-subscriptions'
+
+const PRODUCTS_SUBSCRIPTION = 'products_subscription'
 
 export default (pubsub: any) => ({
   Query: {
@@ -9,7 +12,15 @@ export default (pubsub: any) => ({
   },
   Mutation: {
     createProduct: async (obj: Product, { input }: any, { Product }: any) => {
-      return Product.query().insert(input)
+      const product = await Product.query().insert(input)
+      pubsub.publish(PRODUCTS_SUBSCRIPTION, {
+        productsUpdated: {
+          id: product.id,
+          mutation: 'CREATED',
+          node: product,
+        },
+      })
+      return product
     },
     updateProduct: async (obj: Product, { input }: any, { Product }: any) => {
       return Product.query().patchAndFetchById(input.id, input)
@@ -19,5 +30,14 @@ export default (pubsub: any) => ({
       if (onDelete) return input
     },
   },
-  Subscription: {},
+  Subscription: {
+    productsUpdated: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(PRODUCTS_SUBSCRIPTION),
+        (payload, variables) => {
+          return variables.endCursor <= payload.productsUpdated.id
+        },
+      ),
+    },
+  },
 })
