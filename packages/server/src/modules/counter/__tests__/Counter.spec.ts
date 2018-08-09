@@ -29,8 +29,16 @@ describe('Counter example API works', () => {
   step('Responds to counter get GraphQL query', async () => {
     const result = await apollo.query({ query: COUNTER_QUERY })
 
-    result.data.should.deep.equal({
-      serverCounter: { amount: 5, __typename: 'Counter' },
+    result.should.deep.equal({
+      data: {
+        serverCounter: {
+          amount: 5,
+          __typename: 'Counter',
+        },
+      },
+      loading: false,
+      networkStatus: 7,
+      stale: false,
     })
   })
 

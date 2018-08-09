@@ -1,6 +1,6 @@
 extend type Query {
   product(id: Int!): Product
-  products: [Product]
+  products(limit: Int!, after: Int!): Products
 }
 
 extend type Mutation {
@@ -19,6 +19,22 @@ type Product {
   createdAt: String!
   updatedAt: String!
   title: String!
+}
+
+type Products {
+  totalCount: Int
+  edges: [ProductEdges]
+  pageInfo: ProductPageInfo
+}
+
+type ProductEdges {
+  node: Product
+  cursor: Int
+}
+
+type ProductPageInfo {
+  endCursor: Int
+  hasNextPage: Boolean
 }
 
 input CreateProductInput {

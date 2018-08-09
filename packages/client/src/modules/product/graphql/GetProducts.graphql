@@ -1,18 +1,17 @@
 #import "./Product.graphql"
 
-query products {
-  products {
-    ...Product
-#    totalCount
-#    edges {
-#      cursor
-#      node {
-#        ...Product
-#      }
-#    }
-#    pageInfo {
-#      endCursor
-#      hasNextPage
-#    }
+query products($limit: Int!, $after: Int!) {
+  products(limit: $limit, after: $after) {
+    totalCount
+    edges {
+      cursor
+      node {
+        ...Product
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
   }
 }

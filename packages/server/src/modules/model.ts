@@ -25,6 +25,11 @@ class Model extends ObjectionModel implements ModelInterface {
   public $beforeUpdate() {
     this.updatedAt = new Date().toISOString()
   }
+
+  public static async count(): Promise<number> {
+    const query: any = await this.query().count('id as count').first()
+    return query.count
+  }
 }
 
 export default Model

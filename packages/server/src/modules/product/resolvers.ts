@@ -1,14 +1,13 @@
 /*eslint-disable no-unused-vars*/
 import { Product } from './models'
 import { withFilter } from 'graphql-subscriptions'
+import { getNodes } from '../resolvers'
 
 const PRODUCTS_SUBSCRIPTION = 'products_subscription'
 
 export default (pubsub: any) => ({
   Query: {
-    products: async (obj: Product, { input }: any, { Product }: any) => {
-      return Product.query()
-    },
+    products: getNodes('Product'),
   },
   Mutation: {
     createProduct: async (obj: Product, { input }: any, { Product }: any) => {

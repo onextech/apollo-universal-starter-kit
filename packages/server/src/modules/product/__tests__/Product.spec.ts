@@ -68,9 +68,13 @@ describe('Product API works', () => {
   })
 
   it('Should list', async () => {
-    const onQuery = await apollo.query({ query: GET_PRODUCTS })
-    const { data: { products } } = onQuery
-    expect(products[0]).to.deep.equal(product)
+    const onQuery = await apollo.query({
+      query: GET_PRODUCTS,
+      variables: { limit: 10, after: 0 },
+    })
+    const { data: { products: { edges } } } = onQuery
+    const fetchedProduct = edges[0].node
+    expect(fetchedProduct).to.deep.equal(product)
   })
 
   it('Should update', async () => {
