@@ -12,19 +12,30 @@ import paginationConfig from '../../../../../../../config/pagination'
 
 const { itemsNumber, type } = paginationConfig.web
 
-const OrderDatePicker = () => {
+const OrderDateTimePicker = ({
+  order,
+  onDateTimeChange: handleDateTimeChange,
+}) => {
   return (
     <Form>
       <FormGroup>
         <Label for='exampleDate'>Date</Label>
-        <Input type='date' name='date' id='exampleDate' placeholder='date placeholder' value='2018-08-10' />
+        <Input type='date' name='date' id='exampleDate' placeholder='date placeholder' value={order.date} onChange={(e) => handleDateTimeChange(e, 'date')} />
       </FormGroup>
       <FormGroup>
         <Label for='exampleTime'>Time</Label>
-        <Input type='time' name='time' id='exampleTime' placeholder='time placeholder' value='18:30' />
+        <Input type='time' name='time' id='exampleTime' placeholder='time placeholder' value={order.time} onChange={(e) => handleDateTimeChange(e, 'time')} />
       </FormGroup>
     </Form>
   )
+}
+
+OrderDateTimePicker.propTypes = {
+  onDateTimeChange: PropTypes.func.isRequired,
+  order: PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+  }),
 }
 
 const ProductCard = ({ data, onClick: handleClick }) => {
@@ -61,6 +72,10 @@ class Products extends React.PureComponent {
 
   state = {
     cart: [],
+    order: {
+      date: '2018-08-10',
+      time: '18:30',
+    },
   }
 
   renderMetaData = () => {
@@ -73,6 +88,17 @@ class Products extends React.PureComponent {
         ]}
       />
     )
+  }
+
+  handleCartSubmit = () => {
+    console.log('handleCartSubmit', this.state)
+  }
+
+  handleDateTimeChange = (e, name) => {
+    console.log('value ', e.target.value)
+    const { order } = this.state
+    const nextOrder = { ...order, [name]: e.target.value }
+    return this.setState({ order: nextOrder })
   }
 
   handleProductClick = (e, data) => {
@@ -94,7 +120,7 @@ class Products extends React.PureComponent {
   }
 
   render() {
-    const { cart } = this.state
+    const { cart, order } = this.state
     const { loading, products, t } = this.props
     if (loading && !products) {
       return (
@@ -155,13 +181,21 @@ class Products extends React.PureComponent {
                       <div style={{ marginBottom: '2em' }}>
                         {cart.reduce(reduceQuantity, []).map(renderCartItems)}
                         <hr />
-                        <OrderDatePicker />
+                        <OrderDateTimePicker onDateTimeChange={this.handleDateTimeChange} order={order} />
                       </div> :
                       <div style={{ padding: '4em 0', textAlign: 'center' }}>
                         <h6 style={{ opacity: 0.5 }}>Your basket is empty</h6>
                       </div>
                   }
-                  <Button color={!cart.length ? 'secondary' : 'primary'} block disabled={!cart.length} size='lg'>Order</Button>
+                  <Button
+                    block
+                    size='lg'
+                    disabled={!cart.length}
+                    color={!cart.length ? 'secondary' : 'primary'}
+                    onClick={this.handleCartSubmit}
+                  >
+                    Order
+                  </Button>
                 </CardBody>
               </Card>
             </Col>
