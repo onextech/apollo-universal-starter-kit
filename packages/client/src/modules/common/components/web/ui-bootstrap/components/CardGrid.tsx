@@ -5,17 +5,18 @@ interface TDataRecord {
   id: number,
   title: string,
   image?: string,
+  description?: string,
 }
 
 const renderCol = (columns: number, record: TDataRecord) => {
-  const { id, title, image } = record
+  const { id, title, image, description } = record
   return (
     <Col key={id} sm={12 / columns}>
       <Card id={id}>
         {image && <CardImg top width='100%' src={image} />}
         <CardBody>
           {title && <CardTitle>{title}</CardTitle>}
-          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+          {description && <CardText>{description}</CardText>}
           <Button>Button</Button>
         </CardBody>
       </Card>
