@@ -79,6 +79,7 @@ class Products extends React.PureComponent {
     loading: PropTypes.bool.isRequired,
     products: PropTypes.object,
     loadData: PropTypes.func,
+    history: PropTypes.object,
     t: PropTypes.func,
   };
 
@@ -88,6 +89,21 @@ class Products extends React.PureComponent {
       date: '2018-08-10',
       time: '18:30',
     },
+  }
+
+  getCart = () => {
+    const { cart } = this.state
+    const reduceQuantity = (acc, val) => {
+      const index = _.findIndex(acc, { id: val.id })
+      const isExist = index > -1
+      if (!isExist) {
+        acc.push({ ...val, quantity: 1 })
+      } else {
+        acc[index].quantity = acc[index].quantity + 1
+      }
+      return acc
+    }
+    return cart.reduce(reduceQuantity, [])
   }
 
   renderMetaData = () => {
@@ -103,7 +119,11 @@ class Products extends React.PureComponent {
   }
 
   handleCartSubmit = () => {
-    console.log('handleCartSubmit', this.state)
+    const { history } = this.props
+    return history.push({
+      pathname: '/checkout',
+      state: { cart: this.getCart(), order: this.state.order },
+    })
   }
 
   handleDateTimeChange = (e, name) => {
@@ -142,16 +162,6 @@ class Products extends React.PureComponent {
         </PageLayout>
       )
     } else {
-      const reduceQuantity = (acc, val) => {
-        const index = _.findIndex(acc, { id: val.id })
-        const isExist = index > -1
-        if (!isExist) {
-          acc.push({ ...val, quantity: 1 })
-        } else {
-          acc[index].quantity = acc[index].quantity + 1
-        }
-        return acc
-      }
       const renderCartItems = (item, i) => {
         const { id, title, quantity } = item
         return (
@@ -191,7 +201,7 @@ class Products extends React.PureComponent {
                   {
                     cart.length ?
                       <div style={{ marginBottom: '2em' }}>
-                        {cart.reduce(reduceQuantity, []).map(renderCartItems)}
+                        {this.getCart().map(renderCartItems)}
                         <hr />
                         <OrderDateTimePicker onDateTimeChange={this.handleDateTimeChange} order={order} />
                       </div> :

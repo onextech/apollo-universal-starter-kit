@@ -1,3 +1,4 @@
+import checkout from './checkout'
 import product from './product/index'
 import home from './home'
 import defaultRouter from './defaultRouter'
@@ -14,7 +15,7 @@ import './favicon'
 
 import Feature from './connector'
 
-export default new Feature(
+export default new Feature(checkout, 
   product,
   home,
   defaultRouter,
@@ -26,5 +27,4 @@ export default new Feature(
   contact,
   pagination,
   pageNotFound,
-  i18n
-)
+  i18n)
