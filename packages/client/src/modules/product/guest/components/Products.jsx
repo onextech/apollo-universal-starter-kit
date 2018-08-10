@@ -5,7 +5,19 @@ import _ from 'lodash'
 import { Label, Input, FormGroup } from 'reactstrap'
 import {
   Form,
-  PageLayout, Pagination, Row, Col, CardGrid, Card, CardHeader, CardImg, CardBody, CardTitle, CardText, Button } from '../../../common/components/web'
+  PageLayout,
+  Pagination,
+  Row,
+  Col,
+  CardGrid,
+  Card,
+  CardHeader,
+  CardImg,
+  CardBody,
+  CardTitle,
+  CardText,
+  Button,
+} from '../../../common/components/web'
 import translate from '../../../../i18n/index'
 import settings from '../../../../../../../settings'
 import paginationConfig from '../../../../../../../config/pagination'
@@ -174,7 +186,7 @@ class Products extends React.PureComponent {
             </Col>
             <Col sm={4}>
               <Card>
-                <CardHeader tag='h3'>Order</CardHeader>
+                <CardHeader tag='h3'>Cart</CardHeader>
                 <CardBody>
                   {
                     cart.length ?
@@ -184,7 +196,7 @@ class Products extends React.PureComponent {
                         <OrderDateTimePicker onDateTimeChange={this.handleDateTimeChange} order={order} />
                       </div> :
                       <div style={{ padding: '4em 0', textAlign: 'center' }}>
-                        <h6 style={{ opacity: 0.5 }}>Your basket is empty</h6>
+                        <h6 style={{ opacity: 0.5 }}>Your cart is empty</h6>
                       </div>
                   }
                   <Button
