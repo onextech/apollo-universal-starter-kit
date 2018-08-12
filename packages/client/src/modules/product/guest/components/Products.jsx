@@ -24,26 +24,86 @@ import paginationConfig from '../../../../../../../config/pagination'
 
 const { itemsNumber, type } = paginationConfig.web
 
+export const CartSummary = ({
+  cart,
+  order,
+  onDateTimeChange: handleDateTimeChange,
+  onCartSubmit: handleCartSubmit,
+}) => {
+  const renderCartItems = (item, i) => {
+    const { id, title, quantity } = item
+    return (
+      <div key={id} style={{ marginBottom: '1em' }}>
+        <h5 style={{ fontWeight: '400' }}>
+          <span style={{ opacity: 0.7, fontSize: '80%', marginRight: '.5em' }}>{i + 1}.</span>
+          <strong style={{ fontWeight: '500' }}>{title}</strong> x {quantity}</h5>
+      </div>
+    )
+  }
+  return (
+    <Card>
+      <CardHeader tag='h3'>Cart</CardHeader>
+      <CardBody>
+        {
+          cart.length ?
+            <div style={{ marginBottom: '2em' }}>
+              {cart.map(renderCartItems)}
+              <hr />
+              <OrderDateTimePicker order={order} onDateTimeChange={handleDateTimeChange} />
+            </div> :
+            <div style={{ padding: '4em 0', textAlign: 'center' }}>
+              <h6 style={{ opacity: 0.5 }}>Your cart is empty</h6>
+            </div>
+        }
+        <Button
+          block
+          size='lg'
+          disabled={!cart.length}
+          color={!cart.length ? 'secondary' : 'primary'}
+          onClick={handleCartSubmit}
+        >
+          {!handleDateTimeChange ? 'Order' : 'Checkout'}
+        </Button>
+      </CardBody>
+    </Card>
+  )
+}
+
+CartSummary.propTypes = {
+  cart: PropTypes.object.isRequired,
+  order: PropTypes.object.isRequired,
+  onDateTimeChange: PropTypes.func,
+  onCartSubmit: PropTypes.func,
+}
+
 const OrderDateTimePicker = ({
   order,
   onDateTimeChange: handleDateTimeChange,
 }) => {
+  const commonInputProps = {}
+  if (!handleDateTimeChange) commonInputProps.readOnly = true
   return (
     <Form>
       <FormGroup>
         <Label for='exampleDate'>Date</Label>
-        <Input type='date' name='date' id='exampleDate' placeholder='date placeholder' value={order.date} onChange={(e) => handleDateTimeChange(e, 'date')} />
+        <Input {...commonInputProps}
+               type='date'
+               name='date' id='exampleDate' placeholder='date placeholder'
+               value={order.date} onChange={(e) => handleDateTimeChange(e, 'date')} />
       </FormGroup>
       <FormGroup>
         <Label for='exampleTime'>Time</Label>
-        <Input type='time' name='time' id='exampleTime' placeholder='time placeholder' value={order.time} onChange={(e) => handleDateTimeChange(e, 'time')} />
+        <Input
+          {...commonInputProps}
+          type='time' name='time' id='exampleTime' placeholder='time placeholder'
+               value={order.time} onChange={(e) => handleDateTimeChange(e, 'time')} />
       </FormGroup>
     </Form>
   )
 }
 
 OrderDateTimePicker.propTypes = {
-  onDateTimeChange: PropTypes.func.isRequired,
+  onDateTimeChange: PropTypes.func,
   order: PropTypes.shape({
     date: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
@@ -127,7 +187,6 @@ class Products extends React.PureComponent {
   }
 
   handleDateTimeChange = (e, name) => {
-    console.log('value ', e.target.value)
     const { order } = this.state
     const nextOrder = { ...order, [name]: e.target.value }
     return this.setState({ order: nextOrder })
@@ -152,7 +211,7 @@ class Products extends React.PureComponent {
   }
 
   render() {
-    const { cart, order } = this.state
+    const { order } = this.state
     const { loading, products, t } = this.props
     if (loading && !products) {
       return (
@@ -162,16 +221,6 @@ class Products extends React.PureComponent {
         </PageLayout>
       )
     } else {
-      const renderCartItems = (item, i) => {
-        const { id, title, quantity } = item
-        return (
-          <div key={id} style={{ marginBottom: '1em' }}>
-            <h5 style={{ fontWeight: '400' }}>
-              <span style={{ opacity: 0.7, fontSize: '80%', marginRight: '.5em' }}>{i + 1}.</span>
-              <strong style={{ fontWeight: '500' }}>{title}</strong> x {quantity}</h5>
-          </div>
-        )
-      }
       return (
         <PageLayout container>
           {this.renderMetaData()}
@@ -195,31 +244,12 @@ class Products extends React.PureComponent {
               />
             </Col>
             <Col sm={4}>
-              <Card>
-                <CardHeader tag='h3'>Cart</CardHeader>
-                <CardBody>
-                  {
-                    cart.length ?
-                      <div style={{ marginBottom: '2em' }}>
-                        {this.getCart().map(renderCartItems)}
-                        <hr />
-                        <OrderDateTimePicker onDateTimeChange={this.handleDateTimeChange} order={order} />
-                      </div> :
-                      <div style={{ padding: '4em 0', textAlign: 'center' }}>
-                        <h6 style={{ opacity: 0.5 }}>Your cart is empty</h6>
-                      </div>
-                  }
-                  <Button
-                    block
-                    size='lg'
-                    disabled={!cart.length}
-                    color={!cart.length ? 'secondary' : 'primary'}
-                    onClick={this.handleCartSubmit}
-                  >
-                    Order
-                  </Button>
-                </CardBody>
-              </Card>
+              <CartSummary
+                cart={this.getCart()}
+                order={order}
+                onCartSubmit={this.handleCartSubmit}
+                onDateTimeChange={this.handleDateTimeChange}
+              />
             </Col>
           </Row>
         </PageLayout>
