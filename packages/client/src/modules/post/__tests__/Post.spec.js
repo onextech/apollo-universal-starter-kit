@@ -237,7 +237,7 @@ describe('Posts and comments example UI works', () => {
     change(contentField, { target: { name: 'content', value: 'Post content 33' } })
 
     // 4. Trigger submit
-    submit(postForm) // Error: Uncaught [ReferenceError: HTMLButtonElement is not defined]
+    submit(postForm)
   })
 
   step('Check opening post by URL', () => {
