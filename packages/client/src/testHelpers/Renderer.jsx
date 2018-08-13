@@ -18,6 +18,8 @@ const dom = new JSDOM('<!doctype html><html><body><div id="root"><div></body></h
 global.document = dom.window.document
 global.window = dom.window
 global.navigator = dom.window.navigator
+// Needed by Formik >= 1.x
+global.HTMLButtonElement = dom.window.HTMLButtonElement
 
 const { render } = require('./testUtils')
 const clientModules = require('../modules').default

@@ -150,7 +150,7 @@
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^16.0.0-alpha.3",
     "react-test-renderer": "^16.2.0",
-    "react-testing-library": "^3.0.2",
+    "react-testing-library": "^5.0.0",
     "request": "^2.83.0",
     "resolve-url-loader": "^2.2.1",
     "rimraf": "^2.6.2",
